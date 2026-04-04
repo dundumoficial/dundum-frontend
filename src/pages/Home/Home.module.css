@@ -1,0 +1,736 @@
+body {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='52' rx='12' ry='8' fill='%231b1f3b'/%3E%3Ccircle cx='16' cy='36' r='6' fill='%231b1f3b'/%3E%3Ccircle cx='48' cy='36' r='6' fill='%231b1f3b'/%3E%3Ccircle cx='22' cy='26' r='5' fill='%231b1f3b'/%3E%3Ccircle cx='42' cy='26' r='5' fill='%231b1f3b'/%3E%3C/svg%3E")
+      16 16,
+    auto;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.interactiveBg {
+  position: relative;
+  --mx: 50%;
+  --my: 50%;
+  background:
+    radial-gradient(
+      600px circle at var(--mx) var(--my),
+      rgba(69, 74, 222, 0.08),
+      transparent 70%
+    ),
+    var(--color-white);
+}
+
+.main {
+  overflow-x: hidden;
+}
+
+.hero {
+  background: linear-gradient(
+    160deg,
+    var(--color-dark-blue) 55%,
+    var(--color-purple) 100%
+  );
+  padding: 60px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-height: 90vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 560px;
+}
+
+.heroTitulo {
+  font-family: var(--font-garet);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  line-height: 1.2;
+}
+
+.heroDestaque {
+  color: var(--color-pink);
+  font-style: italic;
+}
+
+.heroTexto {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-light);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+}
+
+.heroBtns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.btnPrimario {
+  background: var(--color-purple);
+  color: var(--color-white);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+  transition: 0.2s;
+  display: inline-block;
+}
+
+.btnPrimario:hover {
+  background: var(--color-dark-pink);
+  transform: scale(1.04);
+}
+
+.btnSecundario {
+  background: transparent;
+  color: var(--color-white);
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+  transition: 0.2s;
+  display: inline-block;
+}
+
+.btnSecundario:hover {
+  border-color: var(--color-white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.heroVideo {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.videoColeira {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+
+.secaoPets {
+  background: linear-gradient(180deg, var(--color-dark-blue), #2a2f5e);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.secaoTitulo {
+  font-family: var(--font-garet);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+
+.petsDesktop {
+  display: none;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.petsMobile {
+  display: block;
+}
+
+.petFotoWrap {
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.petFoto {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.petFoto:hover {
+  transform: scale(1.04);
+}
+
+.carrossel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.carrosselTrack {
+  width: 100%;
+  position: relative;
+  min-height: 240px;
+}
+
+.carrosselSlide {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.carrosselAtivo {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.carrosselBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.carrosselBtn:first-child {
+  left: 0;
+}
+.carrosselBtn:nth-child(3) {
+  right: 0;
+}
+
+.carrosselBtn:hover {
+  background: var(--color-purple);
+  border-color: var(--color-purple);
+}
+
+.carrosselDots {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dotAtivo {
+  background: var(--color-purple);
+  transform: scale(1.3);
+}
+
+.secaoPorque {
+  padding: 64px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+}
+
+.porqueImg {
+  max-width: 200px;
+}
+
+.porqueImg img {
+  width: 100%;
+}
+
+.porqueConteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 520px;
+}
+
+.porqueTitulo {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+}
+
+.porqueItens {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.porqueItem {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--color-dark-blue);
+  border-radius: 10px;
+  padding: 16px;
+  color: var(--color-white);
+}
+
+.porqueNum {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-purple);
+  min-width: 36px;
+}
+
+.porqueItem strong {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.porqueItem p {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-light);
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.secaoVideo {
+  width: 100%;
+  max-height: 420px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.videoComercial {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.secaoBeneficios {
+  padding: 64px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.beneficiosHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dogFeliz {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.beneficiosLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-purple);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.beneficiosTitulo {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+}
+
+.beneficiosGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.beneficioCard {
+  background: var(--color-dark-blue);
+  border-radius: 12px;
+  padding: 20px;
+  color: var(--color-white);
+  transition: transform 0.2s;
+}
+
+.beneficioCard:hover {
+  transform: translateY(-4px);
+}
+
+.beneficioCard strong {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.beneficioCard p {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-light);
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.secaoComoFunciona {
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-blue),
+    var(--color-purple)
+  );
+  padding: 64px 20px;
+  text-align: center;
+}
+
+.secaoTituloBranco {
+  font-family: var(--font-garet);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.passosGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.passoCard {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 28px 20px;
+  max-width: 280px;
+  width: 100%;
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.passoCard:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.passoNum {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-garet);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  margin-bottom: 4px;
+}
+
+.passoCard strong {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+
+.passoCard p {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-light);
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+.secaoDashboard {
+  padding: 64px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.dashboardVideo {
+  width: 100%;
+  max-width: 540px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(27, 31, 59, 0.2);
+}
+
+.videoDashboard {
+  width: 100%;
+  display: block;
+}
+
+.dashboardTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 460px;
+}
+
+.dashboardTexto h2 {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+}
+
+.dashboardTexto p {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-light);
+  color: var(--color-dark-blue);
+  opacity: 0.75;
+  line-height: 1.7;
+}
+
+.secaoDepoimentos {
+  background: linear-gradient(
+    160deg,
+    var(--color-dark-blue),
+    var(--color-purple)
+  );
+  padding: 64px 20px;
+  text-align: center;
+}
+
+.secaoTituloGradiente {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  margin-bottom: 36px;
+}
+
+.depCard {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.depEstrelas {
+  color: #fbbf24;
+  font-size: var(--text-lg);
+  letter-spacing: 2px;
+}
+
+.depTexto {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-light);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+.depAutor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.depFoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-purple);
+}
+
+.depAutor span {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+}
+
+.secaoCta {
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-blue),
+    var(--color-purple)
+  );
+  padding: 72px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctaLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-pink);
+  letter-spacing: 0.12em;
+}
+
+.ctaTitulo {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+}
+
+.ctaTexto {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-light);
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 400px;
+  line-height: 1.7;
+}
+
+.ctaBtns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+@media (min-width: 600px) {
+  .heroTitulo {
+    font-size: var(--text-2xl);
+  }
+
+  .petsDesktop {
+    display: flex;
+  }
+
+  .petsMobile {
+    display: none;
+  }
+
+  .petFotoWrap {
+    width: calc(25% - 12px);
+  }
+
+  .beneficiosGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .passosGrid {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .secaoDashboard {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .secaoPorque {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    flex-direction: row;
+    justify-content: center;
+    gap: 60px;
+    padding: 80px 60px;
+    min-height: 88vh;
+  }
+
+  .heroTitulo {
+    font-size: var(--text-3xl);
+  }
+  .ctaTitulo {
+    font-size: var(--text-2xl);
+  }
+  .beneficiosTitulo {
+    font-size: var(--text-2xl);
+  }
+  .porqueTitulo {
+    font-size: var(--text-2xl);
+  }
+
+  .beneficiosGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .secaoPets,
+  .secaoBeneficios,
+  .secaoComoFunciona,
+  .secaoDashboard,
+  .secaoDepoimentos,
+  .secaoCta,
+  .secaoPorque {
+    padding: 80px 60px;
+  }
+
+  .secaoDepoimentos .carrossel {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .secaoDepoimentos .carrosselTrack {
+    display: flex;
+    gap: 20px;
+  }
+
+  .secaoDepoimentos .carrosselSlide {
+    display: block;
+    flex: 1;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+
+  .secaoDepoimentos .carrosselAtivo {
+    opacity: 1;
+  }
+}

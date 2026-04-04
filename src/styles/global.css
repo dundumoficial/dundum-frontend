@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@font-face {
+  font-family: "Garet";
+  src: url("../assets/fonts/Garet-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Garet";
+  src: url("../assets/fonts/Garet-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Garet";
+  src: url("../assets/fonts/Garet-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* cores */
+  --color-dark-blue: #1b1f3b;
+  --color-purple: #454ade;
+  --color-dark-pink: #b14aed;
+  --color-pink: #c874d9;
+  --color-light-pink: #e1bbc9;
+  --color-white: #ffffff;
+  --color-gradient: linear-gradient(
+    135deg,
+    var(--color-dark-blue),
+    var(--color-purple)
+  );
+
+  /* font family */
+  --font-garet: "Garet", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
+  /* font size */
+  --text-xs: 0.75rem;  /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-md: 1rem;     /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.5rem;   /* 24px */
+  --text-2xl: 2rem;    /* 32px */
+  --text-3xl: 3rem;    /* 48px */
+
+  /* font weight */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+  --weight-black: 900;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* estilização da barra de rolagem */
+*::-webkit-scrollbar {
+  width: 15px;
+  background-color: var(--color-white);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background-color: var(--color-dark-blue);
+}
+
+*::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-purple);
+}
+
+a::selection,
+img::selection,
+h2::selection,
+h1::selection,
+button::selection,
+p::selection,
+h3::selection,
+label::selection {
+  color: var(--color-white);
+  background-color: var(--color-dark-blue);
+}
+
+body {
+  font-family: var(--font-poppins);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-garet);
+}

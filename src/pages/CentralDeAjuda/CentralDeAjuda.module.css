@@ -1,0 +1,57 @@
+/*
+  VARIÁVEIS: use sempre variaveis ao invés de valores fixos.
+  Exemplo: 
+    color: var(--color-purple);  ao invés de "color: #454ade"
+
+  CORES
+  --color-dark-blue ......... #1b1f3b
+  --color-purple ............ #454ade
+  --color-dark-pink ......... #b14aed
+  --color-pink .............. #c874d9
+  --color-light-pink ........ #e1bbc9
+  --color-white ............. #ffffff
+  --color-gradient .......... gradiente do fundo (azul → roxo)
+
+  FONTES
+  --font-garet .............. títulos (h1, h2, h3)
+  --font-poppins ............ textos, parágrafos, botões, etc
+
+  TAMANHO DA FONTE
+  --text-xs ................. 12px
+  --text-sm ................. 14px
+  --text-md ................. 16px
+  --text-lg ................. 18px
+  --text-xl ................. 24px
+  --text-2xl ................ 32px
+  --text-3xl ................ 48px
+
+  PESO DA FONTE
+  --weight-light ............ 300
+  --weight-regular .......... 400
+  --weight-medium ........... 500
+  --weight-bold ............. 700
+  --weight-black ............ 900
+*/
+
+/* se for usar IA, coloca no prompt pra ela usar essas variaveis */
+
+/* tem as páginas de login, cadastro e home (incompleta) para auxiliar */
+
+/* nada de diferente aqui :) */
+
+.container {
+  background-color: brown;
+}
+
+.icone {
+  width: 40px;
+  height: 40px;
+}
+
+.exemploClasse {
+  font-size: 40px;
+}
+
+#exemploId {
+  border: #000 dotted 5px;
+}
