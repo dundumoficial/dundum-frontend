@@ -1,57 +1,358 @@
-/*
-  VARIÁVEIS: use sempre variaveis ao invés de valores fixos.
-  Exemplo: 
-    color: var(--color-purple);  ao invés de "color: #454ade"
-
-  CORES
-  --color-dark-blue ......... #1b1f3b
-  --color-purple ............ #454ade
-  --color-dark-pink ......... #b14aed
-  --color-pink .............. #c874d9
-  --color-light-pink ........ #e1bbc9
-  --color-white ............. #ffffff
-  --color-gradient .......... gradiente do fundo (azul → roxo)
-
-  FONTES
-  --font-garet .............. títulos (h1, h2, h3)
-  --font-poppins ............ textos, parágrafos, botões, etc
-
-  TAMANHO DA FONTE
-  --text-xs ................. 12px
-  --text-sm ................. 14px
-  --text-md ................. 16px
-  --text-lg ................. 18px
-  --text-xl ................. 24px
-  --text-2xl ................ 32px
-  --text-3xl ................ 48px
-
-  PESO DA FONTE
-  --weight-light ............ 300
-  --weight-regular .......... 400
-  --weight-medium ........... 500
-  --weight-bold ............. 700
-  --weight-black ............ 900
-*/
-
-/* se for usar IA, coloca no prompt pra ela usar essas variaveis */
-
-/* tem as páginas de login, cadastro e home (incompleta) para auxiliar */
-
-/* nada de diferente aqui */
-
+/* CONTAINER GERAL*/
 .container {
-  background-color: brown;
+  width: 100%;
+  background-color: var(--color-white);
+}
+
+/* SEÇÃO: QUEM SOMOS */
+.quemSomosSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+
+.tituloQuemSomos {
+  font-family: var(--font-garet);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin-bottom: 48px;
+}
+
+/* Grid de membros: 2 colunas no mobile, 4 no tablet/desktop */
+.membroGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.membroCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  border: 1.5px solid var(--color-purple);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 160px;
+  transition: box-shadow 0.2s ease;
+}
+
+.membroCard:hover {
+  box-shadow: 0 4px 20px rgba(69, 74, 222, 0.15);
+}
+
+.membroAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: var(--color-light-pink);
+  /* fallback enquanto a foto carrega */
+}
+
+.membroNome {
+  font-family: var(--font-garet);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin: 0;
+}
+
+.membroCargo {
+  font-family: var(--font-poppins);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  color: #666;
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.membroLinks {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.linkIcone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .icone {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
-.exemploClasse {
-  font-size: 40px;
+.iconeGithub {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
-#exemploId {
-  border: #000 dotted 5px;
+/* SEÇÃO: O QUE NOS MOVE */
+.moveSection {
+  width: 100%;
+  background: var(--color-gradient);
+  padding: 80px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.moveConteudo {
+  max-width: 700px;
+  text-align: left;
+}
+
+.tituloMove {
+  font-family: var(--font-garet);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.moveTexto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-regular);
+  color: var(--color-white);
+  line-height: 1.7;
+  text-align: justify;
+  margin: 0;
+}
+
+/* SEÇÃO: POR QUE CRIAMOS A COLEIRA */
+.coleiraSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 24px;
+  text-align: center;
+}
+
+.tituloColeira {
+  font-family: var(--font-garet);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin-bottom: 32px;
+}
+
+.coleiraTexto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-regular);
+  color: var(--color-dark-blue);
+  line-height: 1.7;
+  text-align: justify;
+  margin: 0 0 16px;
+}
+
+/* SEÇÃO: NOSSA HISTÓRIA */
+.historiaSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 72px;
+  text-align: center;
+}
+
+.tituloHistoria {
+  font-family: var(--font-garet);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin-bottom: 32px;
+}
+
+.historiaTexto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-regular);
+  color: var(--color-dark-blue);
+  line-height: 1.7;
+  text-align: justify;
+  margin: 0 0 16px;
+}
+
+/* SEÇÃO: O QUE ACREDITAMOS */
+.acreditamosSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  text-align: center;
+}
+
+.tituloAcreditamos {
+  font-family: var(--font-garet);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin-bottom: 40px;
+}
+
+/* Grid de valores: 1 col mobile, 3+2 tablet/desktop */
+.valoresGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.valorCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--color-dark-blue);
+  border-radius: 10px;
+  padding: 18px 24px;
+  text-align: left;
+}
+
+.valorNum {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  flex-shrink: 0;
+  min-width: 36px;
+}
+
+.valorTexto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  color: var(--color-white);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* DESTAQUES DE COR */
+.destaquePurple {
+  color: var(--color-purple);
+}
+
+.destaquePink {
+  color: var(--color-pink);
+}
+
+/* RESPONSIVO — TABLET (≥ 768px) */
+@media (min-width: 768px) {
+
+  /* Quem Somos */
+  .tituloQuemSomos {
+    font-size: var(--text-3xl);
+  }
+
+  .membroGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .membroCard {
+    max-width: 200px;
+  }
+
+  .membroAvatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .membroNome {
+    font-size: var(--text-md);
+  }
+
+  /* Move */
+  .tituloMove {
+    font-size: var(--text-3xl);
+  }
+
+  .moveTexto {
+    font-size: var(--text-lg);
+  }
+
+  /* Coleira / História */
+  .tituloColeira,
+  .tituloHistoria,
+  .tituloAcreditamos {
+    font-size: var(--text-3xl);
+  }
+
+  /* Valores: 3 colunas na primeira linha, 2 na segunda */
+  .valoresGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Os últimos 2 cards ficam centralizados na segunda linha */
+  .valorCard:nth-child(4) {
+    grid-column: 1 / 2;
+  }
+
+  .valorCard:nth-child(5) {
+    grid-column: 2 / 3;
+  }
+}
+
+/* RESPONSIVO — DESKTOP (≥ 1024px) */
+@media (min-width: 1024px) {
+  .quemSomosSection {
+    padding: 80px 40px 100px;
+  }
+
+  .membroGrid {
+    gap: 28px;
+  }
+
+  .membroCard {
+    max-width: 220px;
+    padding: 24px 20px;
+  }
+
+  .membroAvatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .moveSection {
+    padding: 100px 40px;
+    min-height: 380px;
+  }
+
+  .moveConteudo {
+    max-width: 760px;
+  }
+
+  .coleiraSection,
+  .historiaSection,
+  .acreditamosSection {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  /* Valores: linha 2 centralizada com 2 cards lado a lado */
+  .valoresGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .valorCard:nth-child(4) {
+    grid-column: 1 / 2;
+  }
+
+  .valorCard:nth-child(5) {
+    grid-column: 2 / 3;
+  }
 }
