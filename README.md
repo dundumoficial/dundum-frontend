@@ -14,9 +14,9 @@
 
 <div align="center">
 
-  ![React](https://img.shields.io/badge/React-454ade?style=flat-square&logo=react&logoColor=white&labelColor=1b1f3b)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-454ade?style=flat-square&logo=typescript&logoColor=white&labelColor=1b1f3b)
-  ![JavaScript](https://img.shields.io/badge/JavaScript-454ade?style=flat-square&logo=javascript&logoColor=white&labelColor=1b1f3b)
+![React](https://img.shields.io/badge/React-454ade?style=flat-square&logo=react&logoColor=white&labelColor=1b1f3b)
+![TypeScript](https://img.shields.io/badge/TypeScript-454ade?style=flat-square&logo=typescript&logoColor=white&labelColor=1b1f3b)
+![JavaScript](https://img.shields.io/badge/JavaScript-454ade?style=flat-square&logo=javascript&logoColor=white&labelColor=1b1f3b)
 
 </div>
 
@@ -39,6 +39,9 @@ dundum-frontend/
 │   ├── components/
 │   │   ├── Footer/
 │   │   └── Header/
+│   ├── modals/
+│   │   ├── NovaSenha/
+│   │   └── RecuperarSenha/
 │   ├── pages/
 │   │   ├── Cadastro/
 │   │   ├── CentralDeAjuda/
@@ -110,9 +113,24 @@ dundum-frontend/
 
 ## ⚙️ Como rodar localmente
 
+### Pré-requisitos
+
+Antes de começar, você precisa ter instalado:
+
+- [Node.js](https://nodejs.org/)
+- [Git](https://git-scm.com/)
+
+> **Windows:** é necessário liberar a execução de scripts no PowerShell. Abra o PowerShell como administrador e execute:
+>
+> ```powershell
+> Set-ExecutionPolicy RemoteSigned
+> ```
+
+### Instalação
+
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-repo/dundum-frontend.git
+git clone https://github.com/dundum-frontend/dundum-frontend.git
 cd dundum-frontend
 
 # Instale as dependências
