@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
-import logo from "../../assets/img/logo-azul.png";
+import logo from "../../assets/img/logo-azul.webp";
 import user from "../../assets/img/user.svg";
 import menu from "../../assets/img/menu.svg";
 import close from "../../assets/img/close.svg";

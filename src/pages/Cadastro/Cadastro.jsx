@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Cadastro.module.css";
-import logo from "../../assets/img/logo-branco.png";
+import logo from "../../assets/img/logo-branco.webp";
 import iconeOlho from "../../assets/img/icon-olho.svg";
 import iconeOlhoFechado from "../../assets/img/icon-olho-fechado.svg";
 
