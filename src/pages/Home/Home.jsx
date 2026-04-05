@@ -4,22 +4,29 @@ import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Home.module.css";
 
-import dogDeitado from "../../assets/img/home/dog-deitado.png";
-import dogFeliz from "../../assets/img/home/dog-feliz.png";
-import imgAna from "../../assets/img/home/img-ana.png";
-import imgCarlos from "../../assets/img/home/img-carlos.png";
-import imgFernanda from "../../assets/img/home/img-fernanda.png";
-import img1 from "../../assets/img/home/img1.png";
-import img2 from "../../assets/img/home/img2.png";
-import img3 from "../../assets/img/home/img3.png";
-import img4 from "../../assets/img/home/img4.png";
+import dogDeitado from "../../assets/img/home/dog-deitado.webp";
+import dogFeliz from "../../assets/img/home/dog-feliz.webp";
+import imgAna from "../../assets/img/home/img-ana.webp";
+import imgBeatriz from "../../assets/img/home/img-beatriz.webp";
+import imgCarlos from "../../assets/img/home/img-carlos.webp";
+import imgFernanda from "../../assets/img/home/img-fernanda.webp";
+import imgJuliana from "../../assets/img/home/img-juliana.webp";
+import imgLarissa from "../../assets/img/home/img-larissa.webp";
+import imgMarcos from "../../assets/img/home/img-marcos.webp";
+import imgRafaela from "../../assets/img/home/img-rafaela.webp";
+import imgThiago from "../../assets/img/home/img-thiago.webp";
+import img1 from "../../assets/img/home/img1.webp";
+import img2 from "../../assets/img/home/img2.webp";
+import img3 from "../../assets/img/home/img3.webp";
+import img4 from "../../assets/img/home/img4.webp";
+import img5 from "../../assets/img/home/img5.webp";
+import img6 from "../../assets/img/home/img6.webp";
 
 import videoColeiraDesktop from "../../assets/videos/video-coleira-desktop.webm";
-import videoColeiraMobile from "../../assets/videos/video-coleira-desktop.webm";
-import videoComercialDesktop from "../../assets/videos/video-comercial-desktop.webm";
-import videoComercialMobile from "../../assets/videos/video-comercial-mobile.webm";
+import videoColeiraMobile from "../../assets/videos/video-coleira-mobile.webm";
+import videoComercial from "../../assets/videos/video-comercial.webm";
 
-const petFotos = [img1, img2, img3, img4];
+const petFotos = [img1, img2, img3, img4, img5, img6];
 
 const depoimentos = [
   {
@@ -43,27 +50,71 @@ const depoimentos = [
     texto:
       "Meu pet tem problemas cardíacos e a DunDum me dá paz de espírito. Os dados são precisos e a interface é muito fácil de usar. Vale cada centavo!",
   },
+  {
+    nome: "Rafaela Mendes",
+    foto: imgRafaela,
+    estrelas: 5,
+    texto:
+      "Meu border collie é muito agitado e eu sempre me preocupava quando ficava sozinho. Com a DunDum consigo ver tudo em tempo real. Produto incrível!",
+  },
+  {
+    nome: "Juliana Torres",
+    foto: imgJuliana,
+    estrelas: 5,
+    texto:
+      "A coleira chegou rápido e foi fácil de configurar. Em menos de 10 minutos já estava monitorando minha pet. A interface do app é linda e muito intuitiva.",
+  },
+  {
+    nome: "Marcos Oliveira",
+    foto: imgMarcos,
+    estrelas: 5,
+    texto:
+      "Recebi um alerta de batimento cardíaco elevado enquanto estava no trabalho. Liguei para o veterinário na hora. A DunDum pode ter salvado a vida do meu pet.",
+  },
+  {
+    nome: "Beatriz Santos",
+    foto: imgBeatriz,
+    estrelas: 5,
+    texto:
+      "Três pets em casa e consigo monitorar todos pela mesma plataforma. Já indiquei para toda a minha família. Vocês são incríveis!",
+  },
+  {
+    nome: "Thiago Almeida",
+    foto: imgThiago,
+    estrelas: 5,
+    texto:
+      "Comprei com um pouco de receio por ser um produto novo, mas superou todas as expectativas. O GPS é preciso e os dados de saúde me ajudaram muito na consulta veterinária.",
+  },
+  {
+    nome: "Larissa Figueiredo",
+    foto: imgLarissa,
+    estrelas: 5,
+    texto:
+      "Minha labrador tem epilepsia e antes eu vivia com medo de deixá-la sozinha. Com a DunDum recebo alertas na hora e consigo agir rápido. Mudou completamente minha rotina.",
+  },
 ];
 
+// rolagem suave
 function useScrollReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
-          }
+          if (entry.isIntersecting) entry.target.classList.add(styles.visible);
         });
       },
       { threshold: 0.12 },
     );
+
     document
       .querySelectorAll(`.${styles.reveal}`)
       .forEach((el) => observer.observe(el));
+
     return () => observer.disconnect();
   }, []);
 }
 
+// fundo dinâmico
 function InteractiveBg({ children, className }) {
   const ref = useRef(null);
   const handleMouseMove = (e) => {
@@ -73,6 +124,7 @@ function InteractiveBg({ children, className }) {
     ref.current.style.setProperty("--mx", `${x}%`);
     ref.current.style.setProperty("--my", `${y}%`);
   };
+
   return (
     <div
       ref={ref}
@@ -84,43 +136,89 @@ function InteractiveBg({ children, className }) {
   );
 }
 
-function Carrossel({ items, renderItem }) {
+function CarrosselDepoimentos({ items }) {
   const [idx, setIdx] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 900);
   const total = items.length;
-  const prev = () => setIdx((i) => (i - 1 + total) % total);
-  const next = () => setIdx((i) => (i + 1) % total);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 900);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const totalDots = isDesktop ? Math.ceil(total / 3) : total;
+
+  const prev = () => setIdx((i) => (i - (isDesktop ? 3 : 1) + total) % total);
+  const next = () => setIdx((i) => (i + (isDesktop ? 3 : 1)) % total);
+
+  const getVisible = () => {
+    return [0, 1, 2].map((offset) => (idx + offset) % total);
+  };
+
+  const dotAtivo = isDesktop ? Math.floor(idx / 3) : idx;
+
+  const irParaDot = (dotIdx) => {
+    setIdx(isDesktop ? dotIdx * 3 : dotIdx);
+  };
+
   return (
-    <div className={styles.carrossel}>
-      <button
-        className={styles.carrosselBtn}
-        onClick={prev}
-        aria-label="anterior"
-      >
+    <div className={styles.depCarrossel}>
+      <button className={styles.depBtn} onClick={prev} aria-label="anterior">
         &#8249;
       </button>
-      <div className={styles.carrosselTrack}>
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className={`${styles.carrosselSlide} ${i === idx ? styles.carrosselAtivo : ""}`}
-          >
-            {renderItem(item, i)}
+
+      <div className={styles.depTrack}>
+        <div className={styles.depMobile}>
+          <div className={`${styles.depCard} ${styles.fadeIn}`} key={idx}>
+            <div className={styles.depEstrelas}>
+              {"★".repeat(items[idx].estrelas)}
+            </div>
+            <p className={styles.depTexto}>{items[idx].texto}</p>
+            <div className={styles.depAutor}>
+              <img
+                src={items[idx].foto}
+                alt={items[idx].nome}
+                className={styles.depFoto}
+              />
+              <span>{items[idx].nome}</span>
+            </div>
           </div>
-        ))}
+        </div>
+
+        <div className={styles.depDesktop}>
+          {getVisible().map((i) => (
+            <div
+              key={i}
+              className={`${styles.depCard} ${i === idx ? styles.depCardDestaque : ""}`}
+            >
+              <div className={styles.depEstrelas}>
+                {"★".repeat(items[i].estrelas)}
+              </div>
+              <p className={styles.depTexto}>{items[i].texto}</p>
+              <div className={styles.depAutor}>
+                <img
+                  src={items[i].foto}
+                  alt={items[i].nome}
+                  className={styles.depFoto}
+                />
+                <span>{items[i].nome}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <button
-        className={styles.carrosselBtn}
-        onClick={next}
-        aria-label="próximo"
-      >
+
+      <button className={styles.depBtn} onClick={next} aria-label="próximo">
         &#8250;
       </button>
+
       <div className={styles.carrosselDots}>
-        {items.map((_, i) => (
+        {Array.from({ length: totalDots }).map((_, i) => (
           <span
             key={i}
-            className={`${styles.dot} ${i === idx ? styles.dotAtivo : ""}`}
-            onClick={() => setIdx(i)}
+            className={`${styles.dot} ${i === dotAtivo ? styles.dotAtivo : ""}`}
+            onClick={() => irParaDot(i)}
           />
         ))}
       </div>
@@ -130,20 +228,58 @@ function Carrossel({ items, renderItem }) {
 
 export default function Home() {
   useScrollReveal();
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const comoFuncionaRef = useRef(null);
+
+  // troca o vídeo conforme o tamanho da tela
+  const videoHeroRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile((prev) => {
+        if (prev !== mobile) {
+          videoHeroRef.current?.load();
+        }
+        return mobile;
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const scrollParaComoFunciona = (e) => {
+    e.preventDefault();
+    comoFuncionaRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <>
       <Header />
       <main className={styles.main}>
-        {/* principal */}
+        {/* HERO (PRINCIPAL) */}
         <section className={styles.hero}>
+          <video
+            ref={videoHeroRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className={styles.heroBgVideo}
+          >
+            <source
+              src={isMobile ? videoColeiraMobile : videoColeiraDesktop}
+              type="video/webm"
+            />
+          </video>
+          <div className={styles.heroOverlay} />
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitulo}>
-              Monitore a saúde do seu pet com{" "}
-              <span className={styles.heroDestaque}>
-                tecnologia inteligente.
-              </span>
+              Monitore a saúde do seu pet com
+              <br />
+              <span className={styles.heroDestaque}>tecnologia </span>
+              <span className={styles.heroDestaque2}>inteligente.</span>
             </h1>
             <p className={styles.heroTexto}>
               A coleira inteligente que transforma dados em cuidado real.
@@ -153,113 +289,91 @@ export default function Home() {
               <Link to="/produtos" className={styles.btnPrimario}>
                 Ver produto
               </Link>
-              <Link to="/como-funciona" className={styles.btnSecundario}>
+              <a
+                href="#como-funciona"
+                className={styles.btnSecundario}
+                onClick={scrollParaComoFunciona}
+              >
                 Como funciona
-              </Link>
+              </a>
             </div>
           </div>
-          <div className={styles.heroVideo}>
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className={styles.videoColeira}
-            >
-              <source
-                src={isMobile ? videoColeiraMobile : videoColeiraDesktop}
-                type="video/webm"
-              />
-            </video>
-          </div>
         </section>
 
-        {/* pets usando a coleira */}
+        {/* PETS USANDO A COLEIRA */}
         <section className={`${styles.secaoPets} ${styles.reveal}`}>
           <h2 className={styles.secaoTitulo}>PETS USANDO A NOSSA COLEIRA</h2>
-          <div className={styles.petsDesktop}>
-            {petFotos.map((foto, i) => (
-              <div key={i} className={styles.petFotoWrap}>
-                <img
-                  src={foto}
-                  alt={`Pet ${i + 1}`}
-                  className={styles.petFoto}
-                />
-              </div>
-            ))}
-          </div>
-          <div className={styles.petsMobile}>
-            <Carrossel
-              items={petFotos}
-              renderItem={(foto, i) => (
-                <div className={styles.petFotoWrap}>
+          <div className={styles.petsInfinito}>
+            <div className={styles.petsTrack}>
+              {[...petFotos, ...petFotos].map((foto, i) => (
+                <div key={i} className={styles.petFotoWrap}>
                   <img
                     src={foto}
-                    alt={`Pet ${i + 1}`}
+                    alt={`Pet ${(i % petFotos.length) + 1}`}
                     className={styles.petFoto}
                   />
-                </div>
-              )}
-            />
-          </div>
-        </section>
-
-        {/* por que seu pet precisa de mais atenção */}
-        <InteractiveBg className={`${styles.secaoPorque} ${styles.reveal}`}>
-          <div className={styles.porqueImg}>
-            <img src={dogDeitado} alt="Cachorro deitado" />
-          </div>
-          <div className={styles.porqueConteudo}>
-            <h2 className={styles.porqueTitulo}>
-              Por que seu pet precisa de mais atenção?
-            </h2>
-            <div className={styles.porqueItens}>
-              {[
-                {
-                  n: "01",
-                  t: "Tutores não sabem quando o pet está doente",
-                  d: "Sinais sutis de dor, ansiedade ou febre passam despercebidos até virar algo sério.",
-                },
-                {
-                  n: "02",
-                  t: "Doenças cardíacas são comuns em pets",
-                  d: "1 em cada 10 cães desenvolve algum problema cardíaco ao longo da vida.",
-                },
-                {
-                  n: "03",
-                  t: "Pets sozinhos ficam entediados",
-                  d: "Quando o dono trabalha, o pet fica ansioso e pode se machucar de várias formas.",
-                },
-              ].map((item) => (
-                <div key={item.n} className={styles.porqueItem}>
-                  <span className={styles.porqueNum}>{item.n}</span>
-                  <div>
-                    <strong>{item.t}</strong>
-                    <p>{item.d}</p>
-                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </InteractiveBg>
-
-        {/* video comercial */}
-        <section className={styles.secaoVideo}>
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className={styles.videoComercial}
-          >
-            <source
-              src={isMobile ? videoComercialMobile : videoComercialDesktop}
-              type="video/webm"
-            />
-          </video>
         </section>
 
-        {/* beneficios */}
+        {/* POR QUE SEU PET */}
+        <InteractiveBg className={`${styles.secaoPorque} ${styles.reveal}`}>
+          <div className={styles.porqueEsquerda}>
+            <div className={styles.porqueImg}>
+              <img src={dogDeitado} alt="Cachorro deitado" />
+            </div>
+            <h2 className={styles.porqueTitulo}>
+              Por que seu pet precisa de mais atenção?
+            </h2>
+          </div>
+          <div className={styles.porqueItens}>
+            {[
+              {
+                n: "01",
+                t: "Tutores não sabem quando o pet está doente",
+                d: "Sinais sutis de dor, ansiedade ou febre passam despercebidos até virar algo sério.",
+              },
+              {
+                n: "02",
+                t: "Doenças cardíacas são comuns em pets",
+                d: "1 em cada 10 cães desenvolve algum problema cardíaco ao longo da vida.",
+              },
+              {
+                n: "03",
+                t: "Pets sozinhos ficam entediados",
+                d: "Quando o dono trabalha, o pet fica ansioso e pode se machucar de várias formas.",
+              },
+            ].map((item) => (
+              <div key={item.n} className={styles.porqueItem}>
+                <span className={styles.porqueNum}>{item.n}</span>
+                <div>
+                  <strong>{item.t}</strong>
+                  <p>{item.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </InteractiveBg>
+
+        {/* VÍDEO COMERCIAL */}
+        <section className={`${styles.secaoVideo} ${styles.reveal}`}>
+          <div className={styles.videoWrapper}>
+            <video
+              autoPlay
+              loop
+              muted
+              controls
+              playsInline
+              className={styles.videoComercial}
+            >
+              <source src={videoComercial} type="video/webm" />
+            </video>
+          </div>
+        </section>
+
+        {/* BENEFÍCIOS */}
         <InteractiveBg className={`${styles.secaoBeneficios} ${styles.reveal}`}>
           <div className={styles.beneficiosHeader}>
             <img
@@ -271,7 +385,8 @@ export default function Home() {
               <p className={styles.beneficiosLabel}>BENEFÍCIOS</p>
               <h2 className={styles.beneficiosTitulo}>
                 Por que escolher a{" "}
-                <span className={styles.heroDestaque}>DunDum</span>
+                <span className={styles.heroDestaque}>Dun</span>
+                <span className={styles.heroDestaque2}>Dum</span>
               </h2>
             </div>
           </div>
@@ -279,7 +394,7 @@ export default function Home() {
             {[
               {
                 t: "Prevenção de doenças",
-                d: "Detecta variações no batimento cardíaco e temperatura antes que virem emergência.",
+                d: "Detecta variações no batimento cardíaco e respiração antes que virem emergência.",
               },
               {
                 t: "Acompanhamento diário",
@@ -287,7 +402,7 @@ export default function Home() {
               },
               {
                 t: "Dados para veterinários",
-                d: "Compartilhe relatórios detalhados com seu vet em um clique.",
+                d: "Compartilhe relatórios detalhados com seu veterinário em um clique.",
               },
               {
                 t: "Maior segurança",
@@ -302,8 +417,12 @@ export default function Home() {
           </div>
         </InteractiveBg>
 
-        {/* como funciona */}
-        <section className={`${styles.secaoComoFunciona} ${styles.reveal}`}>
+        {/* COMO FUNCIONA */}
+        <section
+          id="como-funciona"
+          ref={comoFuncionaRef}
+          className={`${styles.secaoComoFunciona} ${styles.reveal}`}
+        >
           <h2 className={styles.secaoTituloBranco}>COMO FUNCIONA</h2>
           <div className={styles.passosGrid}>
             {[
@@ -332,7 +451,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* dashboard */}
+        {/* DASHBOARD */}
         <InteractiveBg className={`${styles.secaoDashboard} ${styles.reveal}`}>
           <div className={styles.dashboardVideo}>
             <video
@@ -348,59 +467,41 @@ export default function Home() {
           <div className={styles.dashboardTexto}>
             <h2>Tudo sobre seu pet em um único lugar</h2>
             <p>
-              Visualize batimentos, GPS, nível de atividade, sono, histórico de
-              saúde e muito mais. Compartilhe com seu veterinário com um clique.
+              Acompanhe humor, gráficos de atividade e alertas em tempo real.
+              Saiba exatamente como seu pet está se sentindo, onde quer que você
+              esteja.
             </p>
-            <Link to="/produtos" className={styles.btnPrimario}>
+            <Link to="/cadastro" className={styles.btnPrimario}>
               Criar minha conta
             </Link>
           </div>
         </InteractiveBg>
 
-        {/* depoimentos */}
+        {/* DEPOIMENTOS */}
         <section className={`${styles.secaoDepoimentos} ${styles.reveal}`}>
           <h2 className={styles.secaoTituloGradiente}>
-            O que dizem sobre a{" "}
-            <span className={styles.heroDestaque}>DunDum</span>
+            O que dizem sobre a DunDum
           </h2>
-          <Carrossel
-            items={depoimentos}
-            renderItem={(dep) => (
-              <div className={styles.depCard}>
-                <div className={styles.depEstrelas}>
-                  {"★".repeat(dep.estrelas)}
-                </div>
-                <p className={styles.depTexto}>{dep.texto}</p>
-                <div className={styles.depAutor}>
-                  <img
-                    src={dep.foto}
-                    alt={dep.nome}
-                    className={styles.depFoto}
-                  />
-                  <span>{dep.nome}</span>
-                </div>
-              </div>
-            )}
-          />
+          <CarrosselDepoimentos items={depoimentos} />
         </section>
 
-        {/* chamada final */}
-        <section className={`${styles.secaoCta} ${styles.reveal}`}>
+        {/* CTA FINAL */}
+        <InteractiveBg className={`${styles.secaoCta} ${styles.reveal}`}>
           <p className={styles.ctaLabel}>CUIDE DO SEU PET</p>
           <h2 className={styles.ctaTitulo}>Seu pet merece o melhor cuidado</h2>
           <p className={styles.ctaTexto}>
-            Junte-se a milhares de tutores que já monitoram a saúde do seu pet
-            com a DunDum.
+            Junte-se a milhares de tutores que já monitoram a saúde dos seus
+            pets com a DunDum.
           </p>
           <div className={styles.ctaBtns}>
-            <Link to="/cadastro" className={styles.btnPrimario}>
-              Começar agora
+            <Link to="/produtos" className={styles.btnPrimario}>
+              Ver produto
             </Link>
-            <Link to="/como-funciona" className={styles.btnSecundario}>
-              Saiba mais
+            <Link to="/cadastro" className={styles.btnCta}>
+              Criar conta
             </Link>
           </div>
-        </section>
+        </InteractiveBg>
       </main>
       <Footer />
     </>
