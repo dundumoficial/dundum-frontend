@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap');
+
+.overlay {
+  font-family: 'Sora', sans-serif;
+  min-height: 100vh;
+  background: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 28px 28px;
+  width: 360px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.10);
+  position: relative;
+  animation: fadeUp 0.35s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  transition: background 0.2s;
+  padding: 0;
+}
+
+.closeBtn:hover {
+  background: #f3f4f6;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 42px 12px 16px;
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  border-color: #1e293b;
+  box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.08);
+}
+
+.inputError {
+  border-color: #ef4444;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.eyeBtn:hover {
+  color: #111827;
+}
+
+.errorMsg {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 6px;
+}
+
+.btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 14px;
+  background: #0f172a;
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn:hover {
+  background: #1e293b;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.success {
+  text-align: center;
+  padding: 8px 0 4px;
+  animation: fadeUp 0.3s ease both;
+}
+
+.success p {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.7;
+  margin-top: 12px;
+}
+
+.success strong {
+  color: #0f172a;
+}
