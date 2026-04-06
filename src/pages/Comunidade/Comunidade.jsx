@@ -445,7 +445,7 @@ export default function Comunidade() {
                   Cadastrar animal para adoção
                 </strong>
                 <p className={styles.redeCardDesc}>
-                  Publique seu pet e ajude-o a encontrar um lar responsável.
+                  Publique seu pet e ajude-o0 a encontrar um lar responsável.
                 </p>
                 <button className={styles.btnRede}>Cadastrar agora</button>
               </div>
