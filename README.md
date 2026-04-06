@@ -130,7 +130,7 @@ Antes de começar, você precisa ter instalado:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/dundum-frontend/dundum-frontend.git
+git clone https://github.com/dundumoficial/dundum-frontend.git
 cd dundum-frontend
 
 # Instale as dependências
@@ -141,6 +141,59 @@ npm run dev
 ```
 
 Acesse em: `http://localhost:5173`
+
+## Como fazer um Pull Request
+
+### 1. Acesse a branch `development`
+
+```bash
+git checkout development
+git pull origin development
+```
+
+### 2. Faça suas alterações e commits
+
+```bash
+# Adicione os arquivos modificados
+git add .
+
+# Crie um commit com mensagem clara
+git commit -m "feat: adiciona componente de notificação"
+```
+
+> **Boas práticas de commit:**
+>
+> - Escreva mensagens no imperativo e em minúsculas
+> - Seja objetivo: descreva _o que_ foi feito, não _como_
+> - Prefira commits pequenos e focados em uma única mudança
+
+> **Padrão de nomenclatura:**
+>
+> - `feat` — nova funcionalidade
+> - `fix` — correção de bug
+> - `style` — ajustes visuais ou de CSS
+> - `refactor` — refatoração de código
+> - `docs` — atualização de documentação
+
+### 3. Envie as alterações para o repositório remoto
+
+```bash
+git push origin development
+```
+
+### 4. Abra o Pull Request no GitHub
+
+1. Acesse o repositório em [github.com/dundumoficial/dundum-frontend](https://github.com/dundumoficial/dundum-frontend)
+2. Clique em **"Compare & pull request"**
+3. Certifique-se de que o PR está apontando de `development` → `development`
+4. Preencha o PR com:
+   - **Título** claro e objetivo
+   - **Descrição** explicando o que foi alterado e o motivo
+   - **Screenshots** (se houver mudanças visuais)
+5. Solicite revisão de pelo menos um membro da equipe
+6. Clique em **"Create pull request"**
+
+---
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&height=4&color=454ade" />
 

@@ -81,18 +81,6 @@
   background-color: var(--color-purple);
 }
 
-a::selection,
-img::selection,
-h2::selection,
-h1::selection,
-button::selection,
-p::selection,
-h3::selection,
-label::selection {
-  color: var(--color-white);
-  background-color: var(--color-dark-blue);
-}
-
 body {
   font-family: var(--font-poppins);
   -webkit-font-smoothing: antialiased;

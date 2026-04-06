@@ -222,7 +222,6 @@
   border-radius: 10px;
   padding: 1rem 1.25rem;
   cursor: pointer;
-  transition: 0.2
 }
 
 .accordionAberto {
@@ -251,17 +250,31 @@
 }
 
 .accordionConteudo {
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 0.35s ease;
+  overflow: hidden;
 }
 
-.accordionConteudo p {
+.accordionConteudoAberto {
+  grid-template-rows: 1fr;
+}
+
+.accordionConteudo > p {
+  overflow: hidden;
   font-family: var(--font-poppins);
   font-weight: var(--weight-light);
   font-size: var(--text-sm);
   color: var(--color-white);
   line-height: 1.6;
+  padding-top: 0;
+  transition: 0.35s ease;
+}
+
+.accordionConteudoAberto > p {
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 0.75rem;
 }
 
 /*  DICAS DE CUIDADOS*/
@@ -295,7 +308,7 @@
 
 /* FALE COM A GENTE*/
 .faleConosco {
-  background: #13172e;
+  background: var(--color-dark-blue);
   padding: 3.5rem 1.25rem;
 }
 
@@ -415,7 +428,6 @@
 
 /* TABLET  ≥ 768px */
 @media (min-width: 768px) {
-
   /* Hero */
   .hero {
     padding: 4rem 2.5rem 5rem;
@@ -479,7 +491,6 @@
 
 /* DESKTOP  ≥ 1024px */
 @media (min-width: 1024px) {
-
   /* Hero */
   .hero {
     padding: 5rem 5rem 6rem;
@@ -500,9 +511,9 @@
     padding: 5rem;
   }
 
-  .secao>*,
-  .secaoEscura>.secaoInterna,
-  .secaoGradiente>.secaoInterna {
+  .secao > *,
+  .secaoEscura > .secaoInterna,
+  .secaoGradiente > .secaoInterna {
     max-width: 1100px;
     margin-left: auto;
     margin-right: auto;

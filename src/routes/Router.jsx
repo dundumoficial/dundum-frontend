@@ -6,6 +6,7 @@ import Comunidade from "../pages/Comunidade/Comunidade.jsx";
 import CentralDeAjuda from "../pages/CentralDeAjuda/CentralDeAjuda.jsx";
 import Login from "../pages/Login/Login.jsx";
 import Cadastro from "../pages/Cadastro/Cadastro.jsx";
+import NovaSenha from "../pages/NovaSenha/NovaSenha.jsx";
 import Dashboard from "../pages/Dashboard/Dashboard.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 
@@ -20,6 +21,7 @@ const Router = () => {
         <Route element={<CentralDeAjuda />} path="/centraldeajuda" />
         <Route element={<Login />} path="/login" />
         <Route element={<Cadastro />} path="/cadastro" />
+        <Route element={<NovaSenha />} path="/novasenha" />
         <Route
           path="/dashboard"
           element={

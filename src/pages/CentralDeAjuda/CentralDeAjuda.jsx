@@ -40,19 +40,19 @@ const usoColeira = [
     num: "01",
     titulo: "Como conectar a coleira?",
     texto:
-      "Ligue o dispositivo e abra o aplicativo. Selecione 'Adicionar coleira' e escaneie o QR Code ou digite o número da coleira. Ela será vinculada ao seu pet automaticamente.",
+      'Ligue o dispositivo e abra a plataforma. Selecione "Adicionar coleira" e digite o número da coleira. Ela será vinculada ao seu pet automaticamente.',
   },
   {
     num: "02",
     titulo: "Como carregar a coleira?",
     texto:
-      "Utilize o cabo USB fornecido com o dispositivo. Conecte na porta de carregamento e aguarde o indicador de bateria atingir 100% no aplicativo.",
+      "Utilize o cabo USB fornecido com o dispositivo. Conecte na porta de carregamento e aguarde o indicador de bateria atingir 100% na plataforma.",
   },
   {
     num: "03",
     titulo: "Como ver os dados do meu pet?",
     texto:
-      "Acesse o painel principal do aplicativo. Lá você encontrará gráficos de batimentos cardíacos, atividade física, temperatura e tempo de sono.",
+      "Acesse o painel principal da plataforma. Lá você encontrará gráficos de batimentos cardíacos, atividade física, respiração e tempo de sono.",
   },
 ];
 
@@ -60,17 +60,17 @@ const suporteTecnico = [
   {
     titulo: "A COLEIRA NÃO ESTÁ CONECTADA",
     texto:
-      "Verifique se a coleira está ligada e com bateria. Certifique-se de que o Bluetooth ou a conexão com internet está ativo no seu celular. Caso o problema continue, tente reiniciar a coleira.",
+      "Verifique se a coleira está ligada e com bateria. Certifique-se de que a conexão com internet está ativa no seu celular. Caso o problema continue, tente reiniciar a coleira.",
   },
   {
-    titulo: "A COLEIRA ESTÁ ENVIANDO DADOS",
+    titulo: "A COLEIRA NÃO ESTÁ ENVIANDO DADOS",
     texto:
-      "Isso pode acontecer se a bateria estiver baixa ou se a conexão estiver instável. Recarregue a coleira e verifique se o aplicativo está atualizado.",
+      "Isso pode acontecer se a bateria estiver baixa ou se a conexão estiver instável. Recarregue a coleira e verifique se a coleira está conectada.",
   },
   {
     titulo: "A BATERIA ESTÁ ACABANDO MUITO RÁPIDO",
     texto:
-      "O consumo pode variar dependendo da frequência de coleta de dados. Verifique nas configurações do aplicativo se o intervalo de coleta está muito curto.",
+      "O consumo pode variar dependendo da frequência de coleta de dados. Verifique nas configurações da plataforma se o intervalo de coleta está muito curto.",
   },
 ];
 
@@ -86,9 +86,9 @@ const duvidasPet = [
       "A plataforma calcula a média de horas de sono por noite e indica se o valor está dentro do padrão esperado para a espécie do seu pet.",
   },
   {
-    pergunta: "O que significa a emoção 'estressado'?",
+    pergunta: 'O que significa a emoção "estressado"?',
     resposta:
-      "A emoção 'estressado' é identificada quando o sistema detecta padrões de batimentos cardíacos elevados combinados com pouca movimentação ou agitação incomum.",
+      'A emoção "estressado" é identificada quando o sistema detecta padrões de batimentos cardíacos elevados combinados com pouca movimentação ou agitação incomum.',
   },
   {
     pergunta: "A coleira pode ajudar a detectar problemas de saúde?",
@@ -109,15 +109,15 @@ const dicasCuidados = [
       "Filhotes entre 2 e 6 meses devem comer 3 a 4 vezes por dia. Cães adultos geralmente comem 2 vezes ao dia. Siga as orientações do veterinário para a quantidade ideal.",
   },
   {
-    titulo: "Como são gerados os relatórios da coleira semanais?",
+    titulo: "Como são gerados os relatórios semanais da coleira?",
     texto:
-      "Os relatórios são gerados com base nos dados coletados pela coleira durante a semana. Eles são processados e disponibilizados no aplicativo todo domingo à meia-noite.",
+      "Os relatórios são gerados com base nos dados coletados pela coleira durante a semana. Eles são processados e disponibilizados na plataforma todo domingo à meia-noite.",
   },
 ];
 
 const perguntasFrequentes = [
   {
-    pergunta: "Quanto dura a bateria?",
+    pergunta: "Quanto tempo dura a bateria?",
     resposta:
       "A bateria pode durar entre 15 e 30 dias, dependendo da frequência de coleta de dados e do uso da coleira. A plataforma também mostra o nível de bateria em tempo real.",
   },
@@ -128,28 +128,22 @@ const perguntasFrequentes = [
   },
   {
     pergunta: "Onde vejo o código da coleira?",
-    resposta:
-      "Na parte de trás do módulo aparece o código da coleira.",
-  },
-  {
-    pergunta: "Onde vejo o código QR da coleira?",
-    resposta:
-      "Na parte de trás do módulo aparece o código da coleira.",
+    resposta: "Na parte de trás do módulo aparece o código da coleira.",
   },
   {
     pergunta: "Quais dados de saúde a coleira monitora?",
     resposta:
-      "A coleira monitora diversos indicadores, como: Batimentos cardíacos. Temperatura corporal. Quantidade de passos. Tempo de sono. Emoções estimadas pela inteligência artificial",
+      "A coleira monitora diversos indicadores, como: Batimentos cardíacos, respiração, quantidade de passos, tempo de sono e emoções estimadas pela inteligência artificial.",
   },
   {
     pergunta: "Como a IA identifica as emoções do pet?",
     resposta:
-      "NA IA analisa padrões de batimentos cardíacos, movimento, temperatura e atividade para identificar possíveis estados emocionais, como relaxamento,  estresse ou animação.",
+      "A IA analisa padrões de batimentos cardíacos, movimento e atividade para identificar possíveis estados emocionais, como relaxamento, estresse ou animação.",
   },
   {
     pergunta: "Com que frequência os dados são atualizados?",
     resposta:
-      "Os sensores coletam dados aproximadamente a cada 10 minutos, permitindo acompanhar o comportamento e a saúde do pet ao longo do dia.",
+      "Os sensores coletam dados aproximadamente a cada 10 minutos, permitindo acompanhar o comportamento e a saúde do pet ao longo do dia.",
   },
   {
     pergunta: "Posso conectar mais de uma coleira na mesma conta?",
@@ -164,7 +158,7 @@ const perguntasFrequentes = [
   {
     pergunta: "Meus dados e os do meu pet estão seguros?",
     resposta:
-      "Sim. O sistema utiliza criptografia e armazenamento seguro, garantindo a proteção das informações dos usuários e dos pets.",
+      "Sim. O sistema utiliza criptografia e armazenamento seguro, garantindo a proteção das informações dos usuários e dos pets.",
   },
 ];
 
@@ -181,14 +175,14 @@ const canaisAtendimento = [
     titulo: "E-mail",
     texto:
       "O nosso e-mail dedicado está disponível para atendimento com até 24 horas úteis.",
-    link: "oficialdundum@gmail.com.br →",
+    link: "oficialdundum@gmail.com.br",
   },
   {
     icone: iconeTelefone,
     titulo: "Telefone",
     texto:
       "Fale diretamente com um dos nossos especialistas em pets. Disponível em horário especial.",
-    link: "(11) 4002-8922 →",
+    link: "(11) 4002-8922",
   },
   {
     icone: iconeForm,
@@ -208,13 +202,13 @@ function AccordionItem({ pergunta, resposta }) {
     >
       <div className={styles.accordionHeader}>
         <span className={styles.accordionPergunta}>{pergunta}</span>
-        <span className={styles.accordionIcone}>{aberto ? "−" : "+"}</span>
+        <span className={styles.accordionIcone}>{aberto ? "-" : "+"}</span>
       </div>
-      {aberto && (
-        <div className={styles.accordionConteudo}>
-          <p>{resposta}</p>
-        </div>
-      )}
+      <div
+        className={`${styles.accordionConteudo} ${aberto ? styles.accordionConteudoAberto : ""}`}
+      >
+        <p>{resposta}</p>
+      </div>
     </div>
   );
 }
@@ -236,7 +230,7 @@ export default function CentralDeAjuda() {
             </span>
           </h1>
           <p className={styles.heroSubtitulo}>
-            Encontre respostas rápidas sobre o seu coleira inteligente, dados do
+            Encontre respostas rápidas sobre a sua coleira inteligente, dados do
             seu pet e muito mais.
           </p>
 
@@ -262,7 +256,11 @@ export default function CentralDeAjuda() {
         {/* USO DA COLEIRA */}
         <section id="uso-da-coleira" className={styles.secao}>
           <div className={styles.secaoTituloWrapper}>
-            <img src={iconeSinal} alt="Ícone branco de um sinal de rádio ou Wi-Fi, composto por um pequeno círculo sólido na base e três arcos concêntricos que aumentam de tamanho para cima." className={styles.secaoIcone} />
+            <img
+              src={iconeSinal}
+              alt="Ícone branco de um sinal de rádio ou Wi-Fi, composto por um pequeno círculo sólido na base e três arcos concêntricos que aumentam de tamanho para cima."
+              className={styles.secaoIcone}
+            />
             <h2 className={styles.secaoTitulo}>Uso da Coleira</h2>
           </div>
 
@@ -281,7 +279,11 @@ export default function CentralDeAjuda() {
         <section id="suporte-tecnico" className={styles.secaoGradiente}>
           <div className={styles.secaoInterna}>
             <div className={styles.secaoTituloWrapper}>
-              <img src={iconeChave} alt="Ícone branco de uma chave de boca (ferramenta) posicionada diagonalmente sobre um fundo preto." className={styles.secaoIcone} />
+              <img
+                src={iconeChave}
+                alt="Ícone branco de uma chave de boca (ferramenta) posicionada diagonalmente sobre um fundo preto."
+                className={styles.secaoIcone}
+              />
               <h2 className={styles.secaoTituloClaro}>Suporte Técnico</h2>
             </div>
 
@@ -299,7 +301,11 @@ export default function CentralDeAjuda() {
         {/* DÚVIDAS SOBRE O PET */}
         <section id="duvidas-pet" className={styles.secao}>
           <div className={styles.secaoTituloWrapper}>
-            <img src={iconeCoracao} alt="Ícone branco de um coração com o desenho vazado de uma pata de animal no centro, sobre um fundo preto." className={styles.secaoIcone} />
+            <img
+              src={iconeCoracao}
+              alt="Ícone branco de um coração com o desenho vazado de uma pata de animal no centro, sobre um fundo preto."
+              className={styles.secaoIcone}
+            />
             <h2 className={styles.secaoTitulo}>Dúvidas sobre o Pet</h2>
           </div>
 
@@ -318,7 +324,11 @@ export default function CentralDeAjuda() {
         <section className={styles.secaoGradiente}>
           <div className={styles.secaoInterna}>
             <div className={styles.secaoTituloWrapper}>
-              <img src={iconeLampada} alt="Ícone branco de uma lâmpada de filamento, com traços simples representando o bulbo e a base rosqueável." className={styles.secaoIcone} />
+              <img
+                src={iconeLampada}
+                alt="Ícone branco de uma lâmpada de filamento, com traços simples representando o bulbo e a base rosqueável."
+                className={styles.secaoIcone}
+              />
               <h2 className={styles.secaoTituloClaro}>
                 Dicas de Cuidados com Pets
               </h2>
@@ -338,7 +348,11 @@ export default function CentralDeAjuda() {
         {/* PERGUNTAS FREQUENTES */}
         <section id="perguntas-frequentes" className={styles.secao}>
           <div className={styles.secaoTituloWrapper}>
-            <img src={iconeFAQ} alt="Ícone branco de um balão de fala com um ponto de interrogação no centro." className={styles.secaoIcone} />
+            <img
+              src={iconeFAQ}
+              alt="Ícone branco de um balão de fala com um ponto de interrogação no centro."
+              className={styles.secaoIcone}
+            />
             <h2 className={styles.secaoTitulo}>Perguntas Frequentes</h2>
           </div>
 
@@ -383,16 +397,16 @@ export default function CentralDeAjuda() {
 
             <div className={styles.horarios}>
               <div className={styles.horarioItem}>
-                <span className={styles.horarioDia}>SEG – SEX</span>
+                <span className={styles.horarioDia}>SEG - SEX</span>
                 <span className={styles.horarioHora}>8h às 21h</span>
               </div>
               <div className={styles.horarioItem}>
                 <span className={styles.horarioDia}>SÁBADOS</span>
-                <span className={styles.horarioHora}>10h às 18h</span>
+                <span className={styles.horarioHora}>8h às 18h</span>
               </div>
               <div className={styles.horarioItem}>
                 <span className={styles.horarioDia}>DOM E FERIADOS</span>
-                <span className={styles.horarioHora}>12h às 16h</span>
+                <span className={styles.horarioHora}>9h às 16h</span>
               </div>
             </div>
           </div>

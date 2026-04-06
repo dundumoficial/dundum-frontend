@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import logo from "../../assets/img/logo-branco.png";
+import logo from "../../assets/img/logo-branco.webp";
 import iconeOlho from "../../assets/img/icon-olho.svg";
 import iconeOlhoFechado from "../../assets/img/icon-olho-fechado.svg";
+import RecuperarSenha from "../../modals/RecuperarSenha/RecuperarSenha.jsx";
 
 export default function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [abrirModal, setAbrirModal] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -57,15 +59,23 @@ export default function Login() {
             </div>
           </div>
 
-          <Link to="/esqueci-senha" className={styles.esqueciSenha}>
+          <button
+            className={styles.esqueciSenha}
+            onClick={() => setAbrirModal(true)}
+            type="button"
+          >
             Esqueci a senha
-          </Link>
+          </button>
 
           <button className={styles.btnEntrar}>Entrar</button>
 
           <Link to="/cadastro">
             <button className={styles.btnCriar}>Criar minha conta</button>
           </Link>
+
+          {abrirModal && (
+            <RecuperarSenha onClose={() => setAbrirModal(false)} />
+          )}
         </div>
       </main>
 

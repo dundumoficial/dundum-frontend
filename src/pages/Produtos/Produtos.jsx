@@ -3,7 +3,7 @@ import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Produtos.module.css";
 
 // como importar imagens e icones:
-import imagem from "../../assets/img/produtos/img1.png";
+import imagem from "../../assets/img/produtos/img1.webp";
 
 export default function Produtos() {
   return (
