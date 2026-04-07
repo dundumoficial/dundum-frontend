@@ -275,7 +275,7 @@ export default function CentralDeAjuda() {
           </div>
         </section>
 
-        {/*SUPORTE TÉCNICO */}
+        {/* SUPORTE TÉCNICO */}
         <section id="suporte-tecnico" className={styles.secaoGradiente}>
           <div className={styles.secaoInterna}>
             <div className={styles.secaoTituloWrapper}>
