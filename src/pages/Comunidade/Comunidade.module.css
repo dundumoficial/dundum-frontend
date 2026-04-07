@@ -35,7 +35,6 @@
 }
 
 /*  HERO  */
-
 .heroSection {
   background: var(--color-gradient);
   padding: 64px 0;
@@ -235,7 +234,6 @@
 }
 
 /*  VETERINÁRIOS  */
-
 .vetSection {
   padding: 64px 0;
   background-color: var(--color-white);
@@ -357,7 +355,6 @@
 }
 
 /*  ADOÇÃO  */
-
 .adocaoSection {
   padding: 64px 0;
   background: var(--color-gradient);
@@ -495,7 +492,6 @@
 }
 
 /*  ADESTRAMENTO  */
-
 .adestSection {
   padding: 64px 0;
   background-color: var(--color-white);
@@ -599,7 +595,6 @@
 }
 
 /*  REDE / CTA  */
-
 .redeSection {
   padding: 64px 0;
   background-color: #f9fafb;
@@ -639,7 +634,7 @@
   }
 }
 
-/* Grid responsivo: 1 coluna no mobile, 3 no tablet/desktop */
+/* Grid responsivo */
 .redeCards {
   display: grid;
   grid-template-columns: 1fr;

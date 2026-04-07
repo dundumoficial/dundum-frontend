@@ -21,11 +21,10 @@ import iconePata2 from "../../assets/img/comunidade/icon-pata2.svg";
 import iconeCachorro from "../../assets/img/comunidade/icon-cachorro.svg";
 import iconeCasa from "../../assets/img/comunidade/icon-casa.svg";
 import iconeLampada from "../../assets/img/comunidade/icon-lampada.svg";
-import iconeTelefone from "../../assets/img/comunidade/tel.png";
-import iconeEmail from "../../assets/img/comunidade/email.png";
+import iconeTelefone from "../../assets/img/comunidade/icon-telefone.svg";
+import iconeEmail from "../../assets/img/comunidade/icon-email.svg";
 
-//  DADOS 
-
+//  DADOS
 const veterinarios = [
   {
     id: 1,
@@ -188,7 +187,6 @@ const dicasEspecialistas = [
     desc: "Use voz firme, mas evite gritos, o medo não é uma boa ferramenta de ensino.",
   },
 ];
-
 
 export default function Comunidade() {
   return (
