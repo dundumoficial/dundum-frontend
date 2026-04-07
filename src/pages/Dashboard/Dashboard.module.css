@@ -1,4 +1,4 @@
-/* ── LAYOUT ── */
+/* LAYOUT */
 .layout {
   display: flex;
   min-height: 100vh;
@@ -6,7 +6,7 @@
   font-family: var(--font-poppins);
 }
 
-/* ── ASIDE ── */
+/* ASIDE */
 .aside {
   width: 280px;
   min-width: 280px;
@@ -20,7 +20,9 @@
   height: 100vh;
   overflow-y: auto;
   z-index: 50;
-  transition: width 0.3s ease, min-width 0.3s ease;
+  transition:
+    width 0.3s ease,
+    min-width 0.3s ease;
 }
 
 .aside::-webkit-scrollbar {
@@ -43,7 +45,7 @@
   object-fit: contain;
 }
 
-/* ── CLOSE BUTTON (desktop + mobile) ── */
+/* CLOSE BUTTON (desktop + mobile) */
 .asideClose {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -93,7 +95,7 @@
   filter: brightness(0) invert(1);
 }
 
-/* ── DESKTOP TOGGLE ── */
+/* DESKTOP TOGGLE */
 .asideToggle {
   display: none;
 }
@@ -272,7 +274,7 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* ── CONTEÚDO ── */
+/* CONTEÚDO */
 .conteudo {
   flex: 1;
   display: flex;
@@ -281,7 +283,7 @@
   background: #f4f5f9;
 }
 
-/* ── TOPBAR ── */
+/* TOPBAR */
 .topbar {
   display: none;
   align-items: center;
@@ -365,7 +367,7 @@
   background: var(--color-purple);
 }
 
-/* ── GREETING ── */
+/* GREETING */
 .greeting {
   display: flex;
   align-items: center;
@@ -393,7 +395,7 @@
   text-transform: capitalize;
 }
 
-/* ── PET BANNER ── */
+/* PET BANNER */
 .petBanner {
   margin: 8px 28px 20px;
   background: var(--color-dark-blue);
@@ -453,7 +455,7 @@
   color: #4ade80;
 }
 
-/* ── SEÇÕES ── */
+/* SEÇÕES */
 .secoes {
   padding: 0 28px 28px;
   display: flex;
@@ -461,7 +463,7 @@
   gap: 20px;
 }
 
-/* ── GRIDS ── */
+/* GRIDS */
 .gridDois {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -474,7 +476,7 @@
   gap: 16px;
 }
 
-/* ── CARD ── */
+/* CARD */
 .card {
   background: var(--color-white);
   border-radius: 14px;
@@ -529,7 +531,7 @@
   color: #aaa;
 }
 
-/* ── BADGES ── */
+/* BADGES */
 .badge {
   font-size: 11px;
   font-weight: var(--weight-bold);
@@ -558,7 +560,7 @@
   color: #16a34a;
 }
 
-/* ── MAPA ── */
+/* MAPA */
 .cardMapa {
   min-height: 280px;
 }
@@ -583,7 +585,7 @@
   border: 1px solid #e5e7eb;
 }
 
-/* Leaflet overrides — estilo limpo tipo Google Maps */
+/* MAPA */
 :global .leaflet-tile-pane {
   filter: saturate(0.85) brightness(1.02);
 }
@@ -592,7 +594,7 @@
   background: #fff;
   color: #1b1f3b;
   border: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   border-radius: 6px;
   width: 28px;
   height: 28px;
@@ -615,7 +617,7 @@
 
 :global .leaflet-popup-content-wrapper {
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   font-family: var(--font-poppins, sans-serif);
   font-size: 13px;
 }
@@ -625,10 +627,10 @@
 }
 
 :global .leaflet-popup-tip-container {
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
 }
 
-/* ── SONO LEGENDA ── */
+/* SONO LEGENDA */
 .sonoLegenda {
   display: flex;
   gap: 10px;
@@ -652,7 +654,7 @@
   font-style: normal;
 }
 
-/* ── RELATÓRIO ── */
+/* RELATÓRIO */
 .relatorioLista {
   list-style: none;
   display: flex;
@@ -706,7 +708,7 @@
   border-color: var(--color-purple);
 }
 
-/* ── EMOÇÕES ── */
+/* EMOÇÕES */
 .emocoesGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -753,7 +755,13 @@
   margin-top: 4px;
 }
 
-/* ── NOTIFICAÇÕES ── */
+.emocaoImg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+/* NOTIFICAÇÕES */
 .notifLista {
   list-style: none;
   display: flex;
@@ -800,7 +808,7 @@
   padding: 4px 0;
 }
 
-/* ── MODAL ── */
+/* MODAL */
 .overlay {
   position: fixed;
   inset: 0;
@@ -873,7 +881,7 @@
   background: #f0f0ff;
 }
 
-/* ── MODAL PERFIL ── */
+/* MODAL PERFIL */
 .modalPerfil {
   position: absolute;
   top: 50px;
@@ -953,7 +961,7 @@
   background: #fef2f2;
 }
 
-/* ── PLANO MODAL ── */
+/* PLANO MODAL */
 .planoAtualCard {
   background: var(--color-gradient);
   border-radius: 12px;
@@ -999,7 +1007,7 @@
   background: var(--color-purple);
 }
 
-/* ── MODAL PET ── */
+/* MODAL PET */
 .modalPetConteudo {
   display: flex;
   flex-direction: column;
@@ -1045,7 +1053,7 @@
   color: var(--color-dark-blue);
 }
 
-/* ── FOOTER ── */
+/* FOOTER */
 .footer {
   text-align: center;
   padding: 20px;
@@ -1055,7 +1063,7 @@
   margin-top: auto;
 }
 
-/* ── MOBILE OVERLAY ── */
+/* MOBILE OVERLAY */
 .overlayMobile {
   display: none;
   position: fixed;
@@ -1064,7 +1072,7 @@
   z-index: 45;
 }
 
-/* ── RESPONSIVO ── */
+/* RESPONSIVO */
 @media (max-width: 900px) {
   .aside {
     position: fixed;
@@ -1145,20 +1153,22 @@
     content: "";
   }
 
-  /* sidebar default desktop fixed positioning */
+  /* Sidebar da desktop com posicionamento fixo */
   .aside {
     position: fixed;
     left: 0;
     top: 0;
-    transition: width 0.3s ease, min-width 0.3s ease;
+    transition:
+      width 0.3s ease,
+      min-width 0.3s ease;
   }
 
-  /* sidebar open — conteudo shifts 280px */
+  /* sidebar aberto */
   .asideAberto ~ .conteudo {
     margin-left: 280px;
   }
 
-  /* sidebar closed — recede to icon strip */
+  /* sidebar fechado */
   .aside:not(.asideAberto) {
     width: 64px;
     min-width: 64px;
@@ -1197,7 +1207,7 @@
     height: 24px;
   }
 
-  /* show open button when sidebar is collapsed */
+  /* mostrar o botão de abrir quando a sidebar estiver fechada */
   .aside:not(.asideAberto) .asideOpen {
     display: flex;
     align-items: center;
@@ -1205,27 +1215,25 @@
     margin-top: 8px;
   }
 
-  /* show close (chevron) button when sidebar is open */
+  /* mostrar o botão de fechar quando a sidebaar estiver aberta */
   .asideAberto .asideClose {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* hide open button when sidebar is open */
+  /* esconder botão de abrir quando a sidebar estiver aberta */
   .asideAberto .asideOpen {
     display: none;
   }
 
-  /* hide close button when sidebar is collapsed */
+  /* esconder botão de abrir quando a sidebar estiver fechada */
   .aside:not(.asideAberto) .asideClose {
     display: none;
   }
 }
 
-/* Avatar no desktop aparece no greeting */
 @media (min-width: 901px) {
-  /* show profile in greeting area */
   .greetingDireita {
     display: flex;
   }
