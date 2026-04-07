@@ -21,7 +21,7 @@
   margin-bottom: 48px;
 }
 
-/* Grid de membros: 2 colunas no mobile, 4 no tablet/desktop */
+/* Grid de membros */
 .membroGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -53,7 +53,6 @@
   object-fit: cover;
   flex-shrink: 0;
   background-color: var(--color-light-pink);
-  /* fallback enquanto a foto carrega */
 }
 
 .membroNome {
@@ -206,7 +205,7 @@
   margin-bottom: 40px;
 }
 
-/* Grid de valores: 1 col mobile, 3+2 tablet/desktop */
+/* Grid de valores */
 .valoresGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -250,9 +249,8 @@
   color: var(--color-pink);
 }
 
-/* RESPONSIVO — TABLET (≥ 768px) */
+/* TABLET */
 @media (min-width: 768px) {
-
   /* Quem Somos */
   .tituloQuemSomos {
     font-size: var(--text-3xl);
@@ -276,7 +274,6 @@
     font-size: var(--text-md);
   }
 
-  /* Move */
   .tituloMove {
     font-size: var(--text-3xl);
   }
@@ -285,19 +282,16 @@
     font-size: var(--text-lg);
   }
 
-  /* Coleira / História */
   .tituloColeira,
   .tituloHistoria,
   .tituloAcreditamos {
     font-size: var(--text-3xl);
   }
 
-  /* Valores: 3 colunas na primeira linha, 2 na segunda */
   .valoresGrid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Os últimos 2 cards ficam centralizados na segunda linha */
   .valorCard:nth-child(4) {
     grid-column: 1 / 2;
   }
@@ -307,7 +301,7 @@
   }
 }
 
-/* RESPONSIVO — DESKTOP (≥ 1024px) */
+/* DESKTOP */
 @media (min-width: 1024px) {
   .quemSomosSection {
     padding: 80px 40px 100px;
@@ -343,7 +337,6 @@
     padding-right: 40px;
   }
 
-  /* Valores: linha 2 centralizada com 2 cards lado a lado */
   .valoresGrid {
     grid-template-columns: repeat(3, 1fr);
   }
