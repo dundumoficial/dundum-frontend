@@ -39,11 +39,13 @@
   border-radius: 12px;
   width: 100%;
   max-width: 160px;
-  transition: box-shadow 0.2s ease;
+  height: 100%;
+  transition: box-shadow 0.2s ease; 
 }
 
 .membroCard:hover {
-  box-shadow: 0 4px 20px rgba(69, 74, 222, 0.15);
+  box-shadow: 0 4px 20px rgba(95, 101, 250, 0.582);
+  border-color: #454ADE;
 }
 
 .membroAvatar {
@@ -222,6 +224,7 @@
   text-align: left;
 }
 
+
 .valorNum {
   font-family: var(--font-garet);
   font-size: var(--text-xl);
@@ -241,10 +244,6 @@
 }
 
 /* DESTAQUES DE COR */
-.destaquePurple {
-  color: var(--color-purple);
-}
-
 .destaquePink {
   color: var(--color-pink);
 }

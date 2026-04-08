@@ -17,14 +17,14 @@ import iconeLinkedIn from "../../assets/img/sobrenos/icon-linkedin.svg";
 const membros = [
   {
     nome: "Axel",
-    cargo: "Dev. Front-End & UI/UX Design",
+    cargo: "UI/UX Design",
     linkedin:
       "https://www.linkedin.com/in/axel-ray-silva-de-azevedo-b9810437a/",
     github: "https://github.com/Axel-Ray",
   },
   {
     nome: "Beatriz",
-    cargo: "Dev. Front-End & UI/UX Design",
+    cargo: "Dev. Front-End",
     linkedin: "https://www.linkedin.com/in/beatriz-lacerda-628635392/",
     github: "https://github.com/devbialacerda",
   },
@@ -67,11 +67,12 @@ const membros = [
 ];
 
 const valores = [
-  { num: "01", texto: "Amor e respeito pelos animais" },
-  { num: "02", texto: "Inovação através da tecnologia" },
-  { num: "03", texto: "Transparência com nossos usuários" },
-  { num: "04", texto: "Compromisso com a saúde e o bem-estar dos pets" },
-  { num: "05", texto: "Colaboração e respeito entre as pessoas" },
+  { num: "01", texto: "Acessibilidade para todos" },
+  { num: "02", texto: "Cuidado como prioridade" },
+  { num: "03", texto: "Amor e respeito pelos animais" },
+  { num: "04", texto: "Compromisso com o impacto social" },
+  { num: "05", texto: "Inovação através da tecnologia" },
+  { num: "06", texto: "Ética e segurança no tratamento de dados" },
 ];
 
 export default function SobreNos() {
@@ -83,7 +84,7 @@ export default function SobreNos() {
         {/* SEÇÃO: Quem Somos */}
         <section className={styles.quemSomosSection}>
           <h1 className={styles.tituloQuemSomos}>
-            Quem <span className={styles.destaquePurple}>Somos?</span>
+            Quem <span className={styles.destaquePink}>Somos?</span>
           </h1>
 
           <div className={styles.membroGrid}>
@@ -177,7 +178,7 @@ export default function SobreNos() {
         {/* SEÇÃO: O que acreditamos */}
         <section className={styles.acreditamosSection}>
           <h2 className={styles.tituloAcreditamos}>
-            O que <span className={styles.destaquePurple}>acreditamos</span>
+            O que <span className={styles.destaquePink}>acreditamos</span>
           </h2>
 
           <div className={styles.valoresGrid}>
