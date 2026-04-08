@@ -1,57 +1,583 @@
-/*
-  VARIÁVEIS: use sempre variaveis ao invés de valores fixos.
-  Exemplo: 
-    color: var(--color-purple);  ao invés de "color: #454ade"
 
-  CORES
-  --color-dark-blue ......... #1b1f3b
-  --color-purple ............ #454ade
-  --color-dark-pink ......... #b14aed
-  --color-pink .............. #c874d9
-  --color-light-pink ........ #e1bbc9
-  --color-white ............. #ffffff
-  --color-gradient .......... gradiente do fundo (azul → roxo)
 
-  FONTES
-  --font-garet .............. títulos (h1, h2, h3)
-  --font-poppins ............ textos, parágrafos, botões, etc
-
-  TAMANHO DA FONTE
-  --text-xs ................. 12px
-  --text-sm ................. 14px
-  --text-md ................. 16px
-  --text-lg ................. 18px
-  --text-xl ................. 24px
-  --text-2xl ................ 32px
-  --text-3xl ................ 48px
-
-  PESO DA FONTE
-  --weight-light ............ 300
-  --weight-regular .......... 400
-  --weight-medium ........... 500
-  --weight-bold ............. 700
-  --weight-black ............ 900
-*/
-
-/* se for usar IA, coloca no prompt pra ela usar essas variaveis */
-
-/* tem as páginas de login, cadastro e home (incompleta) para auxiliar */
-
-/* nada de diferente aqui */
-
+/* ── CONTAINER GERAL ── */
 .container {
-  background-color: brown;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px 0;
+  background-color: var(--color-white);
+  font-family: var(--font-poppins);
 }
 
-.imagemColeira {
-  width: 350px;
-  height: 350px;
+/* 
+   SEÇÃO PRODUTO
+ */
+.produtoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 56px;
 }
 
-.exemploClasse {
-  font-size: 40px;
+/*  GALERIA  */
+.galeriaWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
-#exemploId {
-  border: #000 dotted 5px;
+.imagemPrincipalBox {
+  width: 100%;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+}
+
+.imagemPrincipal {
+  width: 120%;
+  height: 125%;
+  object-fit: contain;
+}
+
+.thumbnailLista {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.thumbnailBtn {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  flex: 1;
+  min-width: 0;
+}
+
+.thumbnailBtn:hover {
+  border-color: var(--color-purple);
+}
+
+.thumbnailAtiva {
+  border-color: var(--color-purple);
+}
+
+.thumbnailImg {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #f0f0f0;
+  display: block;
+}
+
+/*  INFORMAÇÕES DO PRODUTO  */
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nomeProduto {
+  font-family: var(--font-garet);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.descricaoProduto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  color: #555;
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/*  AVALIAÇÃO  */
+.avaliacaoRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.notaNum {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+}
+
+.estrelas {
+  display: flex;
+  gap: 2px;
+  color: #f5a623;
+}
+
+.estrelaSvg {
+  width: 18px;
+  height: 18px;
+}
+
+.avaliacaoCount {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  color: #888;
+}
+
+/*  PREÇO  */
+.precoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.precoOriginal {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-regular);
+  color: #999;
+  text-decoration: line-through;
+}
+
+.precoAtual {
+  font-family: var(--font-garet);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-black);
+  color: var(--color-dark-blue);
+  line-height: 1.1;
+}
+
+/*  OPÇÕES (COR + QUANTIDADE)  */
+.opcoesRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.coresWrapper,
+.quantidadeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.opcoesLabel {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-dark-blue);
+}
+
+.coresLista {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.corBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+  padding: 0;
+}
+
+.corBtn:hover {
+  transform: scale(1.15);
+}
+
+.corBtnAtiva {
+  outline: 2px solid var(--color-purple);
+  outline-offset: 2px;
+}
+
+/*  QUANTIDADE  */
+.quantidadeControle {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 36px;
+  width: 80px;
+}
+
+.quantidadeInput {
+  width: 48px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-dark-blue);
+  background: transparent;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.quantidadeInput::-webkit-outer-spin-button,
+.quantidadeInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantidadeSetas {
+  display: flex;
+  flex-direction: column;
+  border-left: 1.5px solid #ccc;
+  height: 100%;
+}
+
+.setaBtn {
+  flex: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 8px;
+  color: var(--color-dark-blue);
+  padding: 0 4px;
+  line-height: 1;
+  transition: background-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setaBtn:hover {
+  background-color: #f0f0f0;
+}
+
+/*  BOTÕES DE AÇÃO  */
+.botoesRow {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btnComprar {
+  flex: 1;
+  min-width: 140px;
+  background-color: var(--color-purple);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.btnComprar:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  background-color: #B14AED;
+}
+
+
+.btnCarrinho {
+  flex: 1;
+  min-width: 140px;
+  background-color: transparent;
+  color: var(--color-dark-blue);
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.btnCarrinho:hover {
+  border-color: var(--color-purple);
+  transform: translateY(-1px);
+}
+
+/* 
+   SEÇÃO PLANOS
+ */
+.planosSection {
+  margin-bottom: 56px;
+}
+
+.secaoTitulo {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin: 0 0 20px;
+}
+
+.planosGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+}
+
+.planoCard {
+  background-color: var(--color-purple);
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: var(--color-white);
+}
+
+.planoCard:hover {
+  border-color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.planoHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.planoNome {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  
+}
+
+.planoPreco {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  background: var(--color-dark-blue) ;
+  border-radius: 6px;
+  padding: 3px 10px;
+  color: var(--color-white);
+}
+
+.planoItens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.planoItem {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  padding-left: 14px;
+  position: relative;
+}
+
+.planoItem::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-white);
+}
+
+/* 
+   SEÇÃO FUNCIONALIDADES
+ */
+.funcionalidadesSection {
+  margin-bottom: 56px;
+}
+
+.funcionalidadesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.funcCard {
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* 
+   SEÇÃO CTA
+ */
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 40px 16px;
+  margin-bottom: 0;
+}
+
+.ctaTitulo {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin: 0;
+  max-width: 480px;
+  line-height: 1.3;
+}
+
+.btnCta {
+  background-color: var(--color-purple);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  border: none;
+  border-radius: 50px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.btnCta:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+  background-color: #B14AED;
+}
+
+/* 
+   TABLET — 768px+
+ */
+@media (min-width: 768px) {
+  .container {
+    padding: 40px 32px 0;
+  }
+
+  /* Produto: lado a lado */
+  .produtoSection {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Galeria: thumbnails ABAIXO da imagem principal (como no layout tablet) */
+  .galeriaWrapper {
+    flex-direction: column;
+  }
+
+  .thumbnailLista {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .thumbnailBtn {
+    width: calc(25% - 9px);
+    flex: none;
+  }
+
+  /* Informações */
+  .nomeProduto {
+    font-size: var(--text-3xl);
+    text-align: left;
+  }
+
+  .descricaoProduto {
+    text-align: left;
+    font-size: var(--text-md);
+  }
+
+  .avaliacaoRow {
+    justify-content: flex-start;
+  }
+
+  .precoWrapper {
+    align-items: flex-start;
+  }
+
+  .precoAtual {
+    font-size: 40px;
+  }
+
+  /* Planos: 3 colunas */
+  .planosGrid {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .planoCard {
+    flex: 1;
+  }
+
+  /* Funcionalidades: 4 colunas */
+  .funcionalidadesGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* CTA */
+  .ctaTitulo {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* 
+   DESKTOP — 1024px+
+ */
+@media (min-width: 1024px) {
+  .container {
+    padding: 48px 40px 0;
+  }
+
+  /* Produto: galeria à esquerda, info à direita */
+  .produtoSection {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+
+  /* Galeria ocupa ~55% */
+  .galeriaWrapper {
+    flex: 0 0 auto;
+    width: 55%;
+    max-width: 480px;
+  }
+
+  .imagemPrincipalBox {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Info ocupa o restante */
+  .infoWrapper {
+    flex: 1;
+    gap: 16px;
+  }
+
+  .nomeProduto {
+    font-size: var(--text-3xl);
+  }
+
+  .secaoTitulo {
+    font-size: var(--text-2xl);
+  }
 }
