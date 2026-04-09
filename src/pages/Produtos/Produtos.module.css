@@ -1,6 +1,4 @@
-
-
-/* ── CONTAINER GERAL ── */
+/* CONTAINER GERAL */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -10,9 +8,7 @@
   font-family: var(--font-poppins);
 }
 
-/* 
-   SEÇÃO PRODUTO
- */
+/* SEÇÃO PRODUTO */
 .produtoSection {
   display: flex;
   flex-direction: column;
@@ -20,7 +16,7 @@
   margin-bottom: 56px;
 }
 
-/*  GALERIA  */
+/* GALERIA */
 .galeriaWrapper {
   display: flex;
   flex-direction: column;
@@ -40,9 +36,36 @@
 }
 
 .imagemPrincipal {
-  width: 120%;
-  height: 125%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnailVideo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.thumbnailVideo video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.playIcon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
 }
 
 .thumbnailLista {
@@ -55,18 +78,14 @@
   background: none;
   border: 2px solid transparent;
   border-radius: 8px;
-  padding: 2px;
   cursor: pointer;
   transition: border-color 0.2s;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
 }
 
 .thumbnailBtn:hover {
-  border-color: var(--color-purple);
-}
-
-.thumbnailAtiva {
   border-color: var(--color-purple);
 }
 
@@ -74,12 +93,11 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 6px;
   background-color: #f0f0f0;
   display: block;
 }
 
-/*  INFORMAÇÕES DO PRODUTO  */
+/* INFORMAÇÕES DO PRODUTO */
 .infoWrapper {
   display: flex;
   flex-direction: column;
@@ -105,7 +123,7 @@
   line-height: 1.5;
 }
 
-/*  AVALIAÇÃO  */
+/* AVALIAÇÃO */
 .avaliacaoRow {
   display: flex;
   align-items: center;
@@ -137,7 +155,7 @@
   color: #888;
 }
 
-/*  PREÇO  */
+/* PREÇO */
 .precoWrapper {
   display: flex;
   flex-direction: column;
@@ -161,7 +179,7 @@
   line-height: 1.1;
 }
 
-/*  OPÇÕES (COR + QUANTIDADE)  */
+/* OPÇÕES (COR E QUANTIDADE) */
 .opcoesRow {
   display: flex;
   flex-direction: row;
@@ -197,7 +215,9 @@
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s, border-color 0.15s;
+  transition:
+    transform 0.15s,
+    border-color 0.15s;
   padding: 0;
 }
 
@@ -210,7 +230,7 @@
   outline-offset: 2px;
 }
 
-/*  QUANTIDADE  */
+/* QUANTIDADE */
 .quantidadeControle {
   display: flex;
   align-items: center;
@@ -267,7 +287,7 @@
   background-color: #f0f0f0;
 }
 
-/*  BOTÕES DE AÇÃO  */
+/* BOTÕES DE AÇÃO */
 .botoesRow {
   display: flex;
   flex-direction: row;
@@ -287,19 +307,23 @@
   border-radius: 8px;
   padding: 12px 20px;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
+  transition:
+    opacity 0.2s,
+    transform 0.15s;
 }
 
 .btnComprar:hover {
   opacity: 0.88;
   transform: translateY(-1px);
-  background-color: #B14AED;
+  background-color: #b14aed;
 }
-
 
 .btnCarrinho {
   flex: 1;
   min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
   color: var(--color-dark-blue);
   font-family: var(--font-poppins);
@@ -309,8 +333,10 @@
   border-radius: 8px;
   padding: 12px 20px;
   cursor: pointer;
-  transition: border-color 0.2s, transform 0.15s;
-  white-space: nowrap;
+  transition:
+    border-color 0.2s,
+    transform 0.15s;
+  white-space: wrap;
 }
 
 .btnCarrinho:hover {
@@ -318,9 +344,7 @@
   transform: translateY(-1px);
 }
 
-/* 
-   SEÇÃO PLANOS
- */
+/* SEÇÃO PLANOS */
 .planosSection {
   margin-bottom: 56px;
 }
@@ -337,7 +361,6 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  
 }
 
 .planoCard {
@@ -364,14 +387,13 @@
   font-size: var(--text-md);
   font-weight: var(--weight-bold);
   color: var(--color-white);
-  
 }
 
 .planoPreco {
   font-family: var(--font-poppins);
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);
-  background: var(--color-dark-blue) ;
+  background: var(--color-dark-blue);
   border-radius: 6px;
   padding: 3px 10px;
   color: var(--color-white);
@@ -401,9 +423,7 @@
   color: var(--color-white);
 }
 
-/* 
-   SEÇÃO FUNCIONALIDADES
- */
+/* SEÇÃO FUNCIONALIDADES */
 .funcionalidadesSection {
   margin-bottom: 56px;
 }
@@ -426,9 +446,7 @@
   line-height: 1.4;
 }
 
-/* 
-   SEÇÃO CTA
- */
+/* SEÇÃO CTA */
 .ctaSection {
   display: flex;
   flex-direction: column;
@@ -459,30 +477,29 @@
   border-radius: 50px;
   padding: 14px 32px;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
+  transition:
+    opacity 0.2s,
+    transform 0.15s;
 }
 
 .btnCta:hover {
   opacity: 0.88;
   transform: translateY(-2px);
-  background-color: #B14AED;
+  background-color: #b14aed;
 }
 
-/* 
-   TABLET — 768px+
- */
+/* TABLET */
 @media (min-width: 768px) {
   .container {
     padding: 40px 32px 0;
   }
 
-  /* Produto: lado a lado */
   .produtoSection {
     flex-direction: column;
     gap: 32px;
   }
 
-  /* Galeria: thumbnails ABAIXO da imagem principal (como no layout tablet) */
+  /* thumbnails abaixo da imagem principal */
   .galeriaWrapper {
     flex-direction: column;
   }
@@ -520,7 +537,7 @@
     font-size: 40px;
   }
 
-  /* Planos: 3 colunas */
+  /* Planos */
   .planosGrid {
     flex-direction: row;
     gap: 16px;
@@ -530,7 +547,7 @@
     flex: 1;
   }
 
-  /* Funcionalidades: 4 colunas */
+  /* Funcionalidades */
   .funcionalidadesGrid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -541,22 +558,18 @@
   }
 }
 
-/* 
-   DESKTOP — 1024px+
- */
+/* DESKTOP */
 @media (min-width: 1024px) {
   .container {
     padding: 48px 40px 0;
   }
 
-  /* Produto: galeria à esquerda, info à direita */
   .produtoSection {
     flex-direction: row;
     align-items: flex-start;
     gap: 48px;
   }
 
-  /* Galeria ocupa ~55% */
   .galeriaWrapper {
     flex: 0 0 auto;
     width: 55%;
@@ -567,7 +580,6 @@
     aspect-ratio: 4 / 3;
   }
 
-  /* Info ocupa o restante */
   .infoWrapper {
     flex: 1;
     gap: 16px;

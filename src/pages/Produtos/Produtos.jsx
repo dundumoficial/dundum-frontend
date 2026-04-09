@@ -3,17 +3,18 @@ import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Produtos.module.css";
 
-// Importação das imagens
+import videoComercial from "../../assets/videos/video-comercial.webm";
 import img1 from "../../assets/img/produtos/img1.webp";
 import img2 from "../../assets/img/produtos/img2.webp";
 import img3 from "../../assets/img/produtos/img3.webp";
 import img4 from "../../assets/img/produtos/img4.webp";
 
-const galeria = [img1, img2, img3, img4];
+const VIDEO_INDEX = 0;
+const galeria = [videoComercial, img1, img2, img3, img4];
 
 const cores = [
   { nome: "Branco", valor: "#ffffff", borda: "#cccccc" },
-  { nome: "Preto", valor: "#1a1a1a", borda: "#1a1a1a" },
+  { nome: "Preto", valor: "#000000", borda: "#000000" },
   { nome: "Rosa", valor: "#c874d9", borda: "#c874d9" },
   { nome: "Azul", valor: "#454ade", borda: "#454ade" },
 ];
@@ -24,22 +25,29 @@ const planos = [
     preco: "Não há custo",
     itens: [
       "Monitoramento cardíaco",
-      "Monitoramento da respiração",
-      "Contagem de passos",
+      "Monitoramento de passos",
+      "Localização por GPS",
+      "Alertas cardíacos (batimentos fora do normal)",
     ],
   },
   {
     nome: "Intermediário",
     preco: "R$ 29,90",
-    itens: ["Tudo da básica", "Análise de sono", "Bateria otimizada"],
+    itens: [
+      "Tudo do plano gratuito",
+      "Monitoramento da respiração",
+      "Monitoramento de sono",
+      "Alertas respiratórios (respiração irregular)",
+    ],
   },
   {
     nome: "Premium",
     preco: "R$ 59,90",
     itens: [
-      "Todas funcionalidades",
-      "Interpretação de emoção",
-      "Integração com app",
+      "Tudo do plano intermediário",
+      "Estado emocional do pet",
+      "Alertas de fuga (saiu da área segura)",
+      "Relatórios semanais",
     ],
   },
 ];
@@ -51,7 +59,7 @@ const funcionalidades = [
   "Monitoramento cardíaco",
   "Bateria recarregável",
   "Interpretação de emoção",
-  "integração com o aplicativo",
+  "Localização por GPS",
   "À prova d'água",
 ];
 
@@ -73,36 +81,65 @@ export default function Produtos() {
       <Header />
 
       <main className={styles.container}>
-
-        {/* ── SEÇÃO PRODUTO ── */}
+        {/* SEÇÃO PRODUTO */}
         <section className={styles.produtoSection}>
-
           {/* Coluna da galeria */}
           <div className={styles.galeriaWrapper}>
             <div className={styles.imagemPrincipalBox}>
-              <img
-                className={styles.imagemPrincipal}
-                src={galeria[imagemAtiva]}
-                alt="Coleira Inteligente"
-              />
+              {imagemAtiva === VIDEO_INDEX ? (
+                <video
+                  key="video-coleira"
+                  className={styles.imagemPrincipal}
+                  src={galeria[VIDEO_INDEX]}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                />
+              ) : (
+                <img
+                  key={`img-${imagemAtiva}`}
+                  className={styles.imagemPrincipal}
+                  src={galeria[imagemAtiva]}
+                  alt="Coleira Inteligente"
+                />
+              )}
             </div>
             <div className={styles.thumbnailLista}>
-              {galeria.map((img, i) => (
-                <button
-                  key={i}
-                  className={`${styles.thumbnailBtn} ${
-                    imagemAtiva === i ? styles.thumbnailAtiva : ""
-                  }`}
-                  onClick={() => setImagemAtiva(i)}
-                  aria-label={`Ver imagem ${i + 1}`}
-                >
-                  <img
-                    src={img}
-                    alt={`Thumbnail ${i + 1}`}
-                    className={styles.thumbnailImg}
-                  />
-                </button>
-              ))}
+              {galeria
+                .map((item, i) => ({ item, i }))
+                .filter(({ i }) => i !== imagemAtiva)
+                .map(({ item, i }) => (
+                  <button
+                    key={i}
+                    className={styles.thumbnailBtn}
+                    onClick={() => setImagemAtiva(i)}
+                    aria-label={
+                      i === VIDEO_INDEX ? "Ver vídeo" : `Ver imagem ${i}`
+                    }
+                  >
+                    {i === VIDEO_INDEX ? (
+                      <div className={styles.thumbnailVideo}>
+                        <video
+                          src={item}
+                          muted
+                          playsInline
+                          className={styles.thumbnailImg}
+                        />
+                        <span className={styles.playIcon} aria-hidden>
+                          ▶
+                        </span>
+                      </div>
+                    ) : (
+                      <img
+                        src={item}
+                        alt={`Thumbnail ${i}`}
+                        className={styles.thumbnailImg}
+                      />
+                    )}
+                  </button>
+                ))}
             </div>
           </div>
 
@@ -149,7 +186,9 @@ export default function Produtos() {
                       style={{
                         backgroundColor: cor.valor,
                         borderColor:
-                          corSelecionada === i ? "var(--color-purple)" : cor.borda,
+                          corSelecionada === i
+                            ? "var(--color-purple)"
+                            : cor.borda,
                       }}
                       onClick={() => setCorSelecionada(i)}
                       aria-label={`Cor ${cor.nome}`}
@@ -193,12 +232,14 @@ export default function Produtos() {
 
             <div className={styles.botoesRow}>
               <button className={styles.btnComprar}>Comprar Agora</button>
-              <button className={styles.btnCarrinho}>Adicionar no carrinho</button>
+              <button className={styles.btnCarrinho}>
+                Adicionar no carrinho
+              </button>
             </div>
           </div>
         </section>
 
-        {/* ── SEÇÃO PLANOS ── */}
+        {/* SEÇÃO PLANOS */}
         <section className={styles.planosSection}>
           <h2 className={styles.secaoTitulo}>Planos</h2>
           <div className={styles.planosGrid}>
@@ -220,7 +261,7 @@ export default function Produtos() {
           </div>
         </section>
 
-        {/* ── SEÇÃO FUNCIONALIDADES ── */}
+        {/* SEÇÃO FUNCIONALIDADES */}
         <section className={styles.funcionalidadesSection}>
           <h2 className={styles.secaoTitulo}>Funcionalidades</h2>
           <div className={styles.funcionalidadesGrid}>
@@ -232,7 +273,7 @@ export default function Produtos() {
           </div>
         </section>
 
-        {/* ── SEÇÃO CTA ── */}
+        {/* SEÇÃO CTA */}
         <section className={styles.ctaSection}>
           <h2 className={styles.ctaTitulo}>
             Dê mais saúde e segurança para seu pet
