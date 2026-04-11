@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Comunidade.module.css";
@@ -19,7 +20,6 @@ import vet6 from "../../assets/img/comunidade/vet6.webp";
 import iconePata from "../../assets/img/comunidade/icon-pata.svg";
 import iconePata2 from "../../assets/img/comunidade/icon-pata2.svg";
 import iconeCachorro from "../../assets/img/comunidade/icon-cachorro.svg";
-import iconeCasa from "../../assets/img/comunidade/icon-casa.svg";
 import iconeLampada from "../../assets/img/comunidade/icon-lampada.svg";
 import iconeTelefone from "../../assets/img/comunidade/icon-telefone.svg";
 import iconeEmail from "../../assets/img/comunidade/icon-email.svg";
@@ -62,7 +62,7 @@ const veterinarios = [
     id: 5,
     nome: "Dra. Carolina Souza",
     cidade: "Porto Alegre, RS",
-    tel: "(51) 949-2233",
+    tel: "(51) 92849-2233",
     email: "carolina.souza@vetmosil.com.br",
     img: vet5,
   },
@@ -136,7 +136,7 @@ const passosAdestramento = [
   {
     num: 2,
     titulo: "Comandos básicos",
-    desc: "Comece com 'sentar' e 'fico', usando petiscos para induzir o movimento correto.",
+    desc: 'Comece com "sentar" e "fico", usando petiscos para induzir o movimento correto.',
   },
   {
     num: 3,
@@ -156,7 +156,7 @@ const passosAdestramento = [
   {
     num: 6,
     titulo: "Comando de liberação",
-    desc: "Use 'ok' para sinalizar quando o cão pode sair de uma posição como o 'ficar'.",
+    desc: 'Use "ok" para sinalizar quando o cão pode sair de uma posição como o "ficar".',
   },
 ];
 
@@ -178,7 +178,7 @@ const dicasEspecialistas = [
   },
   {
     num: 4,
-    titulo: "Recompense o 'fica'",
+    titulo: 'Recompense o "fica"',
     desc: "Coloque o cão na posição correta e ofereça o petisco apenas quando ele obedecer.",
   },
   {
@@ -189,6 +189,17 @@ const dicasEspecialistas = [
 ];
 
 export default function Comunidade() {
+  const vetRef = useRef(null);
+  const adocaoRef = useRef(null);
+
+  const irParaAdocao = () => {
+    adocaoRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const irParaVets = () => {
+    vetRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
       <Header />
@@ -204,12 +215,20 @@ export default function Comunidade() {
                 <span className={styles.heroDestaque}>animais</span> reais
               </h1>
               <p className={styles.heroSubtitulo}>
-                Conectamos tutores a veterinários parceiros, ONGs e animais que
+                Conectamos tutores a veterinários parceiros, e animais que
                 precisam de um lar. Tudo em um só lugar.
               </p>
               <div className={styles.heroBtns}>
-                <button className={styles.btnHeroPrimary}>Quero adotar</button>
-                <button className={styles.btnHeroSecondary}>
+                <button
+                  className={styles.btnHeroPrimary}
+                  onClick={irParaAdocao}
+                >
+                  Quero adotar
+                </button>
+                <button
+                  className={styles.btnHeroSecondary}
+                  onClick={irParaVets}
+                >
                   Ver veterinários
                 </button>
               </div>
@@ -223,7 +242,7 @@ export default function Comunidade() {
                   className={styles.heroStatIconImg}
                 />
                 <div className={styles.heroStatInfo}>
-                  <strong className={styles.heroStatNum}>248</strong>
+                  <strong className={styles.heroStatNum}>6</strong>
                   <span className={styles.heroStatLabel}>Pets para adoção</span>
                 </div>
               </div>
@@ -234,21 +253,10 @@ export default function Comunidade() {
                   className={styles.heroStatIconImg}
                 />
                 <div className={styles.heroStatInfo}>
-                  <strong className={styles.heroStatNum}>84</strong>
+                  <strong className={styles.heroStatNum}>6</strong>
                   <span className={styles.heroStatLabel}>
                     Veterinários parceiros
                   </span>
-                </div>
-              </div>
-              <div className={styles.heroStatCard}>
-                <img
-                  src={iconeCasa}
-                  alt="Casa"
-                  className={styles.heroStatIconImg}
-                />
-                <div className={styles.heroStatInfo}>
-                  <strong className={styles.heroStatNum}>37</strong>
-                  <span className={styles.heroStatLabel}>ONGs cadastradas</span>
                 </div>
               </div>
             </div>
@@ -256,7 +264,7 @@ export default function Comunidade() {
         </section>
 
         {/*  SEÇÃO: VETERINÁRIOS  */}
-        <section className={styles.vetSection}>
+        <section ref={vetRef} className={styles.vetSection}>
           <div className={styles.sectionInner}>
             <span className={styles.sectionTag1}>
               <span className={styles.tagDot}></span>
@@ -301,7 +309,7 @@ export default function Comunidade() {
         </section>
 
         {/*  SEÇÃO: ADOÇÃO  */}
-        <section className={styles.adocaoSection}>
+        <section ref={adocaoRef} className={styles.adocaoSection}>
           <div className={styles.sectionInner}>
             <span className={styles.sectionTag}>
               <span className={styles.tagDot}></span>
@@ -426,8 +434,7 @@ export default function Comunidade() {
               <span className={styles.redeDestaque}>nossa rede</span>
             </h2>
             <p className={styles.redeSubtitulo}>
-              Cadastre seu animal, ONG ou clínica e alcance quem precisa de
-              você.
+              Cadastre seu animal ou alcance quem precisa de você.
             </p>
 
             <div className={styles.redeCards}>
@@ -446,22 +453,6 @@ export default function Comunidade() {
                   Publique seu pet e ajude-o a encontrar um lar responsável.
                 </p>
                 <button className={styles.btnRede}>Cadastrar agora</button>
-              </div>
-              <div className={styles.redeCard}>
-                <div className={styles.iconWrapper}>
-                  <img
-                    src={iconeCasa}
-                    alt="Casa"
-                    className={styles.redeCardIconImg}
-                  />
-                </div>
-                <strong className={styles.redeCardTitle}>
-                  Cadastrar minha ONG
-                </strong>
-                <p className={styles.redeCardDesc}>
-                  Amplie sua visibilidade e receba apoio de mais pessoas.{" "}
-                </p>
-                <button className={styles.btnRede}>Cadastrar ONG</button>
               </div>
               <div className={styles.redeCard}>
                 <div className={styles.iconWrapper}>

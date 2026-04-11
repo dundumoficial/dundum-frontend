@@ -50,6 +50,14 @@
 }
 
 @media (min-width: 768px) {
+  .heroSection {
+    padding: 150px 0;
+  }
+
+  .heroTitle {
+    font-size: var(--text-3xl);
+  }
+
   .heroInner {
     flex-direction: row;
     align-items: center;
@@ -186,7 +194,6 @@
 }
 
 /*  LAYOUT GERAL  */
-
 .main {
   width: 100%;
 }
@@ -198,7 +205,6 @@
 }
 
 /*  TAGS DE SEÇÃO  */
-
 .sectionTag {
   display: inline-flex;
   align-items: center;
@@ -643,7 +649,7 @@
 
 @media (min-width: 768px) {
   .redeCards {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
