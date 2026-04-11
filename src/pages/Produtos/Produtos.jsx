@@ -69,7 +69,11 @@ const funcionalidades = [
 const planos = [
   {
     nome: "Gratuito",
-    preco: "Não há custo",
+    descricao: "Ideal para quem está começando a cuidar do pet.",
+    preco: "R$ 0",
+    precoSub: "sem custo mensal",
+    premium: false,
+    badge: null,
     itens: [
       "Monitoramento cardíaco",
       "Monitoramento de passos",
@@ -79,7 +83,11 @@ const planos = [
   },
   {
     nome: "Intermediário",
+    descricao: "Para tutores que querem monitoramento completo.",
     preco: "R$ 29,90",
+    precoSub: "por mês",
+    premium: false,
+    badge: "Mais popular",
     itens: [
       "Tudo do plano gratuito",
       "Monitoramento da respiração",
@@ -89,7 +97,11 @@ const planos = [
   },
   {
     nome: "Premium",
+    descricao: "O máximo em saúde, segurança e bem-estar.",
     preco: "R$ 59,90",
+    precoSub: "por mês",
+    premium: true,
+    badge: null,
     itens: [
       "Tudo do plano intermediário",
       "Estado emocional do pet",
@@ -474,15 +486,28 @@ export default function Produtos() {
           <h2 className={styles.secaoTitulo}>Planos</h2>
           <div className={styles.planosGrid}>
             {planos.map((plano, i) => (
-              <div key={i} className={styles.planoCard}>
-                <div className={styles.planoHeader}>
-                  <span className={styles.planoNome}>{plano.nome}</span>
+              <div
+                key={i}
+                className={`${styles.planoCard} ${
+                  plano.premium ? styles.planoCardDestaque : ""
+                }`}
+              >
+                {plano.badge && (
+                  <span className={styles.planoBadge}>{plano.badge}</span>
+                )}
+
+                <h3 className={styles.planoNome}>{plano.nome}</h3>
+                <p className={styles.planoDescricao}>{plano.descricao}</p>
+
+                <div className={styles.planoPrecoBox}>
                   <span className={styles.planoPreco}>{plano.preco}</span>
+                  <span className={styles.planoPrecoSub}>{plano.precoSub}</span>
                 </div>
+
                 <ul className={styles.planoItens}>
                   {plano.itens.map((item, j) => (
                     <li key={j} className={styles.planoItem}>
-                      {item}
+                      ✓ {item}
                     </li>
                   ))}
                 </ul>
