@@ -1,10 +1,33 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig";
 import styles from "./Cadastro.module.css";
 import logo from "../../assets/img/logo-branco.webp";
 import iconeOlho from "../../assets/img/icon-olho.svg";
 import iconeOlhoFechado from "../../assets/img/icon-olho-fechado.svg";
 import ModalConfirmarEmail from "../../modals/ModalConfirmarEmail/ModalConfirmarEmail.jsx";
+
+const GoogleIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
+    <path
+      d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
+      fill="#FFC107"
+    />
+    <path
+      d="M6.306 14.691l6.571 4.819C14.655 15.108 19.001 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"
+      fill="#FF3D00"
+    />
+    <path
+      d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"
+      fill="#4CAF50"
+    />
+    <path
+      d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.021 35.591 44 30.138 44 24c0-1.341-.138-2.65-.389-3.917z"
+      fill="#1976D2"
+    />
+  </svg>
+);
 
 export default function Cadastro() {
   const navigate = useNavigate();
@@ -21,16 +44,15 @@ export default function Cadastro() {
   const [codigo, setCodigo] = useState(["", "", "", "", "", ""]);
   const [tempo, setTempo] = useState(60);
   const [expirado, setExpirado] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
 
   const calcularForcaSenha = (senha) => {
     let pontos = 0;
-
     if (/[A-Z]/.test(senha)) pontos++;
     if (/[a-z]/.test(senha)) pontos++;
     if (/\d/.test(senha)) pontos++;
     if (/[@$!%*?&.#]/.test(senha)) pontos++;
     if (senha.length >= 8) pontos++;
-
     return pontos;
   };
 
@@ -39,7 +61,6 @@ export default function Cadastro() {
       setMostrarModal(true);
       setTempo(60);
       setExpirado(false);
-
       console.log("Enviar código para o email...");
     }
   };
@@ -87,8 +108,52 @@ export default function Cadastro() {
     }
 
     setErros(novosErros);
-
     return Object.keys(novosErros).length === 0;
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoadingGoogle(true);
+    setErros({});
+
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      console.log("Usuário logado via Google:", {
+        uid: user.uid,
+        nome: user.displayName,
+        email: user.email,
+        foto: user.photoURL,
+      });
+
+      // aqui envia os dados para o backend, salva o token, etc.
+      // const token = await user.getIdToken();
+      // await api.post("/auth/social", { token });
+
+      navigate("/dashboard");
+    } catch (error) {
+      const mensagens = {
+        "auth/popup-closed-by-user": "Login cancelado. Tente novamente.",
+        "auth/popup-blocked":
+          "Popup bloqueado pelo navegador. Permita popups para este site.",
+        "auth/account-exists-with-different-credential":
+          "Este e-mail já está cadastrado com outro método de login.",
+        "auth/cancelled-popup-request": null,
+      };
+
+      const mensagem =
+        mensagens[error.code] || `Erro ao fazer login: ${error.message}`;
+      if (mensagem) {
+        setErros({ social: mensagem });
+      }
+
+      console.error("Erro no login com Google:", error.code, error.message);
+    } finally {
+      setLoadingGoogle(false);
+    }
   };
 
   useEffect(() => {
@@ -108,7 +173,6 @@ export default function Cadastro() {
 
   const handleCodigoChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
-
     const novoCodigo = [...codigo];
     novoCodigo[index] = value;
     setCodigo(novoCodigo);
@@ -128,20 +192,16 @@ export default function Cadastro() {
     setTempo(60);
     setExpirado(false);
     setCodigo(["", "", "", "", "", ""]);
-
     console.log("Reenviando código...");
   };
 
   const confirmarCodigo = () => {
     const codigoFinal = codigo.join("");
-
     if (codigoFinal.length < 6) {
       alert("Digite o código completo");
       return;
     }
-
     console.log("Código digitado:", codigoFinal);
-
     // validar com backend
   };
 
@@ -160,6 +220,7 @@ export default function Cadastro() {
         <div className={styles.card}>
           <h2 className={styles.secaoTitulo}>Crie sua conta</h2>
 
+          {/* Formulário */}
           <div className={styles.grid}>
             <div className={styles.campo}>
               <label>Nome*</label>
@@ -201,10 +262,7 @@ export default function Cadastro() {
                   onChange={(e) => {
                     const value = e.target.value;
                     setSenha(value);
-
-                    const novaForca = calcularForcaSenha(value);
-                    setForcaSenha(novaForca);
-
+                    setForcaSenha(calcularForcaSenha(value));
                     setErros((prev) => ({
                       ...prev,
                       senha:
@@ -215,7 +273,6 @@ export default function Cadastro() {
                   }}
                   required
                 />
-
                 <button
                   type="button"
                   className={styles.olhoBtn}
@@ -257,6 +314,7 @@ export default function Cadastro() {
                 </>
               )}
             </div>
+
             <div className={styles.campo}>
               <label>Confirmar a senha*</label>
               <div className={styles.senhaWrap}>
@@ -268,7 +326,6 @@ export default function Cadastro() {
                   onChange={(e) => {
                     const value = e.target.value;
                     setConfirmarSenha(value);
-
                     setErros((prev) => ({
                       ...prev,
                       confirmarSenha:
@@ -279,7 +336,6 @@ export default function Cadastro() {
                   }}
                   required
                 />
-
                 <button
                   type="button"
                   className={styles.olhoBtn}
@@ -298,6 +354,28 @@ export default function Cadastro() {
               )}
             </div>
           </div>
+
+          {/* Divisor */}
+          <div className={styles.divider}>
+            <span>ou</span>
+          </div>
+
+          {/* Botão Google */}
+          <button
+            className={styles.btnGoogle}
+            onClick={handleGoogleLogin}
+            disabled={loadingGoogle}
+            aria-label="Continuar com Google"
+          >
+            {loadingGoogle ? (
+              <span className={styles.spinner} />
+            ) : (
+              <GoogleIcon />
+            )}
+            Continuar com Google
+          </button>
+
+          {erros.social && <span className={styles.erro}>{erros.social}</span>}
 
           <div className={styles.termos}>
             <input

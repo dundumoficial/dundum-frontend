@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 20px;
+  padding: 16px 20px;
   position: relative;
   background: var(--color-dark-blue);
 }
@@ -21,7 +21,7 @@
   color: var(--color-white);
   border: none;
   border-radius: 8px;
-  padding: 8px 14px;
+  padding: 5px 10px;
   font-family: var(--font-poppins);
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);
@@ -46,8 +46,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 36px 20px 40px;
-  gap: 20px;
+  padding: 40px 20px;
+  gap: 24px;
 }
 
 .titulo {
@@ -56,18 +56,17 @@
   font-weight: var(--weight-bold);
   color: var(--color-white);
   text-align: center;
-  align-self: flex-start;
 }
 
 .card {
   background: var(--color-white);
   border-radius: 12px;
-  padding: 28px 20px;
+  padding: 30px;
   width: 100%;
   max-width: 680px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .secaoTitulo {
@@ -75,9 +74,9 @@
   font-size: var(--text-lg);
   font-weight: var(--weight-bold);
   color: var(--color-dark-blue);
-  margin-top: 6px;
 }
 
+/* Formulário */
 .grid {
   display: flex;
   flex-direction: column;
@@ -165,12 +164,81 @@
   margin-top: 4px;
 }
 
+/* Divisor "ou" */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #aaa;
+  font-size: var(--text-xs);
+  font-family: var(--font-poppins);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.btnGoogle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--color-white);
+  color: #3c3c3c;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+
+.btnGoogle:hover:not(:disabled) {
+  border-color: var(--color-purple);
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.12);
+  background: #fafafa;
+}
+
+.btnGoogle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* loading */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #d0d0d0;
+  border-top-color: var(--color-purple);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .termos {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: var(--text-xs);
   color: var(--color-dark-blue);
+  accent-color: var(--color-purple);
 }
 
 .termos input {
