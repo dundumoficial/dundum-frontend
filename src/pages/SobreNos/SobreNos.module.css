@@ -40,7 +40,7 @@
   width: 100%;
   max-width: 160px;
   height: 100%;
-  transition: box-shadow 0.2s ease; 
+  transition: 0.2s;
 }
 
 .membroCard:hover {
