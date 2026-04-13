@@ -6,7 +6,7 @@ import styles from "./Login.module.css";
 import logo from "../../assets/img/logo-branco.webp";
 import iconeOlho from "../../assets/img/icon-olho.svg";
 import iconeOlhoFechado from "../../assets/img/icon-olho-fechado.svg";
-import RecuperarSenha from "../../modals/RecuperarSenha/RecuperarSenha.jsx";
+import RecuperarSenha from "../../modals/ModalRecuperarSenha/ModalRecuperarSenha.jsx";
 
 const GoogleIcon = () => (
   <svg width="20" height="20" viewBox="0 0 48 48" fill="none">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./RecuperarSenha.module.css";
+import styles from "./ModalRecuperarSenha.module.css";
 
 export default function RecuperarSenha({ onClose }) {
   const [email, setEmail] = useState("");
