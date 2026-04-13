@@ -9,28 +9,40 @@ import Cadastro from "../pages/Cadastro/Cadastro.jsx";
 import NovaSenha from "../pages/NovaSenha/NovaSenha.jsx";
 import Dashboard from "../pages/Dashboard/Dashboard.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
+import DashboardTransition from "../components/DashboardTransition/DashboardTransition.jsx";
+import useScrollToTop from "../hooks/useScrollToTop.js";
+
+function AppContent() {
+  useScrollToTop();
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/produtos" element={<Produtos />} />
+      <Route path="/sobrenos" element={<SobreNos />} />
+      <Route path="/comunidade" element={<Comunidade />} />
+      <Route path="/centraldeajuda" element={<CentralDeAjuda />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/cadastro" element={<Cadastro />} />
+      <Route path="/novasenha" element={<NovaSenha />} />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <DashboardTransition>
+              <Dashboard />
+            </DashboardTransition>
+          </PrivateRoute>
+        }
+      />
+    </Routes>
+  );
+}
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<Home />} path="/" />
-        <Route element={<Produtos />} path="/produtos" />
-        <Route element={<SobreNos />} path="/sobrenos" />
-        <Route element={<Comunidade />} path="/comunidade" />
-        <Route element={<CentralDeAjuda />} path="/centraldeajuda" />
-        <Route element={<Login />} path="/login" />
-        <Route element={<Cadastro />} path="/cadastro" />
-        <Route element={<NovaSenha />} path="/novasenha" />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+      <AppContent />
     </BrowserRouter>
   );
 };
