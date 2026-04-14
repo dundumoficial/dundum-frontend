@@ -8,7 +8,7 @@ import Login from "../pages/Login/Login.jsx";
 import Cadastro from "../pages/Cadastro/Cadastro.jsx";
 import NovaSenha from "../pages/NovaSenha/NovaSenha.jsx";
 import Dashboard from "../pages/Dashboard/Dashboard.jsx";
-import PrivateRoute from "./PrivateRoute.jsx";
+// import PrivateRoute from "./PrivateRoute.jsx";
 import DashboardTransition from "../components/DashboardTransition/DashboardTransition.jsx";
 import useScrollToTop from "../hooks/useScrollToTop.js";
 
@@ -28,11 +28,11 @@ function AppContent() {
       <Route
         path="/dashboard"
         element={
-          <PrivateRoute>
+          // <PrivateRoute>
             <DashboardTransition>
               <Dashboard />
             </DashboardTransition>
-          </PrivateRoute>
+          // </PrivateRoute>
         }
       />
     </Routes>
