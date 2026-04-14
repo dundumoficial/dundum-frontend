@@ -1,0 +1,101 @@
+.modalConteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.planoItem {
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.planoItemAtual {
+  border-color: var(--color-purple);
+  background: #f5f3ff;
+}
+
+.planoItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.planoItemHeader strong {
+  font-size: var(--text-sm);
+  color: var(--color-dark-blue);
+}
+
+.planoItemHeader span {
+  display: block;
+  font-size: var(--text-xs);
+  color: #888;
+}
+
+.planoBadgeAtual {
+  background: var(--color-dark-blue);
+  color: #fff;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.03em;
+}
+
+.planoBeneficios {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--text-xs);
+  color: #555;
+}
+
+.btnUpgrade {
+  width: 100%;
+  padding: 13px;
+  background: var(--color-dark-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnUpgrade:hover {
+  background: var(--color-purple);
+}
+
+.planoAtualCard {
+  background: var(--color-gradient);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.planoAtualLabel {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 4px;
+}
+
+.planoAtualNome {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+}
+
+.planoAtualPreco {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4px;
+}

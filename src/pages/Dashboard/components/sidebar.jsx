@@ -102,7 +102,7 @@ export default function Sidebar({
           <img src={icones.plano} alt="" className={styles.planoIcone} />
           <div>
             <p className={styles.planoNome}>Plano</p>
-            <p className={styles.planoTipo}>Intermediário</p>
+            <p className={styles.planoTipo}>Premium</p>
           </div>
           <span className={styles.petCardArrow}>›</span>
         </button>

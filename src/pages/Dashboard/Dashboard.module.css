@@ -2,6 +2,7 @@
 .layout {
   display: flex;
   min-height: 100vh;
+  height: 100%;
   background: #f4f5f9;
   font-family: var(--font-poppins);
 }
@@ -18,7 +19,9 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  min-height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 50;
   transition:
     width 0.3s ease,
@@ -45,7 +48,7 @@
   object-fit: contain;
 }
 
-/* CLOSE BUTTON (desktop + mobile) */
+/* CLOSE BUTTON */
 .asideClose {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -123,7 +126,6 @@
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--color-purple);
   flex-shrink: 0;
 }
 
@@ -134,7 +136,7 @@
 }
 
 .petCardRaca {
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -329,10 +331,14 @@
 
 .notifIcone {
   position: relative;
-  background: none;
   border: none;
+  background: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+.notifIcone img {
+  height: 20px;
 }
 
 .notifDot {
@@ -412,7 +418,6 @@
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid rgba(255, 255, 255, 0.2);
   flex-shrink: 0;
 }
 
@@ -539,6 +544,11 @@
   border-radius: 20px;
 }
 
+.badgeNotificacao {
+  background: var(--color-dark-pink);
+  color: var(--color-white);
+}
+
 .badgeNormal {
   background: #dcfce7;
   color: #16a34a;
@@ -561,31 +571,22 @@
 }
 
 /* MAPA */
+.mapaContainer {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.mapaLeaflet {
+  height: 100%;
+  width: 100%;
+}
+
 .cardMapa {
-  min-height: 280px;
+  min-height: 300px;
+  z-index: 10;
 }
 
-.mapaWrap {
-  flex: 1;
-  min-height: 180px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
-}
-
-.cardMapaFull {
-  min-height: 500px;
-}
-
-.mapaWrapFull {
-  flex: 1;
-  min-height: 440px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
-}
-
-/* MAPA */
 :global .leaflet-tile-pane {
   filter: saturate(0.85) brightness(1.02);
 }
@@ -687,7 +688,6 @@
 .btnCompartilhar {
   margin-top: 8px;
   width: 100%;
-  padding: 10px;
   background: transparent;
   border: 1.5px solid #e5e7eb;
   border-radius: 8px;
@@ -747,9 +747,9 @@
 
 .emocaoAnalise {
   font-size: 11px;
-  color: #555;
+  color: var(--color-dark-blue);
   line-height: 1.6;
-  background: #fdf4ff;
+  background: #f5f3ff;
   border-radius: 8px;
   padding: 10px 12px;
   margin-top: 4px;
@@ -808,258 +808,12 @@
   padding: 4px 0;
 }
 
-/* MODAL */
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.modal {
-  background: var(--color-white);
-  border-radius: 16px;
-  padding: 28px;
-  width: 90%;
-  max-width: 480px;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
-}
-
-.modalHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.modalTitulo {
-  font-family: var(--font-garet);
-  font-size: var(--text-lg);
-  font-weight: var(--weight-bold);
-  color: var(--color-dark-blue);
-}
-
-.modalClose {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: #888;
-  transition: color 0.2s;
-}
-
-.modalClose:hover {
-  color: var(--color-dark-blue);
-}
-
-.modalConteudo {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.modalItem {
-  padding: 14px 16px;
-  background: #f9fafb;
-  border-radius: 10px;
-  font-size: var(--text-sm);
-  color: var(--color-dark-blue);
-  font-weight: var(--weight-medium);
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.modalItem:hover {
-  background: #f0f0ff;
-}
-
-/* MODAL PERFIL */
-.modalPerfil {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: var(--color-white);
-  border-radius: 14px;
-  padding: 16px;
-  min-width: 220px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.modalPerfilHeader {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.avatarGrande {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--color-dark-blue);
-  color: var(--color-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: var(--weight-bold);
-  font-size: var(--text-md);
-  flex-shrink: 0;
-}
-
-.modalPerfilNome {
-  font-weight: var(--weight-bold);
-  font-size: var(--text-sm);
-  color: var(--color-dark-blue);
-}
-
-.modalPerfilEmail {
-  font-size: var(--text-xs);
-  color: #888;
-}
-
-.modalDivider {
-  border: none;
-  border-top: 1px solid #f3f4f6;
-  margin: 4px 0;
-}
-
-.modalPerfilBtn {
-  background: none;
-  border: none;
-  font-family: var(--font-poppins);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  color: var(--color-dark-blue);
-  padding: 10px 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.2s;
-  width: 100%;
-}
-
-.modalPerfilBtn:hover {
-  background: #f9fafb;
-}
-
-.modalPerfilBtnSair {
-  color: #ef4444;
-}
-.modalPerfilBtnSair:hover {
-  background: #fef2f2;
-}
-
-/* PLANO MODAL */
-.planoAtualCard {
-  background: var(--color-gradient);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 8px;
-}
-
-.planoAtualLabel {
-  font-size: var(--text-xs);
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 4px;
-}
-
-.planoAtualNome {
-  font-family: var(--font-garet);
-  font-size: var(--text-xl);
-  font-weight: var(--weight-bold);
-  color: var(--color-white);
-}
-
-.planoAtualPreco {
-  font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 4px;
-}
-
-.btnUpgrade {
-  width: 100%;
-  padding: 13px;
-  background: var(--color-dark-blue);
-  color: var(--color-white);
-  border: none;
-  border-radius: 8px;
-  font-family: var(--font-poppins);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btnUpgrade:hover {
-  background: var(--color-purple);
-}
-
-/* MODAL PET */
-.modalPetConteudo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.modalPetFoto {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--color-purple);
-}
-
-.modalPetNome {
-  font-family: var(--font-garet);
-  font-size: var(--text-xl);
-  font-weight: var(--weight-bold);
-  color: var(--color-dark-blue);
-}
-
-.modalPetInfo {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.modalPetInfo div {
-  display: flex;
-  justify-content: space-between;
-  font-size: var(--text-sm);
-  padding: 10px 14px;
-  background: #f9fafb;
-  border-radius: 8px;
-}
-
-.modalPetInfo span {
-  color: #888;
-}
-.modalPetInfo strong {
-  color: var(--color-dark-blue);
-}
-
 /* FOOTER */
 .footer {
   text-align: center;
   padding: 20px;
   font-size: var(--text-xs);
   color: #aaa;
-  border-top: 1px solid #eaeaea;
   margin-top: auto;
 }
 
@@ -1144,7 +898,6 @@
     display: none;
   }
 
-  /* Avatar do usuário no canto superior direito no desktop */
   .greeting {
     padding-right: 28px;
   }
@@ -1153,26 +906,28 @@
     content: "";
   }
 
-  /* Sidebar da desktop com posicionamento fixo */
+  /* sidebar desktop */
   .aside {
     position: fixed;
-    left: 0;
-    top: 0;
+    min-height: 100vh;
     transition:
       width 0.3s ease,
       min-width 0.3s ease;
   }
 
-  /* sidebar aberto */
   .asideAberto ~ .conteudo {
     margin-left: 280px;
   }
 
-  /* sidebar fechado */
   .aside:not(.asideAberto) {
     width: 64px;
     min-width: 64px;
+    height: 100vh;
+    min-height: 100vh;
     align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 8px;
   }
 
   .aside:not(.asideAberto) ~ .conteudo {
@@ -1207,7 +962,6 @@
     height: 24px;
   }
 
-  /* mostrar o botão de abrir quando a sidebar estiver fechada */
   .aside:not(.asideAberto) .asideOpen {
     display: flex;
     align-items: center;
@@ -1215,30 +969,21 @@
     margin-top: 8px;
   }
 
-  /* mostrar o botão de fechar quando a sidebaar estiver aberta */
   .asideAberto .asideClose {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* esconder botão de abrir quando a sidebar estiver aberta */
   .asideAberto .asideOpen {
     display: none;
   }
 
-  /* esconder botão de abrir quando a sidebar estiver fechada */
   .aside:not(.asideAberto) .asideClose {
     display: none;
   }
-}
 
-@media (min-width: 901px) {
   .greetingDireita {
     display: flex;
-  }
-
-  .topbar {
-    display: none;
   }
 }

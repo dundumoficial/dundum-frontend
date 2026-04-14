@@ -1,0 +1,38 @@
+.notifListaModal {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 4px 0;
+}
+
+.notifItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: var(--text-xs);
+  color: #555;
+}
+
+.notifItem:last-child {
+  border-bottom: none;
+}
+
+.notifItem p {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.notifItem span {
+  font-size: 10px;
+  color: #bbb;
+  white-space: nowrap;
+}
+
+.notifNaoLida p {
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+}

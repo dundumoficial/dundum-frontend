@@ -11,19 +11,19 @@ import iconeCoracao from "../../assets/img/dashboard/icon-coracao.svg";
 import iconeDashboard from "../../assets/img/dashboard/icon-dashboard.svg";
 import iconeLocalizacao from "../../assets/img/dashboard/icon-localizacao.svg";
 import iconeNotificacao from "../../assets/img/dashboard/icon-notificacao.svg";
+import iconeNotificacaoBlue from "../../assets/img/dashboard/icon-notificacao-blue.svg";
 import iconePlano from "../../assets/img/dashboard/icon-plano.svg";
 import iconeRelatorio from "../../assets/img/dashboard/icon-relatorio.svg";
 import iconeMenu from "../../assets/img/menu.svg";
 import iconeClose from "../../assets/img/close.svg";
 
-import Sidebar from "./components/Sidebar.jsx";
-import {
-  ModalPerfil,
-  ModalNotificacoes,
-  ModalConfiguracoes,
-  ModalPlano,
-  ModalPet,
-} from "./components/modals.jsx";
+import Sidebar from "./components/sidebar.jsx";
+import { ModalPerfil } from "../../modals/ModalPerfil/ModalPerfil.jsx";
+import { ModalNotificacoes } from "../../modals/ModalNotificacoes/ModalNotificacoes.jsx";
+import { ModalConfiguracoes } from "../../modals/ModalConfiguracoes/ModalConfiguracoes.jsx";
+import { ModalPlano } from "../../modals/ModalPlano/ModalPlano.jsx";
+import { ModalPet } from "../../modals/ModalPet/ModalPet.jsx";
+
 import {
   SecaoSaude,
   SecaoLocalizacao,
@@ -42,7 +42,7 @@ import {
   useEstadoEmocional,
   useBateria,
   usePetPos,
-} from "./hooks/useDashboard.js";
+} from "../../hooks/useDashboard.js";
 
 // Fix Leaflet marker
 delete L.Icon.Default.prototype._getIconUrl;
@@ -91,7 +91,6 @@ export default function Dashboard() {
   const { data: bateria } = useBateria();
   const { data: petPos } = usePetPos();
 
-  // Guards enquanto carrega
   if (!usuario || !pet || !batimentos) return null;
 
   const naoLidas = notificacoes?.filter((n) => !n.lido).length ?? 0;
@@ -114,9 +113,12 @@ export default function Dashboard() {
       petPos,
       petNome: pet.nome,
     };
+
     if (secao === "saude") return <SecaoSaude {...props} />;
+
     if (secao === "localizacao")
       return <SecaoLocalizacao petPos={petPos} petNome={pet.nome} />;
+
     if (secao === "relatorios")
       return (
         <SecaoRelatorios
@@ -125,9 +127,11 @@ export default function Dashboard() {
           notificacoes={notificacoes}
         />
       );
+
     return (
       <>
         <SecaoSaude {...props} />
+        <SecaoLocalizacao petPos={petPos} petNome={pet.nome} />
         <SecaoRelatorios
           relatorio={relatorio}
           estadoEmocional={emocional}
@@ -177,12 +181,13 @@ export default function Dashboard() {
             <img src={logoAzul} alt="DunDum" className={styles.logoImgMobile} />
           </div>
           <div className={styles.topbarDireita}>
-            <button
-              className={styles.notifIcone}
-              onClick={() => setModalAberto("notificacoes")}
-            >
-              <img src={iconeNotificacao} alt="" />
-               {naoLidas > 0 && <span className={styles.notifDot} />}
+            <button className={styles.notifIcone}>
+              <img
+                src={iconeNotificacaoBlue}
+                onClick={() => setModalAberto("notificacoes")}
+                alt="Ícone de notificação"
+              />
+              {naoLidas > 0 && <span className={styles.notifDot} />}
             </button>
             <div className={styles.avatarWrap} ref={perfilRef}>
               <button
@@ -211,12 +216,13 @@ export default function Dashboard() {
             </p>
           </div>
           <div className={styles.greetingDireita}>
-            <button
-              className={styles.notifIcone}
-              onClick={() => setModalAberto("notificacoes")}
-            >
-              <img src={iconeNotificacao} alt="" />
-               {naoLidas > 0 && <span className={styles.notifDot} />}
+            <button className={styles.notifIcone}>
+              <img
+                src={iconeNotificacaoBlue}
+                onClick={() => setModalAberto("notificacoes")}
+                alt="Ícone de notificação"
+              />
+              {naoLidas > 0 && <span className={styles.notifDot} />}
             </button>
             <div className={styles.avatarWrap} ref={perfilRef}>
               <button
@@ -244,6 +250,7 @@ export default function Dashboard() {
               <span>{pet.idade}</span>
               <span>{pet.raca}</span>
               <span>♂ {pet.sexo}</span>
+              <span>{pet.peso}</span>
               <span>Coleira {pet.coleira}</span>
             </div>
           </div>

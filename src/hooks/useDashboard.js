@@ -11,7 +11,7 @@ import {
   mockEstadoEmocional,
   mockBateria,
   mockPetPos,
-} from "../data/mockData";
+} from "../pages/Dashboard/data/mockData.js";
 
 // substituir "fetcher" por api.get(url)
 function useFetch(fetcher) {
