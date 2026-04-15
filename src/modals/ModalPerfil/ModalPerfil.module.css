@@ -1,0 +1,96 @@
+.modalPerfil {
+  position: fixed;
+  top: 75px;
+  right: 28px;
+  background: var(--color-white);
+  border-radius: 14px;
+  padding: 16px;
+  min-width: 220px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 200;
+}
+
+.modalPerfilHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.avatarGrande {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-dark-blue);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-md);
+  flex-shrink: 0;
+}
+
+.modalPerfilNome {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  color: var(--color-dark-blue);
+}
+
+.modalPerfilEmail {
+  font-size: var(--text-xs);
+  color: #888;
+}
+
+.modalDivider {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 4px 0;
+}
+
+.modalPerfilBtn {
+  background: none;
+  border: none;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-dark-blue);
+  padding: 10px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.2s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modalPerfilBtn:hover {
+  background: #f9fafb;
+}
+
+.modalPerfilBtnSair {
+  color: #ef4444;
+}
+
+.modalPerfilBtnSair:hover {
+  background: #fef2f2;
+}
+
+.modalPerfilBtn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .modalPerfil {
+    top: 55px;
+    right: 16px;
+  }
+}

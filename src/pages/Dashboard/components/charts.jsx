@@ -7,7 +7,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ReferenceLine,
   CartesianGrid,
   Cell,
 } from "recharts";
@@ -22,7 +21,7 @@ const tooltipStyle = {
     fontSize: 12,
     padding: "6px 10px",
   },
-  labelStyle: { color: "#aaa", marginBottom: 2 },
+  labelStyle: { color: "#fff", marginBottom: 2 },
   cursor: { stroke: "rgba(255,255,255,0.08)", strokeWidth: 1 },
 };
 
@@ -33,57 +32,31 @@ export function GraficoBatimentos({ data }) {
       <LineChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
         <CartesianGrid
           strokeDasharray="3 3"
-          stroke="#f0f0f0"
+          stroke="rgba(27, 31, 59, 0.50)"
           vertical={false}
         />
         <XAxis
           dataKey="hora"
-          tick={{ fontSize: 9, fill: "#bbb" }}
+          tick={{ fontSize: 9, fill: "#1b1f3b" }}
           axisLine={false}
           tickLine={false}
           interval={2}
         />
         <YAxis
-          domain={["dataMin - 5", "dataMax + 5"]}
-          tick={{ fontSize: 9, fill: "#bbb" }}
+          domain={["dataMin", "dataMax"]}
+          tick={{ fontSize: 9, fill: "#1b1f3b" }}
           axisLine={false}
           tickLine={false}
           width={28}
         />
-        <Tooltip
-          {...tooltipStyle}
-          formatter={(v) => [`${v} bpm`, "Batimentos"]}
-        />
-        {/* faixa normal: 60–100 bpm */}
-        <ReferenceLine
-          y={100}
-          stroke="#fca5a5"
-          strokeDasharray="4 2"
-          label={{
-            value: "máx",
-            fontSize: 9,
-            fill: "#fca5a5",
-            position: "right",
-          }}
-        />
-        <ReferenceLine
-          y={60}
-          stroke="#86efac"
-          strokeDasharray="4 2"
-          label={{
-            value: "mín",
-            fontSize: 9,
-            fill: "#86efac",
-            position: "right",
-          }}
-        />
+        <Tooltip {...tooltipStyle} formatter={(v) => [`${v} bpm`]} />
         <Line
           type="monotone"
           dataKey="valor"
-          stroke="#ef4444"
+          stroke="#454ade"
           strokeWidth={2}
           dot={false}
-          activeDot={{ r: 4, fill: "#ef4444" }}
+          activeDot={{ r: 4, fill: "#454ade" }}
         />
       </LineChart>
     </ResponsiveContainer>
@@ -97,56 +70,31 @@ export function GraficoRespiracao({ data }) {
       <LineChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
         <CartesianGrid
           strokeDasharray="3 3"
-          stroke="#f0f0f0"
+          stroke="rgba(27, 31, 59, 0.50)"
           vertical={false}
         />
         <XAxis
           dataKey="hora"
-          tick={{ fontSize: 9, fill: "#bbb" }}
+          tick={{ fontSize: 9, fill: "#1b1f3b" }}
           axisLine={false}
           tickLine={false}
           interval={2}
         />
         <YAxis
-          domain={[10, 40]}
-          tick={{ fontSize: 9, fill: "#bbb" }}
+          domain={["dataMin", "dataMax"]}
+          tick={{ fontSize: 9, fill: "#1b1f3b" }}
           axisLine={false}
           tickLine={false}
           width={28}
         />
-        <Tooltip
-          {...tooltipStyle}
-          formatter={(v) => [`${v} rpm`, "Respiração"]}
-        />
-        <ReferenceLine
-          y={30}
-          stroke="#fca5a5"
-          strokeDasharray="4 2"
-          label={{
-            value: "alto",
-            fontSize: 9,
-            fill: "#fca5a5",
-            position: "right",
-          }}
-        />
-        <ReferenceLine
-          y={15}
-          stroke="#86efac"
-          strokeDasharray="4 2"
-          label={{
-            value: "baixo",
-            fontSize: 9,
-            fill: "#86efac",
-            position: "right",
-          }}
-        />
+        <Tooltip {...tooltipStyle} formatter={(v) => [`${v} rpm`]} />
         <Line
           type="monotone"
           dataKey="valor"
-          stroke="#06b6d4"
+          stroke="#454ade"
           strokeWidth={2}
           dot={false}
-          activeDot={{ r: 4, fill: "#06b6d4" }}
+          activeDot={{ r: 4, fill: "#454ade" }}
         />
       </LineChart>
     </ResponsiveContainer>
@@ -160,17 +108,17 @@ export function GraficoPassos({ data }) {
       <BarChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
         <CartesianGrid
           strokeDasharray="3 3"
-          stroke="#f0f0f0"
+          stroke="rgba(27, 31, 59, 0.50)"
           vertical={false}
         />
         <XAxis
           dataKey="dia"
-          tick={{ fontSize: 9, fill: "#bbb" }}
+          tick={{ fontSize: 9, fill: "#1b1f3b" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fontSize: 9, fill: "#bbb" }}
+          tick={{ fontSize: 9, fill: "#1b1f3b" }}
           axisLine={false}
           tickLine={false}
           width={32}
@@ -180,26 +128,11 @@ export function GraficoPassos({ data }) {
           {...tooltipStyle}
           formatter={(v, name) => [
             name === "meta" ? `${v.toLocaleString()} meta` : v.toLocaleString(),
-            name === "meta" ? "Meta" : "Passos",
           ]}
         />
-        <ReferenceLine
-          y={5000}
-          stroke="#c084fc"
-          strokeDasharray="4 2"
-          label={{
-            value: "meta",
-            fontSize: 9,
-            fill: "#c084fc",
-            position: "right",
-          }}
-        />
         <Bar dataKey="valor" radius={[4, 4, 0, 0]} maxBarSize={24}>
-          {data?.map((entry, i) => (
-            <Cell
-              key={i}
-              fill={entry.valor >= (entry.meta ?? 5000) ? "#454ade" : "#a5b4fc"}
-            />
+          {data?.map((i) => (
+            <Cell key={i} fill="#454ade" />
           ))}
         </Bar>
       </BarChart>
@@ -242,7 +175,7 @@ export function GraficoSono({ data }) {
         <BarChart data={data} margin={{ top: 0, right: 4, bottom: 0, left: 0 }}>
           <XAxis
             dataKey="hora"
-            tick={{ fontSize: 9, fill: "#bbb" }}
+            tick={{ fontSize: 9, fill: "#1b1f3b" }}
             axisLine={false}
             tickLine={false}
           />

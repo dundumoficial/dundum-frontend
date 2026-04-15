@@ -9,9 +9,10 @@ export const mockUsuario = {
 
 export const mockPet = {
   nome: "Rex",
-  raca: "Golden Retriever",
+  raca: "Bulldog",
   idade: "3 anos",
   sexo: "Macho",
+  peso: "8kg",
   coleira: "#PET-4821",
   foto: null,
   ativo: true,

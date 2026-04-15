@@ -1,0 +1,386 @@
+.modalConteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modalPetConteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.modalPetFoto {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modalPetFoto:hover {
+  cursor: pointer;
+}
+
+.modalPetNome {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+}
+
+.modalPetInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modalPetInfo div {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  padding: 10px 14px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.modalPetInfo span {
+  color: #888;
+}
+
+.modalPetInfo strong {
+  color: var(--color-dark-blue);
+}
+
+.modalPetAcoes {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.btnAcaoPet {
+  flex: 1;
+  padding: 10px;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btnAcaoPet img {
+  height: 16px;
+}
+
+.btnAcaoPet:hover {
+  background: #f0f0ff;
+  border-color: var(--color-purple);
+  color: var(--color-purple);
+}
+
+/* TROCAR PET */
+.trocarPetItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: var(--font-poppins);
+  text-align: left;
+}
+
+.trocarPetItem:hover {
+  border-color: var(--color-purple);
+  background: #f5f3ff;
+}
+
+.trocarPetAtivo {
+  border-color: var(--color-purple);
+  background: #f5f3ff;
+}
+
+.trocarPetFoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.trocarPetInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.trocarPetInfo strong {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+}
+
+.trocarPetInfo span {
+  font-size: var(--text-xs);
+  color: #888;
+}
+
+.trocarPetCheck {
+  color: var(--color-purple);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-md);
+}
+
+.btnAdicionarPet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: 1.5px dashed #d1d5db;
+  border-radius: 10px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-purple);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btnAdicionarPet:hover {
+  border-color: var(--color-purple);
+  background: #f5f3ff;
+}
+
+.btnAdicionarPetIcone {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ede9fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* EDITAR / ADICIONAR PET */
+.editarPetFotoWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.editarPetFotoBtn {
+  background: none;
+  border: none;
+  font-family: var(--font-poppins);
+  font-size: var(--text-xs);
+  color: var(--color-purple);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+}
+
+.inputFileHidden {
+  display: none;
+}
+
+.editarPetCampo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.editarPetLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: #888;
+}
+
+.editarPetInput {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  color: var(--color-dark-blue);
+  background: #f9fafb;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.editarPetInput:focus {
+  border-color: var(--color-purple);
+  background: #fff;
+}
+
+.inputComUnidade {
+  padding-right: 40px;
+}
+
+.erroData {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.pesoInputWrap {
+  position: relative;
+  width: 100%;
+}
+
+.pesoInputWrap .editarPetInput {
+  padding-right: 40px;
+}
+
+.pesoUnidade {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: #aaa;
+  pointer-events: none;
+}
+
+.editarPetIdade {
+  font-size: var(--text-xs);
+  color: var(--color-purple);
+  font-weight: var(--weight-bold);
+  margin-top: 4px;
+}
+
+.btnSalvar {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-dark-blue);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 4px;
+}
+
+.btnSalvar:hover {
+  background: var(--color-purple);
+  color: #fff;
+}
+
+.btnCancelar {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-dark-blue);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btnCancelar:hover {
+  border-color: var(--color-purple);
+  background: #f5f3ff;
+  color: var(--color-purple);
+}
+
+.coleiraInfoWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.coleiraInfoIcone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #d1d5db;
+  color: #fff;
+  font-size: 9px;
+  font-weight: bold;
+  font-style: normal;
+  line-height: 1;
+}
+
+.coleiraTooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #fff;
+  font-size: 11px;
+  font-weight: var(--weight-regular);
+  padding: 7px 10px;
+  border-radius: 8px;
+  white-space: normal;
+  max-width: 240px;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+.coleiraInfoWrap:hover .coleiraTooltip {
+  display: block;
+}
+
+.editarPetInputBloqueado {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f0f0f0 !important;
+}
+
+.btnRemoverPet {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  border: 1.5px solid var(--color-purple);
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-purple);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btnRemoverPet:hover {
+  background: #f5f3ff;
+}

@@ -1,3 +1,4 @@
+import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Badge, Card, CardHeader, CardValor } from "./ui.jsx";
 import {
@@ -22,25 +23,32 @@ const EMOCOES = [
 
 // Mapa
 function Mapa({ pos, petNome, altura = 180, zoom = 15, scrollWheel = true }) {
+  const iconeCustom = (cor = "#454ade") =>
+    L.divIcon({
+      className: "",
+      html: `
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 24 30">
+          <path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8z"
+            fill="${cor}" stroke="white" stroke-width="1.5"/>
+          <circle cx="12" cy="8" r="3" fill="white"/>
+        </svg>`,
+      iconSize: [28, 36],
+      iconAnchor: [14, 36],
+      popupAnchor: [0, -36],
+    });
+
   return (
-    <div
-      style={{
-        height: altura,
-        borderRadius: 8,
-        overflow: "hidden",
-        border: "1px solid #e5e7eb",
-      }}
-    >
+    <div className={styles.mapaContainer} style={{ height: altura }}>
       <MapContainer
         center={pos}
         zoom={zoom}
         scrollWheelZoom={scrollWheel}
-        style={{ height: "100%", width: "100%" }}
+        className={styles.mapaLeaflet}
         zoomControl={false}
         attributionControl={false}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-        <Marker position={pos}>
+        <Marker position={pos} icon={iconeCustom()}>
           <Popup>{petNome} está aqui</Popup>
         </Marker>
       </MapContainer>
@@ -49,14 +57,7 @@ function Mapa({ pos, petNome, altura = 180, zoom = 15, scrollWheel = true }) {
 }
 
 // SEÇÃO: SAÚDE
-export function SecaoSaude({
-  batimentos,
-  respiracao,
-  passos,
-  sono,
-  petPos,
-  petNome,
-}) {
+export function SecaoSaude({ batimentos, respiracao, passos, sono }) {
   return (
     <>
       <div className={styles.gridDois}>
@@ -67,8 +68,7 @@ export function SecaoSaude({
           />
           <CardValor valor="92" unidade="bpm" />
           <p className={styles.cardSub}>
-            Média: 88 bpm · Máx: 112 bpm ·{" "}
-            <span style={{ color: "#1b1f3b" }}>Faixa normal: 60-100</span>
+            Min: 60 bpm · Máx: 108 bpm · Média: 84 bpm
           </p>
           <GraficoBatimentos data={batimentos} />
         </Card>
@@ -80,44 +80,24 @@ export function SecaoSaude({
           />
           <CardValor valor="28" unidade="rpm" />
           <p className={styles.cardSub}>
-            Média: 24 rpm · Máx: 34 rpm ·{" "}
-            <span style={{ color: "#1b1f3b" }}>Faixa normal: 15-30</span>
+            Min: 18 rpm · Máx: 30 rpm · Média: 24 rpm
           </p>
           <GraficoRespiracao data={respiracao} />
         </Card>
       </div>
 
-      <div className={styles.gridTres}>
+      <div className={styles.gridDois}>
         <Card>
-          <CardHeader
-            titulo="Passos"
-            direita={<Badge texto="Alto" cor="alto" />}
-          />
+          <CardHeader titulo="Passos" />
           <CardValor valor="6.842" sufixo="hoje" />
-          <p className={styles.cardSub}>
-            Meta diária: 5.000 · barras{" "}
-            <span style={{ color: "#a5b4fc" }}>azul claro</span> = abaixo da
-            meta
-          </p>
           <GraficoPassos data={passos} />
         </Card>
 
         <Card>
-          <CardHeader
-            titulo="Sono"
-            direita={<Badge texto="Boa qualidade" cor="bom" />}
-          />
+          <CardHeader titulo="Sono" />
           <CardValor valor="9h 20min" />
           <p className={styles.cardSub}>Qualidade: ★★★★☆</p>
           <GraficoSono data={sono} />
-        </Card>
-
-        <Card className={styles.cardMapa}>
-          <CardHeader
-            titulo="Localização"
-            direita={<Badge texto="Ao vivo" cor="vivo" />}
-          />
-          <Mapa pos={petPos} petNome={petNome} altura={180} />
         </Card>
       </div>
     </>
@@ -127,12 +107,9 @@ export function SecaoSaude({
 // SEÇÃO: LOCALIZAÇÃO
 export function SecaoLocalizacao({ petPos, petNome }) {
   return (
-    <Card>
-      <CardHeader
-        titulo="Localização em tempo real"
-        direita={<Badge texto="Ao vivo" cor="vivo" />}
-      />
-      <Mapa pos={petPos} petNome={petNome} altura={480} scrollWheel zoom={15} />
+    <Card className={styles.cardMapa}>
+      <CardHeader titulo="Localização" />
+      <Mapa pos={petPos} petNome={petNome} altura={300} scrollWheel />
     </Card>
   );
 }
@@ -150,11 +127,6 @@ export function SecaoRelatorios({ relatorio, estadoEmocional, notificacoes }) {
       cor: "#06b6d4",
       label: "Média respiração",
       valor: relatorio.mediaRespiracao,
-    },
-    {
-      cor: "#c874d9",
-      label: "Média atividade",
-      valor: relatorio.mediaAtividade,
     },
     { cor: "#1b1f3b", label: "Padrão de sono", valor: relatorio.padraoDeSono },
   ];
@@ -213,10 +185,7 @@ export function SecaoRelatorios({ relatorio, estadoEmocional, notificacoes }) {
           titulo="Notificações"
           direita={
             naoLidas > 0 && (
-              <span
-                className={styles.badge}
-                style={{ background: "#b14aed", color: "#fff" }}
-              >
+              <span className={`${styles.badge} ${styles.badgeNotificacao}`}>
                 {naoLidas}
               </span>
             )
