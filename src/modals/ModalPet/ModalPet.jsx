@@ -224,12 +224,13 @@ function CriarPet({ onClose, onVoltar }) {
             src={foto || iconeLogoAzul}
             alt="Foto do pet"
             className={styles.modalPetFoto}
+            onClick={() => fileInputRef.current.click()}
           />
           <button
             className={styles.editarPetFotoBtn}
             onClick={() => fileInputRef.current.click()}
           >
-            Adicionar foto
+            Clique para adicionar foto
           </button>
           <input
             ref={fileInputRef}
@@ -351,12 +352,17 @@ function EditarPet({ pet, onClose, onVoltar }) {
     <Modal titulo="Editar Pet" onClose={onClose} onVoltar={onVoltar}>
       <div className={styles.modalConteudo}>
         <div className={styles.editarPetFotoWrap}>
-          <img src={foto} alt={pet.nome} className={styles.modalPetFoto} />
+          <img
+            src={foto}
+            alt={pet.nome}
+            className={styles.modalPetFoto}
+            onClick={() => fileInputRef.current.click()}
+          />
           <button
             className={styles.editarPetFotoBtn}
             onClick={() => fileInputRef.current.click()}
           >
-            Alterar foto
+            Clique para alterar foto
           </button>
           <input
             ref={fileInputRef}
