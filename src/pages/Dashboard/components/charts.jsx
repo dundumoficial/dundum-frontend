@@ -12,7 +12,6 @@ import {
 } from "recharts";
 import styles from "../Dashboard.module.css";
 
-// Tooltip escuro compartilhado
 const tooltipStyle = {
   contentStyle: {
     background: "#1b1f3b",
@@ -21,11 +20,11 @@ const tooltipStyle = {
     fontSize: 12,
     padding: "6px 10px",
   },
-  labelStyle: { color: "#fff", marginBottom: 2 },
+  labelStyle: { color: "#fff", marginBottom: 2, fontWeight: "bold" },
+  itemStyle: { color: "#fff" },
   cursor: { stroke: "rgba(255,255,255,0.08)", strokeWidth: 1 },
 };
 
-// Gráfico de linha com área de referência
 export function GraficoBatimentos({ data }) {
   return (
     <ResponsiveContainer width="100%" height={90}>
@@ -63,7 +62,6 @@ export function GraficoBatimentos({ data }) {
   );
 }
 
-// Gráfico de linha para respiração
 export function GraficoRespiracao({ data }) {
   return (
     <ResponsiveContainer width="100%" height={90}>
@@ -101,7 +99,6 @@ export function GraficoRespiracao({ data }) {
   );
 }
 
-// Gráfico de barras para passos com linha de meta
 export function GraficoPassos({ data }) {
   return (
     <ResponsiveContainer width="100%" height={90}>
@@ -140,7 +137,6 @@ export function GraficoPassos({ data }) {
   );
 }
 
-// Gráfico de sono empilhado com legenda
 const SONO_CORES = {
   profundo: "#1b1f3b",
   leve: "#454ade",
