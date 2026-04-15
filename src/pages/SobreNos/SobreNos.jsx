@@ -1,19 +1,34 @@
+import { BeamsBackground } from "./beams-background.tsx";
+
+import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+
 import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./SobreNos.module.css";
 
-//import fotoAxel from "../../assets/img/sobrenos/foto-axel.webp";
-//import fotoBeatriz from "../../assets/img/sobrenos/foto-beatriz.webp";
-//import fotoDiego from "../../assets/img/sobrenos/foto-diego.webp";
-//import fotoGuilherme from "../../assets/img/sobrenos/foto-guilherme.webp";
-//import fotoPaulo from "../../assets/img/sobrenos/foto-paulo.webp";
-//import fotoSamuel from "../../assets/img/sobrenos/foto-samuel.webp";
-//import fotoVictor from "../../assets/img/sobrenos/foto-victor.webp";
-//import fotoWanny from "../../assets/img/sobrenos/foto-wanny.webp";
+// import fotoAxel from "../../assets/img/sobrenos/foto-axel.webp";
+// import fotoBeatriz from "../../assets/img/sobrenos/foto-beatriz.webp";
+// import fotoDiego from "../../assets/img/sobrenos/foto-diego.webp";
+// import fotoGuilherme from "../../assets/img/sobrenos/foto-guilherme.webp";
+// import fotoPaulo from "../../assets/img/sobrenos/foto-paulo.webp";
+// import fotoSamuel from "../../assets/img/sobrenos/foto-samuel.webp";
+// import fotoVictor from "../../assets/img/sobrenos/foto-victor.webp";
+// import fotoWanny from "../../assets/img/sobrenos/foto-wanny.webp";
 
 import iconeGitHub from "../../assets/img/sobrenos/icon-github.svg";
 import iconeLinkedIn from "../../assets/img/sobrenos/icon-linkedin.svg";
 
+gsap.registerPlugin(ScrollTrigger);
+
+/* ─────────────────────────────────────
+   Dados
+───────────────────────────────────── */
 const membros = [
   {
     nome: "Axel",
@@ -75,56 +90,129 @@ const valores = [
   { num: "06", texto: "Ética e segurança no tratamento de dados" },
 ];
 
+/* ─────────────────────────────────────
+   Hero com Three.js
+───────────────────────────────────── */
+function QuemSomosHero() {
+  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
+  const cardsRef = useRef([]);
+  const activeRef = useRef(-1);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const showMember = (newIndex) => {
+      const prev = activeRef.current;
+      if (prev === newIndex) return;
+
+      if (prev >= 0 && cardsRef.current[prev]) {
+        const el = cardsRef.current[prev];
+        el.classList.remove(styles.cardEnter);
+        el.classList.add(styles.cardExit);
+        setTimeout(() => el?.classList.remove(styles.cardExit), 500);
+      }
+
+      if (cardsRef.current[newIndex]) {
+        const el = cardsRef.current[newIndex];
+        el.classList.remove(styles.cardExit);
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => el.classList.add(styles.cardEnter)),
+        );
+      }
+
+      activeRef.current = newIndex;
+      setActiveIndex(newIndex);
+    };
+
+    const handleScroll = () => {
+      const heroEl = containerRef.current;
+      if (!heroEl) return;
+
+      const rect = heroEl.getBoundingClientRect();
+      const traveled = -rect.top;
+
+      const zoneH = window.innerHeight;
+      const memberZoneStart = window.innerHeight;
+
+      const memberScroll = Math.max(0, traveled - memberZoneStart);
+
+      const idx = Math.min(
+        Math.floor(memberScroll / zoneH),
+        membros.length - 1,
+      );
+
+      showMember(Math.max(idx, 0));
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div ref={containerRef} className={styles.heroSection}>
+      
+      {/* 🔥 BACKGROUND FIXO */}
+      <div className={styles.beamsWrapper}>
+        <BeamsBackground />
+      </div>
+
+      {/* Canvas Three */}
+      <canvas ref={canvasRef} className={styles.heroCanvas} />
+
+      {/* Conteúdo */}
+      <div className={styles.heroContent}>
+        <h1 className={styles.tituloQuemSomos}>
+          Quem <span className={styles.destaquePink}>Somos?</span>
+        </h1>
+
+        <div className={styles.membroStage}>
+          {membros.map((membro, i) => (
+            <div
+              key={membro.nome}
+              ref={(el) => (cardsRef.current[i] = el)}
+              className={styles.membroCardSingle}
+            >
+              <div className={styles.membroAvatar} />
+              <p className={styles.membroNome}>{membro.nome}</p>
+              <p className={styles.membroCargo}>{membro.cargo}</p>
+
+              <div className={styles.membroLinks}>
+                <a href={membro.linkedin}>
+                  <img src={iconeLinkedIn} className={styles.icone} />
+                </a>
+                <a href={membro.github}>
+                  <img src={iconeGitHub} className={styles.icone} />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll fake */}
+      <div className={styles.scrollSections}>
+        {[...Array(membros.length + 1)].map((_, i) => (
+          <div key={i} className={styles.scrollSection} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+/* ─────────────────────────────────────
+   Página
+───────────────────────────────────── */
 export default function SobreNos() {
   return (
     <>
       <Header />
-
       <main className={styles.container}>
-        {/* SEÇÃO: Quem Somos */}
-        <section className={styles.quemSomosSection}>
-          <h1 className={styles.tituloQuemSomos}>
-            Quem <span className={styles.destaquePink}>Somos?</span>
-          </h1>
+        <QuemSomosHero />
 
-          <div className={styles.membroGrid}>
-            {membros.map((membro) => (
-              <div key={membro.nome} className={styles.membroCard}>
-                <div className={styles.membroAvatar} />
-                <p className={styles.membroNome}>{membro.nome}</p>
-                <p className={styles.membroCargo}>{membro.cargo}</p>
-                <div className={styles.membroLinks}>
-                  <a
-                    href={membro.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.linkIcone}
-                  >
-                    <img
-                      src={iconeLinkedIn}
-                      alt="LinkedIn"
-                      className={styles.icone}
-                    />
-                  </a>
-                  <a
-                    href={membro.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.linkIcone}
-                  >
-                    <img
-                      src={iconeGitHub}
-                      alt="GitHub"
-                      className={styles.iconeGithub}
-                    />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* SEÇÃO: O que nos move */}
         <section className={styles.moveSection}>
           <div className={styles.moveConteudo}>
             <h2 className={styles.tituloMove}>
@@ -138,7 +226,6 @@ export default function SobreNos() {
           </div>
         </section>
 
-        {/* SEÇÃO: Por que criamos a coleira */}
         <section className={styles.coleiraSection}>
           <h2 className={styles.tituloColeira}>
             Por que criamos{" "}
@@ -157,7 +244,6 @@ export default function SobreNos() {
           </p>
         </section>
 
-        {/* SEÇÃO: Nossa História */}
         <section className={styles.historiaSection}>
           <h2 className={styles.tituloHistoria}>
             Nossa <span className={styles.destaquePink}>História</span>
@@ -175,12 +261,10 @@ export default function SobreNos() {
           </p>
         </section>
 
-        {/* SEÇÃO: O que acreditamos */}
         <section className={styles.acreditamosSection}>
           <h2 className={styles.tituloAcreditamos}>
             O que <span className={styles.destaquePink}>acreditamos</span>
           </h2>
-
           <div className={styles.valoresGrid}>
             {valores.map((v) => (
               <div key={v.num} className={styles.valorCard}>
@@ -191,7 +275,6 @@ export default function SobreNos() {
           </div>
         </section>
       </main>
-
       <Footer />
     </>
   );
