@@ -1,3 +1,4 @@
+import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Badge, Card, CardHeader, CardValor } from "./ui.jsx";
 import {
@@ -22,6 +23,20 @@ const EMOCOES = [
 
 // Mapa
 function Mapa({ pos, petNome, altura = 180, zoom = 15, scrollWheel = true }) {
+  const iconeCustom = (cor = "#454ade") =>
+    L.divIcon({
+      className: "",
+      html: `
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 24 30">
+          <path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8z"
+            fill="${cor}" stroke="white" stroke-width="1.5"/>
+          <circle cx="12" cy="8" r="3" fill="white"/>
+        </svg>`,
+      iconSize: [28, 36],
+      iconAnchor: [14, 36],
+      popupAnchor: [0, -36],
+    });
+
   return (
     <div className={styles.mapaContainer} style={{ height: altura }}>
       <MapContainer
@@ -33,7 +48,7 @@ function Mapa({ pos, petNome, altura = 180, zoom = 15, scrollWheel = true }) {
         attributionControl={false}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-        <Marker position={pos}>
+        <Marker position={pos} icon={iconeCustom()}>
           <Popup>{petNome} está aqui</Popup>
         </Marker>
       </MapContainer>
