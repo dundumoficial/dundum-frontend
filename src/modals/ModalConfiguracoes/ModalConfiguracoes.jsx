@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import L from "leaflet";
+import { MapContainer, TileLayer, Marker, Circle, useMap } from "react-leaflet";
 import { Modal } from "../ModalBase/ModalBase.jsx";
 import styles from "./ModalConfiguracoes.module.css";
 
@@ -19,15 +21,18 @@ function ConfigConta({ onClose, onVoltar }) {
         setErrSenha("Informe a senha atual.");
         return;
       }
+
       if (novaSenha.length < 8) {
         setErrSenha("A nova senha deve ter no mínimo 8 caracteres.");
         return;
       }
+
       if (novaSenha !== confirmarSenha) {
         setErrSenha("As senhas não coincidem.");
         return;
       }
     }
+
     setErrSenha("");
     setSucesso("Dados salvos com sucesso!");
     setTimeout(() => setSucesso(""), 2500);
@@ -147,7 +152,7 @@ function ConfigNotificacoes({ onClose, onVoltar }) {
           {
             key: "whatsapp",
             label: "WhatsApp",
-            desc: "Mensagem de texto no WhatsApp",
+            desc: "Enviado para seu WhatsApp cadastrado",
           },
           {
             key: "email",
@@ -195,9 +200,102 @@ function ConfigNotificacoes({ onClose, onVoltar }) {
 // Sub-modal: Zona Segura
 function ConfigZonaSegura({ onClose, onVoltar }) {
   const [endereco, setEndereco] = useState("");
-  const [complemento, setComplemento] = useState("");
+  const [cep, setCep] = useState("");
+  const [loadingCEP, setLoadingCEP] = useState(false);
+  const [coords, setCoords] = useState(null);
   const [raio, setRaio] = useState("200");
   const [sucesso, setSucesso] = useState("");
+  const [erroCep, setErroCep] = useState("");
+  const debounceRef = useRef(null);
+
+  function aplicarMascara(valor) {
+    const numeros = valor.replace(/\D/g, "").slice(0, 8);
+    if (numeros.length <= 5) return numeros;
+    return `${numeros.slice(0, 5)}-${numeros.slice(5)}`;
+  }
+
+  async function buscarCEP(cepLimpo) {
+    if (cepLimpo.length !== 8) return;
+
+    setLoadingCEP(true);
+    setErroCep("");
+
+    try {
+      const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const data = await res.json();
+
+      if (data.erro) {
+        setErroCep("CEP não encontrado. Verifique e tente novamente.");
+        setEndereco("");
+        setCoords(null);
+        return;
+      }
+
+      const enderecoCompleto = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+      setEndereco(enderecoCompleto);
+
+      const query = encodeURIComponent(enderecoCompleto);
+      const geoRes = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${query}`,
+      );
+
+      const geoData = await geoRes.json();
+
+      if (geoData.length > 0) {
+        const { lat, lon } = geoData[0];
+        setCoords({ lat: parseFloat(lat), lon: parseFloat(lon) });
+      } else {
+        setErroCep("Endereço encontrado, mas não foi possível exibir no mapa.");
+        setCoords(null);
+      }
+    } catch {
+      setErroCep("Erro ao buscar o CEP. Tente novamente.");
+      setCoords(null);
+    } finally {
+      setLoadingCEP(false);
+    }
+  }
+
+  function handleCepChange(e) {
+    const masked = aplicarMascara(e.target.value);
+    setCep(masked);
+    setErroCep("");
+
+    const cepLimpo = masked.replace(/\D/g, "");
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    if (cepLimpo.length === 8) {
+      debounceRef.current = setTimeout(() => buscarCEP(cepLimpo), 400);
+    } else {
+      setCoords(null);
+      setEndereco("");
+    }
+  }
+
+  function RecentralizarMapa({ coords }) {
+    const map = useMap();
+
+    useEffect(() => {
+      if (coords) map.setView([coords.lat, coords.lon], 15);
+    }, [coords, map]);
+
+    return null;
+  }
+
+  const iconeCustom = (cor = "#454ade") =>
+    L.divIcon({
+      className: "",
+      html: `
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 24 30">
+        <path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8z"
+          fill="${cor}" stroke="white" stroke-width="1.5"/>
+        <circle cx="12" cy="8" r="3" fill="white"/>
+      </svg>`,
+      iconSize: [28, 36],
+      iconAnchor: [14, 36],
+      popupAnchor: [0, -36],
+    });
 
   const raios = [
     { value: "50", label: "50 metros" },
@@ -212,6 +310,7 @@ function ConfigZonaSegura({ onClose, onVoltar }) {
       alert("Informe o endereço.");
       return;
     }
+
     setSucesso("Zona segura atualizada!");
     setTimeout(() => setSucesso(""), 2500);
   }
@@ -234,26 +333,32 @@ function ConfigZonaSegura({ onClose, onVoltar }) {
           </svg>
           <span>Você receberá um alerta quando seu pet sair desta área.</span>
         </div>
+
         <div className={styles.editarPetCampo}>
-          <label className={styles.editarPetLabel}>Endereço seguro</label>
+          <label className={styles.editarPetLabel}>CEP</label>
+          <div className={styles.cepInputWrap}>
+            <input
+              className={`${styles.editarPetInput} ${erroCep ? styles.inputErro : ""}`}
+              value={cep}
+              onChange={handleCepChange}
+              placeholder="00000-000"
+              maxLength={9}
+            />
+            {loadingCEP && <span className={styles.cepSpinner} />}
+          </div>
+          {erroCep && <span className={styles.erroTexto}>{erroCep}</span>}
+        </div>
+
+        <div className={styles.editarPetCampo}>
+          <label className={styles.editarPetLabel}>Endereço</label>
           <input
             className={styles.editarPetInput}
             value={endereco}
             onChange={(e) => setEndereco(e.target.value)}
-            placeholder="Rua, número, bairro, cidade"
+            placeholder="Preenchido automaticamente pelo CEP"
           />
         </div>
-        <div className={styles.editarPetCampo}>
-          <label className={styles.editarPetLabel}>
-            Complemento (opcional)
-          </label>
-          <input
-            className={styles.editarPetInput}
-            value={complemento}
-            onChange={(e) => setComplemento(e.target.value)}
-            placeholder="Apto, bloco, casa..."
-          />
-        </div>
+
         <div className={styles.editarPetCampo}>
           <label className={styles.editarPetLabel}>Raio de segurança</label>
           <select
@@ -268,20 +373,34 @@ function ConfigZonaSegura({ onClose, onVoltar }) {
             ))}
           </select>
         </div>
-        <div className={styles.raioPreview}>
-          <div
-            className={styles.raioCirculo}
-            style={{
-              width: `${Math.min(Number(raio) / 5, 120)}px`,
-              height: `${Math.min(Number(raio) / 5, 120)}px`,
-            }}
-          >
-            <span>🐾</span>
+
+        {coords && (
+          <div className={styles.mapaWrap}>
+            <MapContainer
+              center={[coords.lat, coords.lon]}
+              zoom={15}
+              style={{ width: "100%", height: "100%", borderRadius: "10px" }}
+              scrollWheelZoom={false}
+            >
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+              <RecentralizarMapa coords={coords} />
+              <Marker
+                position={[coords.lat, coords.lon]}
+                icon={iconeCustom()}
+              />
+              <Circle
+                center={[coords.lat, coords.lon]}
+                radius={Number(raio)}
+                pathOptions={{
+                  color: "#454ade",
+                  fillColor: "#454ade",
+                  fillOpacity: 0.1,
+                }}
+              />
+            </MapContainer>
           </div>
-          <p className={styles.raioLabel}>
-            Raio: {raios.find((r) => r.value === raio)?.label}
-          </p>
-        </div>
+        )}
+
         {sucesso && <span className={styles.sucessoTexto}>{sucesso}</span>}
         <button className={styles.btnSalvar} onClick={handleSalvar}>
           Salvar zona segura
