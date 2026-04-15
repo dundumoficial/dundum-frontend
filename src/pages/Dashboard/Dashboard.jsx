@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./Dashboard.module.css";
 
@@ -43,17 +42,6 @@ import {
   useBateria,
   usePetPos,
 } from "../../hooks/useDashboard.js";
-
-// Fix Leaflet marker
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
-});
 
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icone: iconeDashboard },
@@ -196,12 +184,6 @@ export default function Dashboard() {
               >
                 {usuario.iniciais}
               </button>
-              {perfilAberto && (
-                <ModalPerfil
-                  usuario={usuario}
-                  onClose={() => setPerfilAberto(false)}
-                />
-              )}
             </div>
           </div>
         </header>
@@ -231,12 +213,6 @@ export default function Dashboard() {
               >
                 {usuario.iniciais}
               </button>
-              {perfilAberto && (
-                <ModalPerfil
-                  usuario={usuario}
-                  onClose={() => setPerfilAberto(false)}
-                />
-              )}
             </div>
           </div>
         </div>
@@ -270,6 +246,10 @@ export default function Dashboard() {
       </div>
 
       {/* MODAIS */}
+      {perfilAberto && (
+        <ModalPerfil usuario={usuario} onClose={() => setPerfilAberto(false)} />
+      )}
+
       {modalAberto === "pet" && (
         <ModalPet pet={petComFoto} onClose={() => setModalAberto(null)} />
       )}

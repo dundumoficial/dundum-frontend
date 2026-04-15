@@ -1,16 +1,16 @@
 .modalPerfil {
-  position: absolute;
-  top: 50px;
-  right: 0;
+  position: fixed;
+  top: 75px;
+  right: 28px;
   background: var(--color-white);
   border-radius: 14px;
   padding: 16px;
   min-width: 220px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  z-index: 100;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  z-index: 200;
 }
 
 .modalPerfilHeader {
@@ -62,7 +62,7 @@
   border-radius: 8px;
   cursor: pointer;
   text-align: left;
-  transition: background 0.2s;
+  transition: 0.2s;
   width: 100%;
   display: flex;
   align-items: center;
@@ -86,4 +86,11 @@
   height: 16px;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .modalPerfil {
+    top: 55px;
+    right: 16px;
+  }
 }

@@ -14,9 +14,21 @@ export function ModalPerfil({ usuario, onClose }) {
       if (ref.current && !ref.current.contains(e.target)) onClose();
     };
 
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener("mouseup", handler);
+    return () => document.removeEventListener("mouseup", handler);
   }, [onClose]);
+
+  const handleTrocarConta = () => {
+    onClose();
+    navigate("/login");
+  };
+
+  const handleSair = () => {
+    localStorage.removeItem("token");
+    sessionStorage.clear();
+    onClose();
+    navigate("/login");
+  };
 
   return (
     <div ref={ref} className={styles.modalPerfil}>
@@ -28,22 +40,13 @@ export function ModalPerfil({ usuario, onClose }) {
         </div>
       </div>
       <hr className={styles.modalDivider} />
-      <button
-        className={styles.modalPerfilBtn}
-        onClick={() => {
-          onClose();
-          navigate("/login");
-        }}
-      >
+      <button className={styles.modalPerfilBtn} onClick={handleTrocarConta}>
         <img src={iconeTrocar} alt="Ícone de trocar de conta" />
         Trocar de conta
       </button>
       <button
         className={`${styles.modalPerfilBtn} ${styles.modalPerfilBtnSair}`}
-        onClick={() => {
-          onClose();
-          navigate("/login");
-        }}
+        onClick={handleSair}
       >
         <img src={iconeLogout} alt="Ícone de deslogar" />
         Sair
