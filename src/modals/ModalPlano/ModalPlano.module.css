@@ -38,11 +38,10 @@
 
 .planoBadgeAtual {
   background: var(--color-dark-blue);
-  color: #fff;
-  font-size: 10px;
+  color: var(--color-white) !important;
+  font-size: var(--text-xs);
   padding: 4px 10px;
   border-radius: 20px;
-  font-weight: var(--weight-bold);
   letter-spacing: 0.03em;
 }
 
@@ -64,7 +63,7 @@
   border-radius: 8px;
   font-family: var(--font-poppins);
   font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: background 0.2s;
 }
