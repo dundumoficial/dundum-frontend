@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Home.module.css";
+import ScrollExpand from "./scroll-expansion";
+import { TestimonialsColumn } from "./testimonials-column";
 
 import dogDeitado from "../../assets/img/home/dog-deitado.webp";
 import dogFeliz from "../../assets/img/home/dog-feliz.webp";
@@ -28,71 +30,57 @@ import videoComercial from "../../assets/videos/video-comercial.webm";
 
 const petFotos = [img1, img2, img3, img4, img5, img6];
 
-const depoimentos = [
+const testimonials = [
   {
-    nome: "Ana Lima",
-    foto: imgAna,
-    estrelas: 5,
-    texto:
-      "Fiquei muito mais tranquila depois que comecei a usar a coleira DunDum. Consigo monitorar meu cachorro em tempo real e recebo alertas instantâneos. Recomendo demais!",
+    text: "Fiquei muito mais tranquila depois que comecei a usar a coleira DunDum. Consigo monitorar meu cachorro em tempo real e recebo alertas instantâneos. Recomendo demais!",
+    image: imgAna,
+    name: "Ana Lima",
   },
   {
-    nome: "Carlos Souza",
-    foto: imgCarlos,
-    estrelas: 5,
-    texto:
-      "A plataforma é incrível! Consigo acompanhar todos os dados do meu pet em um único lugar. O suporte é excelente e o produto funciona perfeitamente.",
+    text: "A plataforma é incrível! Consigo acompanhar todos os dados do meu pet em um único lugar. O suporte é excelente e o produto funciona perfeitamente.",
+    image: imgCarlos,
+    name: "Carlos Souza",
   },
   {
-    nome: "Fernanda Costa",
-    foto: imgFernanda,
-    estrelas: 5,
-    texto:
-      "Meu pet tem problemas cardíacos e a DunDum me dá paz de espírito. Os dados são precisos e a interface é muito fácil de usar. Vale cada centavo!",
+    text: "Meu pet tem problemas cardíacos e a DunDum me dá paz de espírito. Os dados são precisos e a interface é muito fácil de usar. Vale cada centavo!",
+    image: imgFernanda,
+    name: "Fernanda Costa",
   },
   {
-    nome: "Rafaela Mendes",
-    foto: imgRafaela,
-    estrelas: 5,
-    texto:
-      "Meu border collie é muito agitado e eu sempre me preocupava quando ficava sozinho. Com a DunDum consigo ver tudo em tempo real. Produto incrível!",
+    text: "Meu border collie é muito agitado e eu sempre me preocupava quando ficava sozinho. Com a DunDum consigo ver tudo em tempo real. Produto incrível!",
+    image: imgRafaela,
+    name: "Rafaela Mendes",
   },
   {
-    nome: "Juliana Torres",
-    foto: imgJuliana,
-    estrelas: 5,
-    texto:
-      "A coleira chegou rápido e foi fácil de configurar. Em menos de 10 minutos já estava monitorando minha pet. A interface do app é linda e muito intuitiva.",
+    text: "A coleira chegou rápido e foi fácil de configurar. Em menos de 10 minutos já estava monitorando minha pet. A interface do app é linda e muito intuitiva.",
+    image: imgJuliana,
+    name: "Juliana Torres",
   },
   {
-    nome: "Marcos Oliveira",
-    foto: imgMarcos,
-    estrelas: 5,
-    texto:
-      "Recebi um alerta de batimento cardíaco elevado enquanto estava no trabalho. Liguei para o veterinário na hora. A DunDum pode ter salvado a vida do meu pet.",
+    text: "Recebi um alerta de batimento cardíaco elevado enquanto estava no trabalho. Liguei para o veterinário na hora. A DunDum pode ter salvado a vida do meu pet.",
+    image: imgMarcos,
+    name: "Marcos Oliveira",
   },
   {
-    nome: "Beatriz Santos",
-    foto: imgBeatriz,
-    estrelas: 5,
-    texto:
-      "Três pets em casa e consigo monitorar todos pela mesma plataforma. Já indiquei para toda a minha família. Vocês são incríveis!",
+    text: "Três pets em casa e consigo monitorar todos pela mesma plataforma. Já indiquei para toda a minha família. Vocês são incríveis!",
+    image: imgBeatriz,
+    name: "Beatriz Santos",
   },
   {
-    nome: "Thiago Almeida",
-    foto: imgThiago,
-    estrelas: 5,
-    texto:
-      "Comprei com um pouco de receio por ser um produto novo, mas superou todas as expectativas. O GPS é preciso e os dados de saúde me ajudaram muito na consulta veterinária.",
+    text: "Comprei com um pouco de receio por ser um produto novo, mas superou todas as expectativas. O GPS é preciso e os dados de saúde me ajudaram muito na consulta veterinária.",
+    image: imgThiago,
+    name: "Thiago Almeida",
   },
   {
-    nome: "Larissa Figueiredo",
-    foto: imgLarissa,
-    estrelas: 5,
-    texto:
-      "Minha labrador tem epilepsia e antes eu vivia com medo de deixá-la sozinha. Com a DunDum recebo alertas na hora e consigo agir rápido. Mudou completamente minha rotina.",
+    text: "Minha labrador tem epilepsia e antes eu vivia com medo de deixá-la sozinha. Com a DunDum recebo alertas na hora e consigo agir rápido. Mudou completamente minha rotina.",
+    image: imgLarissa,
+    name: "Larissa Figueiredo",
   },
 ];
+
+const firstColumn = testimonials.slice(0, 3);
+const secondColumn = testimonials.slice(3, 6);
+const thirdColumn = testimonials.slice(6, 9);
 
 // rolagem suave
 function useScrollReveal() {
@@ -132,96 +120,6 @@ function InteractiveBg({ children, className }) {
       onMouseMove={handleMouseMove}
     >
       {children}
-    </div>
-  );
-}
-
-function CarrosselDepoimentos({ items }) {
-  const [idx, setIdx] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 900);
-  const total = items.length;
-
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 900);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const totalDots = isDesktop ? Math.ceil(total / 3) : total;
-
-  const prev = () => setIdx((i) => (i - (isDesktop ? 3 : 1) + total) % total);
-  const next = () => setIdx((i) => (i + (isDesktop ? 3 : 1)) % total);
-
-  const getVisible = () => {
-    return [0, 1, 2].map((offset) => (idx + offset) % total);
-  };
-
-  const dotAtivo = isDesktop ? Math.floor(idx / 3) : idx;
-
-  const irParaDot = (dotIdx) => {
-    setIdx(isDesktop ? dotIdx * 3 : dotIdx);
-  };
-
-  return (
-    <div className={styles.depCarrossel}>
-      <button className={styles.depBtn} onClick={prev} aria-label="anterior">
-        &#8249;
-      </button>
-
-      <div className={styles.depTrack}>
-        <div className={styles.depMobile}>
-          <div className={`${styles.depCard} ${styles.fadeIn}`} key={idx}>
-            <div className={styles.depEstrelas}>
-              {"★".repeat(items[idx].estrelas)}
-            </div>
-            <p className={styles.depTexto}>{items[idx].texto}</p>
-            <div className={styles.depAutor}>
-              <img
-                src={items[idx].foto}
-                alt={items[idx].nome}
-                className={styles.depFoto}
-              />
-              <span>{items[idx].nome}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.depDesktop}>
-          {getVisible().map((i) => (
-            <div
-              key={i}
-              className={`${styles.depCard} ${i === idx ? styles.depCardDestaque : ""}`}
-            >
-              <div className={styles.depEstrelas}>
-                {"★".repeat(items[i].estrelas)}
-              </div>
-              <p className={styles.depTexto}>{items[i].texto}</p>
-              <div className={styles.depAutor}>
-                <img
-                  src={items[i].foto}
-                  alt={items[i].nome}
-                  className={styles.depFoto}
-                />
-                <span>{items[i].nome}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <button className={styles.depBtn} onClick={next} aria-label="próximo">
-        &#8250;
-      </button>
-
-      <div className={styles.carrosselDots}>
-        {Array.from({ length: totalDots }).map((_, i) => (
-          <span
-            key={i}
-            className={`${styles.dot} ${i === dotAtivo ? styles.dotAtivo : ""}`}
-            onClick={() => irParaDot(i)}
-          />
-        ))}
-      </div>
     </div>
   );
 }
@@ -358,20 +256,11 @@ export default function Home() {
         </InteractiveBg>
 
         {/* VÍDEO COMERCIAL */}
-        <section className={`${styles.secaoVideo} ${styles.reveal}`}>
-          <div className={styles.videoWrapper}>
-            <video
-              autoPlay
-              loop
-              muted
-              controls
-              playsInline
-              className={styles.videoComercial}
-            >
-              <source src={videoComercial} type="video/webm" />
-            </video>
-          </div>
-        </section>
+        <ScrollExpand
+          mediaSrc={videoComercial}
+          title="Conheça a DunDum"
+          scrollToExpand="Role para ver"
+        />
 
         {/* BENEFÍCIOS */}
         <InteractiveBg className={`${styles.secaoBeneficios} ${styles.reveal}`}>
@@ -482,7 +371,11 @@ export default function Home() {
           <h2 className={styles.secaoTituloGradiente}>
             O que dizem sobre a DunDum
           </h2>
-          <CarrosselDepoimentos items={depoimentos} />
+          <div className={styles.testemunhasGrid}>
+            <TestimonialsColumn testimonials={firstColumn} duration={15} />
+            <TestimonialsColumn testimonials={secondColumn} duration={19} />
+            <TestimonialsColumn testimonials={thirdColumn} duration={17} />
+          </div>
         </section>
 
         {/* CTA FINAL */}
