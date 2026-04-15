@@ -171,7 +171,7 @@ a {
 
   .nav a:hover {
     color: var(--color-purple);
-    font-size: 16.5px;
+    transform: scale(1.05);
   }
 
   .actions {
@@ -195,7 +195,7 @@ a {
 
   .loginBtn:hover {
     background: var(--color-purple);
-    scale: 1.1;
+    transform: scale(1.05);
   }
 
   .userIcon {
