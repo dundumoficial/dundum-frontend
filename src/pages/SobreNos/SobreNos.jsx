@@ -1,34 +1,17 @@
-import { BeamsBackground } from "./beams-background.tsx";
-
 import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import { BeamsBackground } from "./beams-background.tsx";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 
 import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./SobreNos.module.css";
-
-// import fotoAxel from "../../assets/img/sobrenos/foto-axel.webp";
-// import fotoBeatriz from "../../assets/img/sobrenos/foto-beatriz.webp";
-// import fotoDiego from "../../assets/img/sobrenos/foto-diego.webp";
-// import fotoGuilherme from "../../assets/img/sobrenos/foto-guilherme.webp";
-// import fotoPaulo from "../../assets/img/sobrenos/foto-paulo.webp";
-// import fotoSamuel from "../../assets/img/sobrenos/foto-samuel.webp";
-// import fotoVictor from "../../assets/img/sobrenos/foto-victor.webp";
-// import fotoWanny from "../../assets/img/sobrenos/foto-wanny.webp";
 
 import iconeGitHub from "../../assets/img/sobrenos/icon-github.svg";
 import iconeLinkedIn from "../../assets/img/sobrenos/icon-linkedin.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ─────────────────────────────────────
-   Dados
-───────────────────────────────────── */
 const membros = [
   {
     nome: "Axel",
@@ -45,7 +28,7 @@ const membros = [
   },
   {
     nome: "Diego",
-    cargo: "Dev. Front-End",
+    cargo: "Financeiro",
     linkedin: "https://www.linkedin.com/in/diego-cabaleiro/",
     github: "https://github.com/diegocabaleiro",
   },
@@ -69,15 +52,15 @@ const membros = [
   },
   {
     nome: "Victor",
-    cargo: "UI/UX Design",
+    cargo: "Marketing",
     linkedin: "https://www.linkedin.com/in/victor-mariano-95612b320/",
     github: "https://github.com/marianovictor-900",
   },
   {
     nome: "Wanny",
-    cargo: "UI/UX Design",
+    cargo: "Product Owner",
     linkedin: "https://www.linkedin.com/in/wanny-barreto-b49682204/",
-    github: "#",
+    github: "https://github.com/NannyBarreto",
   },
 ];
 
@@ -90,79 +73,41 @@ const valores = [
   { num: "06", texto: "Ética e segurança no tratamento de dados" },
 ];
 
-/* ─────────────────────────────────────
-   Hero com Three.js
-───────────────────────────────────── */
 function QuemSomosHero() {
   const containerRef = useRef(null);
-  const canvasRef = useRef(null);
-  const cardsRef = useRef([]);
-  const activeRef = useRef(-1);
-
+  const activeRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const showMember = (newIndex) => {
-      const prev = activeRef.current;
-      if (prev === newIndex) return;
-
-      if (prev >= 0 && cardsRef.current[prev]) {
-        const el = cardsRef.current[prev];
-        el.classList.remove(styles.cardEnter);
-        el.classList.add(styles.cardExit);
-        setTimeout(() => el?.classList.remove(styles.cardExit), 500);
-      }
-
-      if (cardsRef.current[newIndex]) {
-        const el = cardsRef.current[newIndex];
-        el.classList.remove(styles.cardExit);
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => el.classList.add(styles.cardEnter)),
-        );
-      }
-
-      activeRef.current = newIndex;
-      setActiveIndex(newIndex);
-    };
-
     const handleScroll = () => {
       const heroEl = containerRef.current;
       if (!heroEl) return;
 
       const rect = heroEl.getBoundingClientRect();
       const traveled = -rect.top;
-
       const zoneH = window.innerHeight;
-      const memberZoneStart = window.innerHeight;
-
-      const memberScroll = Math.max(0, traveled - memberZoneStart);
-
       const idx = Math.min(
-        Math.floor(memberScroll / zoneH),
+        Math.max(Math.floor(traveled / zoneH), 0),
         membros.length - 1,
       );
 
-      showMember(Math.max(idx, 0));
+      if (activeRef.current !== idx) {
+        activeRef.current = idx;
+        setActiveIndex(idx);
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div ref={containerRef} className={styles.heroSection}>
-      
-      {/* 🔥 BACKGROUND FIXO */}
       <div className={styles.beamsWrapper}>
         <BeamsBackground />
       </div>
 
-      {/* Canvas Three */}
-      <canvas ref={canvasRef} className={styles.heroCanvas} />
-
-      {/* Conteúdo */}
       <div className={styles.heroContent}>
         <h1 className={styles.tituloQuemSomos}>
           Quem <span className={styles.destaquePink}>Somos?</span>
@@ -172,29 +117,60 @@ function QuemSomosHero() {
           {membros.map((membro, i) => (
             <div
               key={membro.nome}
-              ref={(el) => (cardsRef.current[i] = el)}
-              className={styles.membroCardSingle}
+              className={`${styles.membroCardSingle} ${i === activeIndex ? styles.cardAtivo : ""}`}
             >
               <div className={styles.membroAvatar} />
               <p className={styles.membroNome}>{membro.nome}</p>
               <p className={styles.membroCargo}>{membro.cargo}</p>
-
               <div className={styles.membroLinks}>
-                <a href={membro.linkedin}>
-                  <img src={iconeLinkedIn} className={styles.icone} />
+                <a
+                  href={membro.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.linkIcone}
+                >
+                  <img
+                    src={iconeLinkedIn}
+                    alt="LinkedIn"
+                    className={styles.icone}
+                  />
                 </a>
-                <a href={membro.github}>
-                  <img src={iconeGitHub} className={styles.icone} />
+                <a
+                  href={membro.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.linkIcone}
+                >
+                  <img
+                    src={iconeGitHub}
+                    alt="GitHub"
+                    className={styles.icone}
+                  />
                 </a>
               </div>
             </div>
           ))}
         </div>
+
+        <div className={styles.scrollIndicador}>
+          <span className={styles.scrollText}>Role para Ver</span>
+          <div className={styles.progressTrack}>
+            <div
+              className={styles.progressFill}
+              style={{
+                width: `${((activeIndex + 1) / membros.length) * 100}%`,
+              }}
+            />
+          </div>
+          <span className={styles.sectionCounter}>
+            {String(activeIndex + 1).padStart(2, "0")} /{" "}
+            {String(membros.length).padStart(2, "0")}
+          </span>
+        </div>
       </div>
 
-      {/* Scroll fake */}
       <div className={styles.scrollSections}>
-        {[...Array(membros.length + 1)].map((_, i) => (
+        {membros.map((_, i) => (
           <div key={i} className={styles.scrollSection} />
         ))}
       </div>
@@ -202,10 +178,6 @@ function QuemSomosHero() {
   );
 }
 
-
-/* ─────────────────────────────────────
-   Página
-───────────────────────────────────── */
 export default function SobreNos() {
   return (
     <>
@@ -213,8 +185,8 @@ export default function SobreNos() {
       <main className={styles.container}>
         <QuemSomosHero />
 
-        <section className={styles.moveSection}>
-          <div className={styles.moveConteudo}>
+        <div className={styles.secoesClaras}>
+          <section className={styles.moveSection}>
             <h2 className={styles.tituloMove}>
               O que nos <span className={styles.destaquePink}>move</span>
             </h2>
@@ -223,57 +195,57 @@ export default function SobreNos() {
               saúde e o comportamento dos pets, oferecendo informações que
               ajudam tutores e veterinários a cuidar melhor dos animais.
             </p>
-          </div>
-        </section>
+          </section>
 
-        <section className={styles.coleiraSection}>
-          <h2 className={styles.tituloColeira}>
-            Por que criamos{" "}
-            <span className={styles.destaquePink}>a coleira</span>
-          </h2>
-          <p className={styles.coleiraTexto}>
-            Muitos tutores não conseguem acompanhar de perto a saúde e o
-            comportamento dos seus pets no dia a dia. Pensando nisso, criamos
-            uma coleira inteligente capaz de monitorar sinais importantes como
-            batimentos cardíacos, atividade física e sono.
-          </p>
-          <p className={styles.coleiraTexto}>
-            Nosso objetivo é ajudar tutores e veterinários a identificar
-            mudanças no comportamento dos animais, permitindo uma prevenção mais
-            eficiente de possíveis problemas de saúde.
-          </p>
-        </section>
+          <section className={styles.coleiraSection}>
+            <h2 className={styles.tituloColeira}>
+              Por que criamos{" "}
+              <span className={styles.destaquePink}>a coleira</span>
+            </h2>
+            <p className={styles.coleiraTexto}>
+              Muitos tutores não conseguem acompanhar de perto a saúde e o
+              comportamento dos seus pets no dia a dia. Pensando nisso, criamos
+              uma coleira inteligente capaz de monitorar sinais importantes como
+              batimentos cardíacos, atividade física e sono.
+            </p>
+            <p className={styles.coleiraTexto}>
+              Nosso objetivo é ajudar tutores e veterinários a identificar
+              mudanças no comportamento dos animais, permitindo uma prevenção
+              mais eficiente de possíveis problemas de saúde.
+            </p>
+          </section>
 
-        <section className={styles.historiaSection}>
-          <h2 className={styles.tituloHistoria}>
-            Nossa <span className={styles.destaquePink}>História</span>
-          </h2>
-          <p className={styles.historiaTexto}>
-            O projeto nasceu durante o desenvolvimento de um trabalho acadêmico,
-            quando percebemos que a tecnologia poderia ser utilizada para
-            melhorar o cuidado com os animais de estimação.
-          </p>
-          <p className={styles.historiaTexto}>
-            A partir dessa ideia, começamos a desenvolver uma coleira
-            inteligente capaz de coletar dados de saúde e comportamento dos
-            pets, utilizando sensores e inteligência artificial para gerar
-            informações úteis aos tutores.
-          </p>
-        </section>
+          <section className={styles.historiaSection}>
+            <h2 className={styles.tituloHistoria}>
+              Nossa <span className={styles.destaquePink}>História</span>
+            </h2>
+            <p className={styles.historiaTexto}>
+              O projeto nasceu durante o desenvolvimento de um trabalho
+              acadêmico, quando percebemos que a tecnologia poderia ser
+              utilizada para melhorar o cuidado com os animais de estimação.
+            </p>
+            <p className={styles.historiaTexto}>
+              A partir dessa ideia, começamos a desenvolver uma coleira
+              inteligente capaz de coletar dados de saúde e comportamento dos
+              pets, utilizando sensores e inteligência artificial para gerar
+              informações úteis aos tutores.
+            </p>
+          </section>
 
-        <section className={styles.acreditamosSection}>
-          <h2 className={styles.tituloAcreditamos}>
-            O que <span className={styles.destaquePink}>acreditamos</span>
-          </h2>
-          <div className={styles.valoresGrid}>
-            {valores.map((v) => (
-              <div key={v.num} className={styles.valorCard}>
-                <span className={styles.valorNum}>{v.num}</span>
-                <p className={styles.valorTexto}>{v.texto}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+          <section className={styles.acreditamosSection}>
+            <h2 className={styles.tituloAcreditamos}>
+              O que <span className={styles.destaquePink}>acreditamos</span>
+            </h2>
+            <div className={styles.valoresGrid}>
+              {valores.map((v) => (
+                <div key={v.num} className={styles.valorCard}>
+                  <span className={styles.valorNum}>{v.num}</span>
+                  <p className={styles.valorTexto}>{v.texto}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
       <Footer />
     </>

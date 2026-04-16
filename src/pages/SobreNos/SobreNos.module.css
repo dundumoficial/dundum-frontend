@@ -1,23 +1,19 @@
-/* ═══════════════════════════════
-   CONTAINER GERAL
-═══════════════════════════════ */
 .container {
   width: 100%;
+  position: relative;
 }
 
-/* HERO */
 .heroSection {
   position: relative;
   width: 100%;
-  height: calc(100vh * 10);
+  height: calc(100vh * 8);
   background: #000;
+  isolation: isolate;
 }
 
-/* 🔥 BEAMS FIXO */
 .beamsWrapper {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
   width: 100%;
   height: 100vh;
   z-index: 0;
@@ -25,217 +21,86 @@
   overflow: hidden;
 }
 
-.beamsWrapper > div {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* THREE */
-.heroCanvas {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 1;
-}
-
-/* CONTENT */
 .heroContent {
   position: sticky;
   top: 0;
   height: 100vh;
-  margin-top: -100vh;
+  margin-top: -120vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 2;
-}
-
-.tituloQuemSomos {
-  color: #fff;
-  font-size: 3rem;
-  margin-bottom: 40px;
-}
-
-.destaquePink {
-  color: #b14aed;
-}
-
-/* CARD */
-.membroStage {
-  position: relative;
-  width: 240px;
-  height: 320px;
-}
-
-.membroCardSingle {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 0.5s;
-  background: rgba(0,0,0,0.6);
-  border-radius: 16px;
-  padding: 20px;
-  text-align: center;
-}
-
-.cardEnter {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.cardExit {
-  opacity: 0;
-  transform: translateY(-40px);
-}
-
-/* SCROLL FAKE */
-.scrollSection {
-  height: 100vh;
-}
-/* Stage: container de posicionamento relativo */
-.membroStage {
-  position: relative;
-  width: 240px;
-  height: 320px;
   pointer-events: none;
 }
 
-/* Cada card ocupa o mesmo espaço — empilhados */
+.tituloQuemSomos {
+  text-align: center;
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 40px;
+  font-family: var(--font-garet);
+  font-weight: var(--weight-bold);
+}
+
+.membroStage {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  pointer-events: none;
+}
+
 .membroCardSingle {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 28px 20px;
-  border: 1px solid rgba(177, 74, 237, 0.35);
-  border-radius: 18px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  pointer-events: auto;
-
-  /* Estado inicial: invisível */
+  justify-content: center;
+  gap: 12px;
+  padding-bottom: 50px;
+  border: 1px solid rgba(177, 74, 237, 0.25);
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   opacity: 0;
-  transform: translateY(48px) scale(0.93);
+  transform: translateY(40px) scale(0.94);
+  pointer-events: none;
   transition:
-    opacity  0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.3s,
     box-shadow 0.3s;
 }
 
-/* Classe adicionada via JS ao entrar */
-.cardEnter {
-  opacity: 1 !important;
-  transform: translateY(0) scale(1) !important;
-  border-color: rgba(177, 74, 237, 0.55);
-  box-shadow: 0 0 28px rgba(177, 74, 237, 0.2);
-}
-
-/* Classe adicionada via JS ao sair */
-.cardExit {
-  opacity: 0 !important;
-  transform: translateY(-36px) scale(0.95) !important;
-}
-
-/* Hover só quando visível */
-.cardEnter:hover {
-  border-color: #b14aed;
-  box-shadow: 0 0 28px rgba(177, 74, 237, 0.35), 0 8px 28px rgba(69, 74, 222, 0.2);
-}
-
-/* Dots laterais */
-.membroDots {
-  position: absolute;
-  right: -24px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  pointer-events: none;
-}
-
-.membroDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
-  transition: background 0.3s, transform 0.3s;
-}
-
-.membroDotActive {
-  background: #b14aed;
-  transform: scale(1.5);
-}
-
-.membroDotDone {
-  background: rgba(177, 74, 237, 0.4);
-}
-
-
-
-/* Seções fantasma — apenas criam altura de scroll */
-.scrollSections {
-  position: relative;
-  z-index: 1;
-}
-.scrollSection {
-  height: 100vh;
-}
-
-/* ── Título ── */
-
-/* ── Grid de membros ── */
-.membroGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  justify-items: center;
+.cardAtivo {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  border-color: rgba(177, 74, 237, 0.6);
+  box-shadow: 0 0 40px rgba(177, 74, 237, 0.2);
   pointer-events: auto;
 }
 
-/* ── Card ── */
-.membroCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 18px 14px;
-  border: 1px solid rgba(177, 74, 237, 0.35);
-  border-radius: 14px;
-  width: 100%;
-  max-width: 155px;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-  cursor: default;
-}
-
-.membroCard:hover {
+.cardAtivo:hover {
   border-color: #b14aed;
-  box-shadow: 0 0 22px rgba(177, 74, 237, 0.35), 0 8px 28px rgba(69, 74, 222, 0.2);
-  transform: translateY(-5px) scale(1.03);
+  box-shadow:
+    0 0 40px rgba(177, 74, 237, 0.4),
+    0 8px 32px rgba(69, 74, 222, 0.25);
 }
 
 .membroAvatar {
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #454ade 0%, #b14aed 60%, #e11bc0 100%);
-  box-shadow: 0 0 14px rgba(177, 74, 237, 0.5);
+  background: linear-gradient(135deg, #454ade 0%, #b14aed 60%, #c874d9 100%);
+  box-shadow: 0 0 20px rgba(177, 74, 237, 0.45);
   flex-shrink: 0;
 }
 
 .membroNome {
   font-family: var(--font-garet);
-  font-size: var(--text-sm);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
   font-weight: var(--weight-bold);
   color: #fff;
   margin: 0;
@@ -243,9 +108,9 @@
 
 .membroCargo {
   font-family: var(--font-poppins);
-  font-size: var(--text-xs);
+  font-size: clamp(0.85rem, 2vw, 1rem);
   font-weight: var(--weight-regular);
-  color: var(--color-white);
+  color: rgba(255, 255, 255, 0.7);
   margin: 0;
   text-align: center;
   line-height: 1.4;
@@ -253,9 +118,12 @@
 
 .membroLinks {
   display: flex;
-  gap: 8px;
+  gap: 20px;
   align-items: center;
-  margin-top: 4px;
+  margin-top: 10px;
+  pointer-events: auto;
+  position: relative;
+  z-index: 5;
 }
 
 .linkIcone {
@@ -263,21 +131,45 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  opacity: 0.65;
-  transition: opacity 0.2s;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  opacity: 0.85;
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    opacity 0.2s,
+    transform 0.2s,
+    background 0.2s,
+    border-color 0.2s;
 }
-.linkIcone:hover { opacity: 1; }
 
-.icone,
-.iconeGithub {
-  width: 24px;
-  height: 24px;
+.linkIcone:hover {
+  opacity: 1;
+  transform: scale(1.12) translateY(-2px);
+  background: rgba(177, 74, 237, 0.2);
+  border-color: rgba(177, 74, 237, 0.5);
+}
+
+.icone {
+  width: 28px;
+  height: 28px;
   object-fit: contain;
- 
+  display: block;
+  pointer-events: none;
 }
 
-/* ── Indicador de scroll (canto inferior direito) ── */
-.scrollIndicator {
+.scrollSections {
+  position: relative;
+  z-index: 1;
+}
+
+.scrollSection {
+  height: 100vh;
+}
+
+.scrollIndicador {
   position: sticky;
   bottom: 32px;
   left: 0;
@@ -286,9 +178,8 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  z-index: 3;
+  z-index: 10;
   pointer-events: none;
-  /* Offset para ficar abaixo do heroContent sem conflito */
   margin-top: -60px;
 }
 
@@ -296,14 +187,14 @@
   font-family: var(--font-poppins);
   font-size: 10px;
   letter-spacing: 0.18em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
 }
 
 .progressTrack {
-  width: 80px;
+  width: 72px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -312,57 +203,26 @@
   height: 100%;
   background: linear-gradient(90deg, #454ade, #b14aed);
   border-radius: 2px;
-  transition: width 0.1s linear;
+  transition: width 0.25s ease;
 }
 
 .sectionCounter {
   font-family: var(--font-poppins);
   font-size: 10px;
   letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.45);
 }
 
-/* ═══════════════════════════════
-   SEÇÃO: O QUE NOS MOVE
-═══════════════════════════════ */
-.moveSection {
-  width: 100%;
-  background: var(--color-gradient);
-  padding: 80px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
+.secoesClaras {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  isolation: isolate;
 }
 
-.moveConteudo {
-  max-width: 700px;
-  text-align: left;
-}
-
-.tituloMove {
-  font-family: var(--font-garet);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-bold);
-  color: var(--color-white);
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-.moveTexto {
-  font-family: var(--font-poppins);
-  font-size: var(--text-md);
-  font-weight: var(--weight-regular);
-  color: var(--color-white);
-  line-height: 1.7;
-  text-align: justify;
-  margin: 0;
-}
-
-/* ═══════════════════════════════
-   SEÇÃO: POR QUE CRIAMOS A COLEIRA
-═══════════════════════════════ */
-.coleiraSection {
+.moveSection,
+.coleiraSection,
+.historiaSection {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -370,70 +230,38 @@
   text-align: center;
 }
 
-.tituloColeira {
-  font-family: var(--font-garet);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-bold);
-  color: var(--color-dark-blue);
-  margin-bottom: 32px;
-}
-
-.coleiraTexto {
-  font-family: var(--font-poppins);
-  font-size: var(--text-md);
-  font-weight: var(--weight-regular);
-  color: var(--color-dark-blue);
-  line-height: 1.7;
-  text-align: justify;
-  margin: 0 0 16px;
-}
-
-/* ═══════════════════════════════
-   SEÇÃO: NOSSA HISTÓRIA
-═══════════════════════════════ */
-.historiaSection {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 72px;
-  text-align: center;
-}
-
-.tituloHistoria {
-  font-family: var(--font-garet);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-bold);
-  color: var(--color-dark-blue);
-  margin-bottom: 32px;
-}
-
-.historiaTexto {
-  font-family: var(--font-poppins);
-  font-size: var(--text-md);
-  font-weight: var(--weight-regular);
-  color: var(--color-dark-blue);
-  line-height: 1.7;
-  text-align: justify;
-  margin: 0 0 16px;
-}
-
-/* ═══════════════════════════════
-   SEÇÃO: O QUE ACREDITAMOS
-═══════════════════════════════ */
 .acreditamosSection {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 80px;
+  padding: 72px 24px 80px;
   text-align: center;
 }
 
+.tituloMove,
+.tituloColeira,
+.tituloHistoria,
 .tituloAcreditamos {
   font-family: var(--font-garet);
-  font-size: var(--text-2xl);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: var(--weight-bold);
   color: var(--color-dark-blue);
+  margin-bottom: 32px;
+}
+
+.tituloAcreditamos {
   margin-bottom: 40px;
+}
+
+.moveTexto,
+.coleiraTexto,
+.historiaTexto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  color: var(--color-dark-blue);
+  line-height: 1.7;
+  text-align: justify;
+  margin: 0 0 16px;
 }
 
 .valoresGrid {
@@ -464,69 +292,80 @@
 .valorTexto {
   font-family: var(--font-poppins);
   font-size: var(--text-sm);
-  font-weight: var(--weight-regular);
   color: var(--color-white);
   margin: 0;
   line-height: 1.5;
 }
 
-/* ═══════════════════════════════
-   DESTAQUE DE COR
-═══════════════════════════════ */
 .destaquePink {
-  color: var(--color-pink);
+  color: var(--color-pink, #b14aed);
 }
 
-/* ═══════════════════════════════
-   TABLET  ≥ 768px
-═══════════════════════════════ */
+/* small tablet */
+@media (min-width: 600px) {
+  .membroStage {
+    width: 320px;
+    height: 410px;
+  }
+
+  .membroAvatar {
+    width: 84px;
+    height: 84px;
+  }
+
+  .icone {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* tablet */
 @media (min-width: 768px) {
-  .tituloQuemSomos {
-    font-size: var(--text-3xl);
+  .membroStage {
+    width: 360px;
+    height: 440px;
   }
 
-  .membroGrid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+  .membroAvatar {
+    width: 96px;
+    height: 96px;
   }
 
-  .membroCard  { max-width: 195px; }
-  .membroAvatar { width: 68px; height: 68px; }
-  .membroNome  { font-size: var(--text-md); }
+  .valoresGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-  .tituloMove,
-  .tituloColeira,
-  .tituloHistoria,
-  .tituloAcreditamos { font-size: var(--text-3xl); }
+  .valorCard:nth-child(4) {
+    grid-column: 1 / 2;
+  }
 
-  .moveTexto { font-size: var(--text-lg); }
-
-  .valoresGrid { grid-template-columns: repeat(3, 1fr); }
-  .valorCard:nth-child(4) { grid-column: 1 / 2; }
-  .valorCard:nth-child(5) { grid-column: 2 / 3; }
+  .valorCard:nth-child(5) {
+    grid-column: 2 / 3;
+  }
 }
 
-/* ═══════════════════════════════
-   DESKTOP  ≥ 1024px
-═══════════════════════════════ */
+/* desktop */
 @media (min-width: 1024px) {
-  .heroContent { padding: 80px 40px 120px; }
+  .membroStage {
+    width: 380px;
+    height: 460px;
+  }
 
-  .membroGrid  { gap: 26px; }
-  .membroCard  { max-width: 215px; padding: 22px 18px; }
-  .membroAvatar { width: 78px; height: 78px; }
+  .membroAvatar {
+    width: 104px;
+    height: 104px;
+  }
 
-  .moveSection { padding: 100px 40px; min-height: 380px; }
-  .moveConteudo { max-width: 760px; }
+  .icone {
+    width: 32px;
+    height: 32px;
+  }
 
+  .moveSection,
   .coleiraSection,
   .historiaSection,
   .acreditamosSection {
     padding-left: 40px;
     padding-right: 40px;
   }
-
-  .valoresGrid { grid-template-columns: repeat(3, 1fr); }
-  .valorCard:nth-child(4) { grid-column: 1 / 2; }
-  .valorCard:nth-child(5) { grid-column: 2 / 3; }
 }
