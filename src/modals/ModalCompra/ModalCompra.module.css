@@ -1,0 +1,507 @@
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(48px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* BOX */
+.box {
+  background: #fff;
+  width: 100%;
+  max-height: 92dvh;
+  border-radius: 20px 20px 0 0;
+  overflow-y: auto;
+  animation: slideUp 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #bbb;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.stepLabel {
+  display: none;
+}
+
+.stepNum {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #eee;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepSep {
+  color: #ddd;
+  font-size: 14px;
+  margin: 0 2px;
+}
+
+.stepAtivo {
+  color: #1a1a2e;
+  font-weight: 500;
+}
+
+.stepAtivo .stepNum {
+  background: var(--color-purple);
+  color: #fff;
+}
+
+.stepFeito {
+  color: #0f6e56;
+}
+
+.stepFeito .stepNum {
+  background: #0f6e56;
+  color: #fff;
+}
+
+.fechar {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #555;
+  transition: background 0.15s;
+}
+
+.fechar:hover {
+  background: #e0e0e0;
+}
+
+/* CONTEÚDO */
+.conteudo {
+  padding: 18px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.titulo {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-dark-blue);
+  margin: 0;
+}
+
+/* RESUMO */
+.produtoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.produtoNome {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-dark-blue);
+  margin: 0 0 2px;
+}
+
+.produtoSub {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.produtoPreco {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-dark-blue);
+  white-space: nowrap;
+}
+
+.linha {
+  height: 1px;
+  background: #f0f0f0;
+}
+
+.resumoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.totalRow {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-dark-blue);
+}
+
+.gratis {
+  color: #0f6e56;
+  font-weight: 700;
+}
+
+.aviso {
+  font-size: 11px;
+  color: #bbb;
+  margin: 0;
+}
+
+/* FORMULÁRIO */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.flex1 {
+  flex: 1;
+  min-width: 60px;
+}
+.flex2 {
+  flex: 2;
+  min-width: 100px;
+}
+.flex3 {
+  flex: 3;
+  min-width: 120px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.input {
+  height: 40px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: var(--color-dark-blue);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--color-purple);
+}
+
+/* BOTÕES */
+.botoesRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btnPrimario {
+  flex: 1;
+  background: var(--color-purple);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    transform 0.15s;
+}
+
+.btnPrimario:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+.btnPrimario:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btnSecundario {
+  background: none;
+  color: #666;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  padding: 13px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+}
+
+.btnSecundario:hover {
+  border-color: #aaa;
+}
+
+/* MÉTODOS */
+.metodos {
+  display: flex;
+  gap: 8px;
+}
+
+.metodoBtn {
+  flex: 1;
+  padding: 10px 8px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background 0.2s;
+  text-align: center;
+}
+
+.metodoBtnAtivo {
+  border-color: var(--color-purple);
+  color: var(--color-purple);
+  background: #faf5ff;
+}
+
+/* PIX */
+.pixBox,
+.boletoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.pixQr {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #eee;
+}
+
+.pixValor {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--color-dark-blue);
+  margin: 0;
+}
+
+.pixSub {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.btnCopiar {
+  background: var(--color-dark-blue);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btnCopiar:hover {
+  opacity: 0.85;
+}
+
+.pixAviso {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+
+/* BOLETO */
+.boletoLinha {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.boletoCodigo {
+  font-size: 11px;
+  font-family: monospace;
+  color: #444;
+  word-break: break-all;
+}
+
+/* RESUMO FINAL */
+.resumoFinal {
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* SUCESSO */
+.sucesso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 8px 0;
+}
+
+.suecessoIcone {
+  width: 60px;
+  height: 60px;
+  background: #e1f5ee;
+  color: #0f6e56;
+  border-radius: 50%;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.sucessoTitulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-dark-blue);
+  margin: 0;
+}
+
+.sucessoSub {
+  font-size: 13px;
+  color: #666;
+  max-width: 360px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.sucessoResumo {
+  width: 100%;
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (min-width: 480px) {
+  .stepLabel {
+    display: inline;
+  }
+
+  .conteudo {
+    padding: 20px 20px 32px;
+  }
+}
+
+@media (min-width: 600px) {
+  .overlay {
+    align-items: center;
+    padding: 20px;
+  }
+
+  .box {
+    max-width: 560px;
+    max-height: 90dvh;
+    border-radius: 16px;
+  }
+
+  .header {
+    padding: 16px 20px 14px;
+  }
+}

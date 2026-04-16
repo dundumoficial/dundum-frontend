@@ -1,0 +1,371 @@
+.container {
+  width: 100%;
+  position: relative;
+}
+
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: calc(100vh * 8);
+  background: #000;
+  isolation: isolate;
+}
+
+.beamsWrapper {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heroContent {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  margin-top: -120vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tituloQuemSomos {
+  text-align: center;
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 40px;
+  font-family: var(--font-garet);
+  font-weight: var(--weight-bold);
+}
+
+.membroStage {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  pointer-events: none;
+}
+
+.membroCardSingle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-bottom: 50px;
+  border: 1px solid rgba(177, 74, 237, 0.25);
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  opacity: 0;
+  transform: translateY(40px) scale(0.94);
+  pointer-events: none;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.cardAtivo {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  border-color: rgba(177, 74, 237, 0.6);
+  box-shadow: 0 0 40px rgba(177, 74, 237, 0.2);
+  pointer-events: auto;
+}
+
+.cardAtivo:hover {
+  border-color: #b14aed;
+  box-shadow:
+    0 0 40px rgba(177, 74, 237, 0.4),
+    0 8px 32px rgba(69, 74, 222, 0.25);
+}
+
+.membroAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #454ade 0%, #b14aed 60%, #c874d9 100%);
+  box-shadow: 0 0 20px rgba(177, 74, 237, 0.45);
+  flex-shrink: 0;
+}
+
+.membroNome {
+  font-family: var(--font-garet);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: var(--weight-bold);
+  color: #fff;
+  margin: 0;
+}
+
+.membroCargo {
+  font-family: var(--font-poppins);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: var(--weight-regular);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.membroLinks {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
+  pointer-events: auto;
+  position: relative;
+  z-index: 5;
+}
+
+.linkIcone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  opacity: 0.85;
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    opacity 0.2s,
+    transform 0.2s,
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.linkIcone:hover {
+  opacity: 1;
+  transform: scale(1.12) translateY(-2px);
+  background: rgba(177, 74, 237, 0.2);
+  border-color: rgba(177, 74, 237, 0.5);
+}
+
+.icone {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.scrollSections {
+  position: relative;
+  z-index: 1;
+}
+
+.scrollSection {
+  height: 100vh;
+}
+
+.scrollIndicador {
+  position: sticky;
+  bottom: 32px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+  pointer-events: none;
+  margin-top: -60px;
+}
+
+.scrollText {
+  font-family: var(--font-poppins);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}
+
+.progressTrack {
+  width: 72px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #454ade, #b14aed);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.sectionCounter {
+  font-family: var(--font-poppins);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.secoesClaras {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  isolation: isolate;
+}
+
+.moveSection,
+.coleiraSection,
+.historiaSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 24px;
+  text-align: center;
+}
+
+.acreditamosSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 24px 80px;
+  text-align: center;
+}
+
+.tituloMove,
+.tituloColeira,
+.tituloHistoria,
+.tituloAcreditamos {
+  font-family: var(--font-garet);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin-bottom: 32px;
+}
+
+.tituloAcreditamos {
+  margin-bottom: 40px;
+}
+
+.moveTexto,
+.coleiraTexto,
+.historiaTexto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  color: var(--color-dark-blue);
+  line-height: 1.7;
+  text-align: justify;
+  margin: 0 0 16px;
+}
+
+.valoresGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.valorCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--color-dark-blue);
+  border-radius: 10px;
+  padding: 18px 24px;
+  text-align: left;
+}
+
+.valorNum {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  flex-shrink: 0;
+  min-width: 36px;
+}
+
+.valorTexto {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  color: var(--color-white);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.destaquePink {
+  color: var(--color-pink, #b14aed);
+}
+
+/* small tablet */
+@media (min-width: 600px) {
+  .membroStage {
+    width: 320px;
+    height: 410px;
+  }
+
+  .membroAvatar {
+    width: 84px;
+    height: 84px;
+  }
+
+  .icone {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* tablet */
+@media (min-width: 768px) {
+  .membroStage {
+    width: 360px;
+    height: 440px;
+  }
+
+  .membroAvatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .valoresGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .valorCard:nth-child(4) {
+    grid-column: 1 / 2;
+  }
+
+  .valorCard:nth-child(5) {
+    grid-column: 2 / 3;
+  }
+}
+
+/* desktop */
+@media (min-width: 1024px) {
+  .membroStage {
+    width: 380px;
+    height: 460px;
+  }
+
+  .membroAvatar {
+    width: 104px;
+    height: 104px;
+  }
+
+  .icone {
+    width: 32px;
+    height: 32px;
+  }
+
+  .moveSection,
+  .coleiraSection,
+  .historiaSection,
+  .acreditamosSection {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

@@ -1,0 +1,129 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+.title {
+  font-family: var(--font-garet);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-dark-blue);
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-dark-blue);
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  color: var(--color-dark-blue);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--color-purple);
+}
+
+.inputError {
+  border-color: #ef4444;
+  animation: shake 0.3s ease;
+}
+
+.errorText {
+  color: #ef4444;
+  font-size: var(--text-sm);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--color-dark-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-poppins);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: var(--color-purple);
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.success p {
+  font-size: var(--text-sm);
+  color: var(--color-dark-blue);
+  line-height: 1.7;
+}
