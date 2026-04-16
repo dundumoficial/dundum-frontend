@@ -39,9 +39,21 @@ dundum-frontend/
 │   ├── components/
 │   │   ├── Footer/
 │   │   └── Header/
+│   ├── config/
+│   │   └── firebaseConfig.js
+│   ├── hooks/
+│   │   ├── useDashboard.js
+│   │   └── useScrollToTop.js
 │   ├── modals/
-│   │   ├── NovaSenha/
-│   │   └── RecuperarSenha/
+│   │   ├── ModalBase/
+│   │   ├── ModalCompra/
+│   │   ├── ModalConfiguracoes/
+│   │   ├── ModalConfirmarEmail/
+│   │   ├── ModalNotificacoes/
+│   │   ├── ModalPerfil/
+│   │   ├── ModalPet/
+│   │   ├── ModalPlano/
+│   │   └── ModalRecuperarSenha/
 │   ├── pages/
 │   │   ├── Cadastro/
 │   │   ├── CentralDeAjuda/
@@ -49,6 +61,7 @@ dundum-frontend/
 │   │   ├── Dashboard/
 │   │   ├── Home/
 │   │   ├── Login/
+│   │   ├── NovaSenha/
 │   │   ├── Produtos/
 │   │   └── SobreNos/
 │   ├── routes/
@@ -84,17 +97,17 @@ dundum-frontend/
   </tr>
   <tr>
     <td>🐾 Sobre nós</td>
-    <td><code>/sobre</code></td>
-    <td>Missão, visão, valores e equipe</td>
+    <td><code>/sobrenos</code></td>
+    <td>Equipe, Missão, visão e valores da DunDum</td>
   </tr>
   <tr>
     <td>👥 Comunidade</td>
     <td><code>/comunidade</code></td>
-    <td>Fórum e troca de experiências entre tutores</td>
+    <td>Veterinários parceiros e pets para adoção</td>
   </tr>
   <tr>
     <td>❓ Central de Ajuda</td>
-    <td><code>/ajuda</code></td>
+    <td><code>/centraldeajuda</code></td>
     <td>FAQ e suporte ao usuário</td>
   </tr>
   <tr>
