@@ -140,7 +140,7 @@ export default function Login() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <button className={styles.voltarBtn} onClick={() => navigate(-1)}>
+        <button className={styles.voltarBtn} onClick={() => navigate("/")}>
           ← Voltar
         </button>
         <img src={logo} alt="Logo DunDum" className={styles.logo} />
