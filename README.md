@@ -37,6 +37,7 @@ dundum-frontend/
 │   │   ├── img/
 │   │   └── videos/
 │   ├── components/
+│   │   ├── DashboardTransition/
 │   │   ├── Footer/
 │   │   └── Header/
 │   ├── config/
