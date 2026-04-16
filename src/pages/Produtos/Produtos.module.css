@@ -532,7 +532,10 @@
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
   border-radius: 10px;
-  padding: 14px 16px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   line-height: 1.4;
 }
