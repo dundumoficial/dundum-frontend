@@ -27,6 +27,7 @@ import img6 from "../../assets/img/home/img6.webp";
 import videoColeiraDesktop from "../../assets/videos/video-coleira-desktop.webm";
 import videoColeiraMobile from "../../assets/videos/video-coleira-mobile.webm";
 import videoComercial from "../../assets/videos/video-comercial.webm";
+import videoDashboard from "../../assets/videos/video-dashboard.webm";
 
 const petFotos = [img1, img2, img3, img4, img5, img6];
 
@@ -52,7 +53,7 @@ const testimonials = [
     name: "Rafaela Mendes",
   },
   {
-    text: "A coleira chegou rápido e foi fácil de configurar. Em menos de 10 minutos já estava monitorando minha pet. A interface do app é linda e muito intuitiva.",
+    text: "A coleira chegou rápido e foi fácil de configurar. Em menos de 10 minutos já estava monitorando minha pet. A interface da plataforma é linda e muito intuitiva.",
     image: imgJuliana,
     name: "Juliana Torres",
   },
@@ -318,7 +319,7 @@ export default function Home() {
               {
                 n: "1",
                 t: "Coloque a coleira no pet",
-                d: "A instalação é simples e o dispositivo se conecta ao app automaticamente.",
+                d: "Após ligar a coleira, o dispositivo se conecta à plataforma automaticamente.",
               },
               {
                 n: "2",
@@ -350,7 +351,7 @@ export default function Home() {
               playsInline
               className={styles.videoDashboard}
             >
-              <source src={videoColeiraDesktop} type="video/webm" />
+              <source src={videoDashboard} type="video/webm" />
             </video>
           </div>
           <div className={styles.dashboardTexto}>
