@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Comunidade.module.css";
@@ -24,7 +24,12 @@ import iconeLampada from "../../assets/img/comunidade/icon-lampada.svg";
 import iconeTelefone from "../../assets/img/comunidade/icon-telefone.svg";
 import iconeEmail from "../../assets/img/comunidade/icon-email.svg";
 
-//  DADOS
+import ModalContatoVeterinario from "../../modals/ModalContatoVeterinario/ModalContatoVeterinario.jsx";
+import ModalAdotarPet from "../../modals/ModalAdotarPet/ModalAdotarPet.jsx";
+import ModalCadastrarPetAdocao from "../../modals/ModalCadastrarPetAdocao/ModalCadastrarPetAdocao.jsx";
+import ModalVeterinarioParceiro from "../../modals/ModalVeterinarioParceiro/ModalVeterinarioParceiro.jsx";
+
+// DADOS
 const veterinarios = [
   {
     id: 1,
@@ -191,6 +196,10 @@ const dicasEspecialistas = [
 export default function Comunidade() {
   const vetRef = useRef(null);
   const adocaoRef = useRef(null);
+  const [vetSelecionado, setVetSelecionado] = useState(null); // ModalContatoVeterinario
+  const [petSelecionado, setPetSelecionado] = useState(null); // ModalAdotarPet
+  const [modalCadastrar, setModalCadastrar] = useState(false); // ModalCadastrarPetAdocao
+  const [modalVetParceiro, setModalVetParceiro] = useState(false); // ModalVeterinarioParceiro
 
   const irParaAdocao = () => {
     adocaoRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -205,7 +214,7 @@ export default function Comunidade() {
       <Header />
 
       <main className={styles.main}>
-        {/*  SEÇÃO: HERO  */}
+        {/* SEÇÃO: HERO */}
         <section className={styles.heroSection}>
           <div className={styles.heroInner}>
             <div className={styles.heroText}>
@@ -263,7 +272,7 @@ export default function Comunidade() {
           </div>
         </section>
 
-        {/*  SEÇÃO: VETERINÁRIOS  */}
+        {/* SEÇÃO: VETERINÁRIOS */}
         <section ref={vetRef} className={styles.vetSection}>
           <div className={styles.sectionInner}>
             <span className={styles.sectionTag1}>
@@ -298,7 +307,10 @@ export default function Comunidade() {
                       />{" "}
                       {vet.email}
                     </span>
-                    <button className={styles.btnContato}>
+                    <button
+                      className={styles.btnContato}
+                      onClick={() => setVetSelecionado(vet)}
+                    >
                       Entrar em contato
                     </button>
                   </div>
@@ -308,7 +320,7 @@ export default function Comunidade() {
           </div>
         </section>
 
-        {/*  SEÇÃO: ADOÇÃO  */}
+        {/* SEÇÃO: ADOÇÃO */}
         <section ref={adocaoRef} className={styles.adocaoSection}>
           <div className={styles.sectionInner}>
             <span className={styles.sectionTag}>
@@ -340,7 +352,12 @@ export default function Comunidade() {
                       <span className={styles.petMetaDot}>•</span>
                       <span>{pet.cidade}</span>
                     </div>
-                    <button className={styles.btnAdotar}>Quero adotar</button>
+                    <button
+                      className={styles.btnAdotar}
+                      onClick={() => setPetSelecionado(pet)}
+                    >
+                      Quero adotar
+                    </button>
                   </div>
                 </div>
               ))}
@@ -348,7 +365,7 @@ export default function Comunidade() {
           </div>
         </section>
 
-        {/*  SEÇÃO: ADESTRAMENTO  */}
+        {/* SEÇÃO: ADESTRAMENTO */}
         <section className={styles.adestSection}>
           <div className={styles.sectionInner}>
             <span className={styles.sectionTag}>
@@ -361,7 +378,6 @@ export default function Comunidade() {
             </p>
 
             <div className={styles.adestGrid}>
-              {/* Coluna esquerda */}
               <div className={styles.adestCard}>
                 <div className={styles.adestCardHeader}>
                   <img
@@ -388,7 +404,6 @@ export default function Comunidade() {
                 </ol>
               </div>
 
-              {/* Coluna direita */}
               <div className={styles.adestCard}>
                 <div className={styles.adestCardHeader}>
                   <img
@@ -422,7 +437,7 @@ export default function Comunidade() {
           </div>
         </section>
 
-        {/*  SEÇÃO: REDE / CTA  */}
+        {/* SEÇÃO: REDE */}
         <section className={styles.redeSection}>
           <div className={styles.sectionInner}>
             <span className={styles.sectionTag}>
@@ -452,7 +467,12 @@ export default function Comunidade() {
                 <p className={styles.redeCardDesc}>
                   Publique seu pet e ajude-o a encontrar um lar responsável.
                 </p>
-                <button className={styles.btnRede}>Cadastrar agora</button>
+                <button
+                  className={styles.btnRede}
+                  onClick={() => setModalCadastrar(true)}
+                >
+                  Cadastrar agora
+                </button>
               </div>
               <div className={styles.redeCard}>
                 <div className={styles.iconWrapper}>
@@ -468,11 +488,40 @@ export default function Comunidade() {
                 <p className={styles.redeCardDesc}>
                   Conecte-se a tutores que precisam de atendimento.{" "}
                 </p>
-                <button className={styles.btnRede}>Quero ser parceiro</button>
+                <button
+                  className={styles.btnRede}
+                  onClick={() => setModalVetParceiro(true)}
+                >
+                  Quero ser parceiro
+                </button>
               </div>
             </div>
           </div>
         </section>
+
+        {vetSelecionado && (
+          <ModalContatoVeterinario
+            vet={vetSelecionado}
+            onClose={() => setVetSelecionado(null)}
+          />
+        )}
+
+        {petSelecionado && (
+          <ModalAdotarPet
+            pet={petSelecionado}
+            onClose={() => setPetSelecionado(null)}
+          />
+        )}
+
+        {modalCadastrar && (
+          <ModalCadastrarPetAdocao onClose={() => setModalCadastrar(false)} />
+        )}
+
+        {modalVetParceiro && (
+          <ModalVeterinarioParceiro
+            onClose={() => setModalVetParceiro(false)}
+          />
+        )}
       </main>
 
       <Footer />

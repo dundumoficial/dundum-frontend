@@ -34,7 +34,7 @@
   margin-bottom: 10px;
 }
 
-/*  HERO  */
+/* HERO */
 .heroSection {
   background: var(--color-gradient);
   padding: 64px 0;
@@ -193,7 +193,6 @@
   color: rgba(255, 255, 255, 0.65);
 }
 
-/*  LAYOUT GERAL  */
 .main {
   width: 100%;
 }
@@ -204,7 +203,7 @@
   padding: 0 16px;
 }
 
-/*  TAGS DE SEÇÃO  */
+/* TAGS DE SEÇÃO */
 .sectionTag {
   display: inline-flex;
   align-items: center;
@@ -239,7 +238,7 @@
   flex-shrink: 0;
 }
 
-/*  VETERINÁRIOS  */
+/* VETERINÁRIOS */
 .vetSection {
   padding: 64px 0;
   background-color: var(--color-white);
@@ -360,7 +359,7 @@
   background-color: #b14aed;
 }
 
-/*  ADOÇÃO  */
+/* ADOÇÃO */
 .adocaoSection {
   padding: 64px 0;
   background: var(--color-gradient);
@@ -497,7 +496,7 @@
   background-color: #b14aed;
 }
 
-/*  ADESTRAMENTO  */
+/* ADESTRAMENTO */
 .adestSection {
   padding: 64px 0;
   background-color: var(--color-white);
@@ -600,7 +599,7 @@
   margin-top: 4px;
 }
 
-/*  REDE / CTA  */
+/* REDE */
 .redeSection {
   padding: 64px 0;
   background-color: #f9fafb;
@@ -640,7 +639,6 @@
   }
 }
 
-/* Grid responsivo */
 .redeCards {
   display: grid;
   grid-template-columns: 1fr;
