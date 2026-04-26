@@ -11,6 +11,8 @@ import Dashboard from "../pages/Dashboard/Dashboard.jsx";
 // import PrivateRoute from "./PrivateRoute.jsx";
 import DashboardTransition from "../components/DashboardTransition/DashboardTransition.jsx";
 import useScrollToTop from "../hooks/useScrollToTop.js";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage.jsx";
+import TermosCondicoes from "../pages/TermosCondicoes/TermosCondicoes.jsx";
 
 function AppContent() {
   useScrollToTop();
@@ -25,13 +27,15 @@ function AppContent() {
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="/novasenha" element={<NovaSenha />} />
+      <Route path="/notfoundpage" element={<NotFoundPage />} />
+      <Route path="/termoscondicoes" element={<TermosCondicoes />} />
       <Route
         path="/dashboard"
         element={
           // <PrivateRoute>
-            <DashboardTransition>
-              <Dashboard />
-            </DashboardTransition>
+          <DashboardTransition>
+            <Dashboard />
+          </DashboardTransition>
           // </PrivateRoute>
         }
       />
