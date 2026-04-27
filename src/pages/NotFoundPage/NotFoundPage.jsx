@@ -22,8 +22,10 @@ export default function NotFound404() {
       if (eclipseRef.current) {
         eclipseRef.current.style.transform = `rotate(${angle}deg)`;
       }
+
       raf = requestAnimationFrame(animate);
     };
+
     raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
   }, []);
@@ -50,18 +52,16 @@ export default function NotFound404() {
 
       <div className={styles["num-group"]}>
         <span className={styles.num}>4</span>
-
         <div className={styles["eclipse-wrap"]}>
           <div ref={eclipseRef} className={styles["eclipse-conic"]} />
           <div className={styles["eclipse-disk"]} />
           <div className={styles["eclipse-bottom-glow"]} />
         </div>
-
         <span className={styles.num}>4</span>
       </div>
 
       <p className={styles.caption}>
-        This page doesn't exist. <a href="/">Go back home.</a>
+        Essa página não existe. <a href="/">Voltar para início.</a>
       </p>
     </div>
   );
