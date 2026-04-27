@@ -58,9 +58,9 @@ function Footer() {
 
         <div className={styles.col}>
           <h3>Políticas</h3>
-          <Link to="#">Cookies</Link>
-          <Link to="#">Privacidade</Link>
-          <Link to="#">Segurança</Link>
+          <Link to="/termoscondicoes">Cookies</Link>
+          <Link to="/termoscondicoes">Privacidade</Link>
+          <Link to="/termoscondicoes">Segurança</Link>
         </div>
       </div>
 

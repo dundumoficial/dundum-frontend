@@ -1,10 +1,8 @@
-// TermosCondicoes.jsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./TermosCondicoes.module.css";
-import Footer from "../../components/Footer/Footer";
 import logo from "../../assets/img/logo-branco.webp";
+import Footer from "../../components/Footer/Footer";
 
-/* ─── DATA ─── */
 const SECTIONS = [
   {
     blockId: "termos",
@@ -255,7 +253,6 @@ const SECTIONS = [
   },
 ];
 
-/* ─── HELPERS ─── */
 function RenderContent({ content }) {
   return content.map((block, i) => {
     if (block.type === "p") {
@@ -281,9 +278,10 @@ function RenderContent({ content }) {
   });
 }
 
-/* ─── COMPONENT ─── */
 export default function TermosCondicoes() {
   const [activeId, setActiveId] = useState("aceitacao");
+  const isScrollingRef = useRef(false);
+  const scrollTimerRef = useRef(null);
 
   useEffect(() => {
     const allIds = SECTIONS.flatMap((s) => s.items.map((item) => item.id));
@@ -292,12 +290,16 @@ export default function TermosCondicoes() {
     allIds.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
+
       const obs = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) setActiveId(id);
+          if (entry.isIntersecting && !isScrollingRef.current) {
+            setActiveId(id);
+          }
         },
         { rootMargin: "-15% 0px -70% 0px" },
       );
+
       obs.observe(el);
       observers.push(obs);
     });
@@ -307,109 +309,112 @@ export default function TermosCondicoes() {
 
   const scrollTo = (id) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!el) return;
+
+    isScrollingRef.current = true;
+    setActiveId(id);
+    if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
+
+    const HEADER_OFFSET = 58 + 24;
+    const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+
+    window.scrollTo({ top, behavior: "smooth" });
+
+    scrollTimerRef.current = setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 1000);
   };
 
   return (
     <>
-      <div className={styles.root}>
-        <div className={styles.page}>
-          {/* ── HEADER ── */}
-          <header className={styles.header}>
-            <a href="/" className={styles.logo}>
-              <img src={logo} className={styles.logo} />
-            </a>
-            <a href="/" className={styles.back}>
-              <span className={styles.backArrow}>←</span>
-              Voltar ao site
-            </a>
-          </header>
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <a href="/" className={styles.logo}>
+            <img src={logo} className={styles.logo} />
+          </a>
+          <a href="/" className={styles.back}>
+            ← Voltar
+          </a>
+        </header>
 
-          {/* ── LAYOUT ── */}
-          <div className={styles.layout}>
-            {/* ── SIDEBAR ── */}
-            <aside className={styles.sidebar}>
-              <span className={styles.sidebarLabel}>Navegação</span>
-              <nav className={styles.nav}>
-                {SECTIONS.map((section) => (
-                  <div key={section.blockId} className={styles.navGroup}>
-                    <span className={styles.navGroupLabel}>
-                      {section.blockTag}
-                    </span>
-                    {section.items.map((item) => (
-                      <a
-                        key={item.id}
-                        href={`#${item.id}`}
-                        className={
-                          activeId === item.id
-                            ? `${styles.navLink} ${styles.navLinkActive}`
-                            : styles.navLink
-                        }
-                        onClick={(e) => {
-                          e.preventDefault();
-                          scrollTo(item.id);
-                        }}
-                      >
-                        {item.num}. {item.title}
-                      </a>
-                    ))}
-                  </div>
-                ))}
-              </nav>
-            </aside>
-
-            {/* ── MAIN ── */}
-            <main className={styles.content}>
-              <h1 className={styles.pageTitle}>
-                Termos &amp;{" "}
-                <span className={styles.pageTitleAccent}>Políticas</span>
-              </h1>
-
-              {SECTIONS.map((section, sIdx) => (
-                <div key={section.blockId}>
-                  <div className={styles.policyBlock} id={section.blockId}>
-                    <div className={styles.blockHeader}>
-                      <h2 className={styles.blockTitle}>
-                        {section.blockTitle}
-                      </h2>
-                    </div>
-
-                    {section.items.map((item, iIdx) => (
-                      <div
-                        key={item.id}
-                        id={item.id}
-                        className={
-                          iIdx === section.items.length - 1
-                            ? `${styles.section} ${styles.sectionLast}`
-                            : styles.section
-                        }
-                      >
-                        <h3 className={styles.sectionHeading}>
-                          <span className={styles.sectionNum}>{item.num}</span>
-                          {item.title}
-                        </h3>
-                        <RenderContent content={item.content} />
-                      </div>
-                    ))}
-                  </div>
-
-                  {sIdx < SECTIONS.length - 1 && (
-                    <div className={styles.divider} />
-                  )}
+        <div className={styles.layout}>
+          <aside className={styles.sidebar}>
+            <span className={styles.sidebarLabel}>Navegação</span>
+            <nav className={styles.nav}>
+              {SECTIONS.map((section) => (
+                <div key={section.blockId} className={styles.navGroup}>
+                  <span className={styles.navGroupLabel}>
+                    {section.blockTag}
+                  </span>
+                  {section.items.map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className={
+                        activeId === item.id
+                          ? `${styles.navLink} ${styles.navLinkActive}`
+                          : styles.navLink
+                      }
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollTo(item.id);
+                      }}
+                    >
+                      {item.num}. {item.title}
+                    </a>
+                  ))}
                 </div>
               ))}
+            </nav>
+          </aside>
 
-              {/* Contact */}
-              <div className={styles.divider} />
-              <div className={styles.contactBox}>
-                <h3 className={styles.contactTitle}>Contato</h3>
-                <p className={styles.contactText}>
-                  Em caso de dúvidas sobre estas políticas, entre em contato
-                  através dos nossos canais oficiais disponíveis no site.
-                </p>
+          <main className={styles.content}>
+            <h1 className={styles.pageTitle}>
+              Termos &amp;{" "}
+              <span className={styles.pageTitleAccent}>Políticas</span>
+            </h1>
+
+            {SECTIONS.map((section, sIdx) => (
+              <div key={section.blockId}>
+                <div className={styles.policyBlock} id={section.blockId}>
+                  <div className={styles.blockHeader}>
+                    <h2 className={styles.blockTitle}>{section.blockTitle}</h2>
+                  </div>
+
+                  {section.items.map((item, iIdx) => (
+                    <div
+                      key={item.id}
+                      id={item.id}
+                      className={
+                        iIdx === section.items.length - 1
+                          ? `${styles.section} ${styles.sectionLast}`
+                          : styles.section
+                      }
+                    >
+                      <h3 className={styles.sectionHeading}>
+                        <span className={styles.sectionNum}>{item.num}</span>
+                        {item.title}
+                      </h3>
+                      <RenderContent content={item.content} />
+                    </div>
+                  ))}
+                </div>
+
+                {sIdx < SECTIONS.length - 1 && (
+                  <div className={styles.divider} />
+                )}
               </div>
-            </main>
-          </div>
+            ))}
+
+            <div className={styles.divider} />
+            <div className={styles.contactBox}>
+              <h3 className={styles.contactTitle}>Contato</h3>
+              <p className={styles.contactText}>
+                Em caso de dúvidas sobre estas políticas, entre em contato
+                através dos nossos canais oficiais disponíveis no site.
+              </p>
+            </div>
+          </main>
         </div>
       </div>
       <Footer />

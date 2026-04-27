@@ -387,7 +387,7 @@ export default function Cadastro() {
             />
             <label htmlFor="termos">
               Concordo com os{" "}
-              <Link to="#" className={styles.termosLink}>
+              <Link to="/termoscondicoes" className={styles.termosLink}>
                 termos e condições
               </Link>
             </label>
