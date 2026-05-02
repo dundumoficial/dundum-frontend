@@ -23,7 +23,7 @@
 
 .modal {
   position: relative;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 20px;
   width: 100%;
   max-width: 480px;
@@ -100,7 +100,7 @@
 }
 
 .destaque {
-  color: var(--color-purple, #454ade);
+  color: var(--color-purple);
 }
 
 .subtitulo {
@@ -136,11 +136,11 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 10px;
   padding: 10px 12px;
   border: 1px solid #e5e7eb;
-  border-left: 3px solid var(--item-cor, #454ade);
+  border-left: 3px solid var(--color-purple);
 }
 
 .previewLabel {
@@ -178,11 +178,11 @@
 }
 
 .tabela thead tr {
-  background: var(--color-dark-blue, #1b1f3b);
+  background: var(--color-dark-blue);
 }
 
 .tabela th {
-  color: #fff;
+  color: var(--color-white);
   font-weight: 600;
   padding: 7px 10px;
   text-align: left;
@@ -199,7 +199,7 @@
 }
 
 .tabela tbody tr:nth-child(even) {
-  background: #fff;
+  background: var(--color-white);
 }
 
 .tabela tbody tr:nth-child(odd) {
@@ -214,7 +214,7 @@
 
 .tabelaDia {
   font-weight: 700;
-  color: var(--color-dark-blue, #1b1f3b) !important;
+  color: var(--color-dark-blue) !important;
   white-space: nowrap;
 }
 

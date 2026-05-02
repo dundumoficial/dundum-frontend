@@ -23,7 +23,7 @@
 
 .modal {
   position: relative;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 20px;
   width: 100%;
   max-width: 560px;
@@ -100,7 +100,7 @@
 }
 
 .destaque {
-  color: var(--color-purple, #454ade);
+  color: var(--color-purple);
 }
 
 .subtitulo {
@@ -126,7 +126,7 @@
 }
 
 .uploadArea:hover {
-  border-color: var(--color-purple, #454ade);
+  border-color: var(--color-purple);
   background: #f5f6ff;
 }
 
@@ -248,9 +248,9 @@
 .input:focus,
 .textarea:focus,
 .select:focus {
-  border-color: var(--color-purple, #454ade);
+  border-color: var(--color-purple);
   box-shadow: 0 0 0 3px rgba(69, 74, 222, 0.1);
-  background: #fff;
+  background: var(--color-white);
 }
 
 .input::placeholder,
@@ -270,7 +270,7 @@
   font-family: var(--font-poppins);
   font-size: 12px;
   font-weight: 600;
-  color: var(--color-purple, #454ade);
+  color: var(--color-purple);
   margin-top: 2px;
   display: block;
 }
@@ -279,7 +279,7 @@
   width: 100%;
   padding: 13px;
   background: var(--color-dark-blue, #1a1f6e);
-  color: #fff;
+  color: var(--color-white);
   border: none;
   border-radius: 10px;
   font-family: var(--font-poppins);
@@ -293,7 +293,7 @@
 }
 
 .btnPrimary:hover {
-  background: var(--color-purple, #454ade);
+  background: var(--color-purple);
   transform: translateY(-1px);
 }
 

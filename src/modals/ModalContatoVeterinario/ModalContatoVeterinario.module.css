@@ -23,7 +23,7 @@
 
 .modal {
   position: relative;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 20px;
   width: 100%;
   max-width: 520px;
@@ -99,7 +99,7 @@
 }
 
 .destaque {
-  color: var(--color-purple, #454ade);
+  color: var(--color-purple);
 }
 
 .vetCidade {
@@ -214,9 +214,9 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: var(--color-purple, #454ade);
+  border-color: var(--color-purple);
   box-shadow: 0 0 0 3px rgba(69, 74, 222, 0.1);
-  background: #fff;
+  background: var(--color-white);
 }
 
 .input::placeholder,
@@ -228,7 +228,7 @@
   width: 100%;
   padding: 13px;
   background: var(--color-dark-blue, #1a1f6e);
-  color: #fff;
+  color: var(--color-white);
   border: none;
   border-radius: 10px;
   font-family: var(--font-poppins);
@@ -242,7 +242,7 @@
 }
 
 .btnPrimary:hover {
-  background: var(--color-purple, #454ade);
+  background: var(--color-purple);
   transform: translateY(-1px);
 }
 

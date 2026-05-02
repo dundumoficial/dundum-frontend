@@ -356,7 +356,7 @@
 }
 
 .btnContato:hover {
-  background-color: #b14aed;
+  background-color: var(--color-dark-pink);
 }
 
 /* ADOÇÃO */
@@ -493,7 +493,7 @@
 }
 
 .btnAdotar:hover {
-  background-color: #b14aed;
+  background-color: var(--color-dark-pink);
 }
 
 /* ADESTRAMENTO */

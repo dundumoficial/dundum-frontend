@@ -111,7 +111,7 @@
 
 .editarPetInput:focus {
   border-color: var(--color-purple);
-  background: #fff;
+  background: var(--color-white);
 }
 
 .modalDivider {
@@ -124,7 +124,7 @@
   width: 100%;
   padding: 12px;
   background: var(--color-dark-blue);
-  color: #fff;
+  color: var(--color-white);
   border: none;
   border-radius: 8px;
   font-family: var(--font-poppins);
@@ -137,7 +137,7 @@
 
 .btnSalvar:hover {
   background: var(--color-purple);
-  color: #fff;
+  color: var(--color-white);
 }
 
 .btnCancelar {
@@ -208,7 +208,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--color-white);
   transition: left 0.25s;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
@@ -284,7 +284,7 @@
 .mfaQRPlaceholder {
   width: 100px;
   height: 100px;
-  background: #fff;
+  background: var(--color-white);
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   display: flex;

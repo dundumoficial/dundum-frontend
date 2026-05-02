@@ -592,8 +592,8 @@
 }
 
 :global .leaflet-control-zoom a {
-  background: #fff;
-  color: #1b1f3b;
+  background: var(--color-white);
+  color: var(--color-dark-blue);
   border: none;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   border-radius: 6px;
@@ -1087,9 +1087,9 @@
 }
 
 .layout[data-theme="escuro"] .emocaoAtiva {
-  background: var(--color-purple, #454ade) !important;
-  color: #fff !important;
-  border-color: var(--color-purple, #454ade) !important;
+  background: var(--color-purple) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-purple) !important;
 }
 
 .layout[data-theme="escuro"] .emocaoAnalise {
@@ -1124,7 +1124,7 @@
 }
 
 .layout[data-theme="escuro"] .avatar:hover {
-  background: var(--color-purple, #454ade);
+  background: var(--color-purple);
 }
 
 .layout[data-theme="escuro"] .recharts-cartesian-grid-horizontal line {
