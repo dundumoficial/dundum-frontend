@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Circle, useMap } from "react-leaflet";
 import { Modal } from "../ModalBase/ModalBase.jsx";
+import { useTema } from "../../pages/Dashboard/ThemeContext.jsx";
 import styles from "./ModalConfiguracoes.module.css";
 
 // Sub-modal: Conta
@@ -116,16 +117,15 @@ function ConfigConta({ onClose, onVoltar }) {
 // Sub-modal: Notificações
 function ConfigNotificacoes({ onClose, onVoltar }) {
   const [canais, setCanais] = useState({
-    whatsapp: true,
+    whatsapp: false,
     email: true,
-    sms: false,
+    sms: true,
   });
   const [eventos, setEventos] = useState({
     alertaCardiaco: true,
-    alertaFuga: true,
-    alertaRespiratorio: true,
+    alertaFuga: false,
+    alertaRespiratorio: false,
     relatorioSemanal: false,
-    atualizacaoGPS: true,
     bateriaBaixa: true,
     estadoEmocional: false,
   });
@@ -136,11 +136,10 @@ function ConfigNotificacoes({ onClose, onVoltar }) {
 
   const eventosLabels = {
     alertaCardiaco: "Alertas cardíacos",
-    alertaFuga: "Alerta de fuga",
     alertaRespiratorio: "Alertas respiratórios",
+    alertaFuga: "Alerta de fuga",
     relatorioSemanal: "Relatório semanal",
-    atualizacaoGPS: "Atualização de localização",
-    bateriaBaixa: "Bateria baixa da coleira",
+    bateriaBaixa: "Informações da bateria",
     estadoEmocional: "Estado emocional do pet",
   };
 
@@ -539,7 +538,7 @@ function ConfigSeguranca({ onClose, onVoltar }) {
 
 // Sub-modal: Aparência
 function ConfigAparencia({ onClose, onVoltar }) {
-  const [tema, setTema] = useState("claro");
+  const { tema, setTema } = useTema();
 
   const temas = [
     {
@@ -586,32 +585,7 @@ function ConfigAparencia({ onClose, onVoltar }) {
         </svg>
       ),
     },
-    {
-      key: "sistema",
-      label: "Sistema",
-      icone: (
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-          <line x1="8" y1="21" x2="16" y2="21" />
-          <line x1="12" y1="17" x2="12" y2="21" />
-        </svg>
-      ),
-    },
   ];
-
-  function handleSalvar() {
-    alert(`Tema: ${tema} — Funcionalidade em desenvolvimento.`);
-    onVoltar();
-  }
 
   return (
     <Modal titulo="Aparência" onClose={onClose} onVoltar={onVoltar}>
@@ -629,11 +603,8 @@ function ConfigAparencia({ onClose, onVoltar }) {
             </button>
           ))}
         </div>
-        <button className={styles.btnSalvar} onClick={handleSalvar}>
-          Aplicar aparência
-        </button>
         <button className={styles.btnCancelar} onClick={onVoltar}>
-          Cancelar
+          Voltar
         </button>
       </div>
     </Modal>
@@ -649,19 +620,19 @@ function ConfigAjuda({ onClose, onVoltar }) {
       id: 1,
       pergunta: "Como funciona o monitoramento cardíaco?",
       resposta:
-        "A coleira DunDum possui sensores que medem os batimentos cardíacos do pet em tempo real. Os dados são sincronizados via Wi-Fi e exibidos no dashboard.",
+        "A coleira possui sensores que medem os batimentos cardíacos do pet. Os dados são sincronizados e exibidos no dashboard.",
     },
     {
       id: 2,
       pergunta: "O GPS funciona sem Wi-Fi?",
       resposta:
-        "Infelizmente não, a coleira precisa estar conectada no Wi-Fi para enviar a localização.",
+        "Sim! A coleira possui um chip 4G para enviar a localização caso não haja conexão Wi-Fi disponível.",
     },
     {
       id: 3,
       pergunta: "Como trocar a coleira?",
       resposta:
-        "A troca de coleira deve ser feita pelo suporte oficial da DunDum. Entre em contato pelo e-mail suporte@dundum.com.br ou pelo chat abaixo.",
+        "A troca de coleira deve ser feita pelo suporte oficial da DunDum. Entre em contato pelo e-mail oficialdundum@gmail.com ou pelo chat abaixo.",
     },
     {
       id: 4,
@@ -672,7 +643,7 @@ function ConfigAjuda({ onClose, onVoltar }) {
     {
       id: 5,
       pergunta: "A bateria da coleira dura quanto tempo?",
-      resposta: "Com uso normal, a bateria dura entre 15 e 30 dias.",
+      resposta: "De 15 a 30 dias.",
     },
   ];
 
@@ -705,7 +676,10 @@ function ConfigAjuda({ onClose, onVoltar }) {
         <p className={styles.prefSecaoTitulo}>Fale conosco</p>
 
         {/* E-mail */}
-        <a href="mailto:suporte@dundum.com.br" className={styles.ajudaContato}>
+        <a
+          href="mailto:oficialdundum@gmail.com"
+          className={styles.ajudaContato}
+        >
           <span className={styles.ajudaContatoIconeWrap}>
             <svg
               width="20"
@@ -723,7 +697,7 @@ function ConfigAjuda({ onClose, onVoltar }) {
           </span>
           <div>
             <span className={styles.prefItemLabel}>E-mail</span>
-            <span className={styles.prefItemDesc}>suporte@dundum.com.br</span>
+            <span className={styles.prefItemDesc}>oficialdundum@gmail.com</span>
           </div>
         </a>
 

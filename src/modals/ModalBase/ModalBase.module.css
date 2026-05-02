@@ -54,3 +54,20 @@
 .modalClose:hover {
   color: var(--color-dark-blue);
 }
+
+:global([data-theme="escuro"]) .modal {
+  background: #1a1d2e;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+:global([data-theme="escuro"]) .modalTitulo {
+  color: #e8eaf6;
+}
+
+:global([data-theme="escuro"]) .modalClose {
+  color: #6b7280;
+}
+
+:global([data-theme="escuro"]) .modalClose:hover {
+  color: #e8eaf6;
+}

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import styles from "./Dashboard.module.css";
+import { useTema } from "./ThemeContext.jsx";
 
 import logoBranco from "../../assets/img/logo-branco.webp";
 import logoAzul from "../../assets/img/logo-azul.webp";
@@ -22,6 +23,7 @@ import { ModalNotificacoes } from "../../modals/ModalNotificacoes/ModalNotificac
 import { ModalConfiguracoes } from "../../modals/ModalConfiguracoes/ModalConfiguracoes.jsx";
 import { ModalPlano } from "../../modals/ModalPlano/ModalPlano.jsx";
 import { ModalPet } from "../../modals/ModalPet/ModalPet.jsx";
+import { ModalCompartilhar } from "../../modals/ModalCompartilhar/ModalCompartilhar.jsx";
 
 import {
   SecaoSaude,
@@ -58,15 +60,15 @@ const ICONES = {
   plano: iconePlano,
 };
 
-// Componente principal
 export default function Dashboard() {
+  const { tema } = useTema();
   const [secao, setSecao] = useState("dashboard");
   const [menuAberto, setMenuAberto] = useState(true);
   const [modalAberto, setModalAberto] = useState(null);
   const [perfilAberto, setPerfilAberto] = useState(false);
+  const [compartilharAberto, setCompartilharAberto] = useState(false);
   const perfilRef = useRef(null);
 
-  // Dados via hooks (substituir por API real nos hooks)
   const { data: usuario } = useUsuario();
   const { data: pet } = usePet();
   const { data: batimentos } = useBatimentos();
@@ -89,7 +91,6 @@ export default function Dashboard() {
     year: "numeric",
   });
 
-  // Pet com foto injetada
   const petComFoto = { ...pet, foto: petFoto };
 
   const renderConteudo = () => {
@@ -103,16 +104,15 @@ export default function Dashboard() {
     };
 
     if (secao === "saude") return <SecaoSaude {...props} />;
-
     if (secao === "localizacao")
       return <SecaoLocalizacao petPos={petPos} petNome={pet.nome} />;
-
     if (secao === "relatorios")
       return (
         <SecaoRelatorios
           relatorio={relatorio}
           estadoEmocional={emocional}
           notificacoes={notificacoes}
+          onCompartilhar={() => setCompartilharAberto(true)}
         />
       );
 
@@ -124,14 +124,14 @@ export default function Dashboard() {
           relatorio={relatorio}
           estadoEmocional={emocional}
           notificacoes={notificacoes}
+          onCompartilhar={() => setCompartilharAberto(true)}
         />
       </>
     );
   };
 
   return (
-    <div className={styles.layout}>
-      {/* SIDEBAR */}
+    <div className={styles.layout} data-theme={tema}>
       <Sidebar
         aberto={menuAberto}
         onAbrir={() => setMenuAberto(true)}
@@ -147,7 +147,6 @@ export default function Dashboard() {
         icones={ICONES}
       />
 
-      {/* Overlay mobile */}
       {menuAberto && (
         <div
           className={styles.overlayMobile}
@@ -155,7 +154,6 @@ export default function Dashboard() {
         />
       )}
 
-      {/* CONTEÚDO */}
       <div className={styles.conteudo}>
         {/* Topbar mobile */}
         <header className={styles.topbar}>
@@ -166,14 +164,20 @@ export default function Dashboard() {
             >
               <img src={iconeMenu} alt="Menu" />
             </button>
-            <img src={logoAzul} alt="DunDum" className={styles.logoImgMobile} />
+            <img
+              src={tema === "escuro" ? logoBranco : logoAzul}
+              alt="DunDum"
+              className={styles.logoImgMobile}
+            />
           </div>
           <div className={styles.topbarDireita}>
             <button className={styles.notifIcone}>
               <img
-                src={iconeNotificacaoBlue}
+                src={
+                  tema === "escuro" ? iconeNotificacao : iconeNotificacaoBlue
+                }
                 onClick={() => setModalAberto("notificacoes")}
-                alt="Ícone de notificação"
+                alt="Notificações"
               />
               {naoLidas > 0 && <span className={styles.notifDot} />}
             </button>
@@ -200,9 +204,11 @@ export default function Dashboard() {
           <div className={styles.greetingDireita}>
             <button className={styles.notifIcone}>
               <img
-                src={iconeNotificacaoBlue}
+                src={
+                  tema === "escuro" ? iconeNotificacao : iconeNotificacaoBlue
+                }
                 onClick={() => setModalAberto("notificacoes")}
-                alt="Ícone de notificação"
+                alt="Notificações"
               />
               {naoLidas > 0 && <span className={styles.notifDot} />}
             </button>
@@ -237,7 +243,6 @@ export default function Dashboard() {
           </span>
         </div>
 
-        {/* Seções filtradas */}
         <div className={styles.secoes}>{renderConteudo()}</div>
 
         <footer className={styles.footer}>
@@ -249,24 +254,26 @@ export default function Dashboard() {
       {perfilAberto && (
         <ModalPerfil usuario={usuario} onClose={() => setPerfilAberto(false)} />
       )}
-
       {modalAberto === "pet" && (
         <ModalPet pet={petComFoto} onClose={() => setModalAberto(null)} />
       )}
-
       {modalAberto === "notificacoes" && (
         <ModalNotificacoes
           notificacoes={notificacoes}
           onClose={() => setModalAberto(null)}
         />
       )}
-
       {modalAberto === "configuracoes" && (
         <ModalConfiguracoes onClose={() => setModalAberto(null)} />
       )}
-
       {modalAberto === "plano" && (
         <ModalPlano onClose={() => setModalAberto(null)} />
+      )}
+      {compartilharAberto && (
+        <ModalCompartilhar
+          relatorio={relatorio}
+          onClose={() => setCompartilharAberto(false)}
+        />
       )}
     </div>
   );

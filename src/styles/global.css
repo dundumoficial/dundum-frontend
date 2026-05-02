@@ -37,19 +37,20 @@
     var(--color-dark-blue),
     var(--color-purple)
   );
+  --chart-axis-color: #1b1f3b;
 
   /* font family */
   --font-garet: "Garet", sans-serif;
   --font-poppins: "Poppins", sans-serif;
 
   /* font size */
-  --text-xs: 0.75rem;  /* 12px */
+  --text-xs: 0.75rem; /* 12px */
   --text-sm: 0.875rem; /* 14px */
-  --text-md: 1rem;     /* 16px */
+  --text-md: 1rem; /* 16px */
   --text-lg: 1.125rem; /* 18px */
-  --text-xl: 1.5rem;   /* 24px */
-  --text-2xl: 2rem;    /* 32px */
-  --text-3xl: 3rem;    /* 48px */
+  --text-xl: 1.5rem; /* 24px */
+  --text-2xl: 2rem; /* 32px */
+  --text-3xl: 3rem; /* 48px */
 
   /* font weight */
   --weight-light: 300;
@@ -57,6 +58,10 @@
   --weight-medium: 500;
   --weight-bold: 700;
   --weight-black: 900;
+}
+
+[data-theme="escuro"] {
+  --chart-axis-color: #6b7280;
 }
 
 * {

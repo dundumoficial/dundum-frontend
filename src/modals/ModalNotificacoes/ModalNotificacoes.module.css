@@ -36,3 +36,16 @@
   font-weight: var(--weight-bold);
   color: var(--color-dark-blue);
 }
+
+:global([data-theme="escuro"]) .notifItem {
+  border-bottom-color: #222539;
+  color: #6b7280;
+}
+
+:global([data-theme="escuro"]) .notifNaoLida p {
+  color: #c7cade;
+}
+
+:global([data-theme="escuro"]) .notifItem span {
+  color: #4b5563;
+}

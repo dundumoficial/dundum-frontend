@@ -360,7 +360,7 @@
 
 .temaGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
@@ -485,4 +485,111 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+}
+
+:global([data-theme="escuro"]) .configMenuItem,
+:global([data-theme="escuro"]) .trocarPetItem,
+:global([data-theme="escuro"]) .prefItem,
+:global([data-theme="escuro"]) .sessaoItem,
+:global([data-theme="escuro"]) .faqItem,
+:global([data-theme="escuro"]) .planoItem,
+:global([data-theme="escuro"]) .editarPetInput,
+:global([data-theme="escuro"]) .temaOpcao {
+  background: #222539;
+  border-color: #2a2d42;
+  color: #c7cade;
+}
+
+:global([data-theme="escuro"]) .configMenuLabel,
+:global([data-theme="escuro"]) .prefItemLabel,
+:global([data-theme="escuro"]) .editarPetLabel,
+:global([data-theme="escuro"]) .sessaoDispositivo,
+:global([data-theme="escuro"]) .trocarPetInfo strong,
+:global([data-theme="escuro"]) .modalPetNome,
+:global([data-theme="escuro"]) .modalPetInfo strong {
+  color: #e8eaf6;
+}
+
+:global([data-theme="escuro"]) .configMenuDesc,
+:global([data-theme="escuro"]) .prefItemDesc,
+:global([data-theme="escuro"]) .sessaoDetalhe,
+:global([data-theme="escuro"]) .trocarPetInfo span,
+:global([data-theme="escuro"]) .modalPetInfo span {
+  color: #6b7280;
+}
+
+:global([data-theme="escuro"]) .configMenuItem:hover,
+:global([data-theme="escuro"]) .trocarPetItem:hover,
+:global([data-theme="escuro"]) .temaOpcao:hover {
+  background: #2a2d42;
+  border-color: #818cf8;
+}
+
+:global([data-theme="escuro"]) .temaOpcaoAtiva {
+  border-color: var(--color-purple) !important;
+  background: rgba(69, 74, 222, 0.15) !important;
+  color: #818cf8 !important;
+}
+
+:global([data-theme="escuro"]) .modalPetInfo div {
+  background: #222539;
+}
+
+:global([data-theme="escuro"]) .editarPetInput {
+  background: #222539;
+  border-color: #2a2d42;
+  color: #e8eaf6;
+}
+
+:global([data-theme="escuro"]) .editarPetInput:focus {
+  border-color: #818cf8;
+  background: #1a1d2e;
+}
+
+:global([data-theme="escuro"]) .faqPergunta {
+  color: #c7cade;
+}
+
+:global([data-theme="escuro"]) .faqResposta {
+  color: #9ca3af;
+  border-top-color: #2a2d42;
+}
+
+:global([data-theme="escuro"]) .ajudaContato {
+  background: var(--color-dark-blue);
+  border: 1.5px solid #2a2d42;
+}
+
+:global([data-theme="escuro"]) .ajudaContato:hover {
+  background: rgba(69, 74, 222, 0.2);
+  border-color: var(--color-purple);
+}
+
+:global([data-theme="escuro"]) .ajudaContatoIconeWrap,
+:global([data-theme="escuro"]) .configMenuIcone {
+  filter: brightness(0) invert(1);
+}
+
+:global([data-theme="escuro"]) .prefSecaoTitulo {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+:global([data-theme="escuro"]) .modalDivider {
+  border-top-color: #2a2d42;
+}
+
+:global([data-theme="escuro"]) .btnSalvar {
+  background: var(--color-purple);
+}
+
+:global([data-theme="escuro"]) .btnSalvar:hover {
+  background: var(--color-dark-pink);
+}
+
+:global([data-theme="escuro"]) .btnCancelar {
+  color: var(--color-white);
+}
+
+:global([data-theme="escuro"]) .btnCancelar:hover {
+  color: var(--color-purple);
 }

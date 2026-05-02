@@ -987,3 +987,150 @@
     display: flex;
   }
 }
+
+/* TEMA ESCURO */
+.layout[data-theme="escuro"] {
+  background: #0f1117;
+}
+
+.layout[data-theme="escuro"] .hamburger img {
+  filter: brightness(0) invert(1);
+}
+
+.layout[data-theme="escuro"] .topbar {
+  background: #1a1d2e;
+  border-bottom-color: #2a2d42;
+}
+
+.layout[data-theme="escuro"] .conteudo {
+  background: #0f1117;
+}
+
+.layout[data-theme="escuro"] .greetingNome {
+  color: #e8eaf6;
+}
+
+.layout[data-theme="escuro"] .greetingData {
+  color: #6b7280;
+}
+
+.layout[data-theme="escuro"] .card {
+  background: #1a1d2e;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.layout[data-theme="escuro"] .cardHeader h3 {
+  color: #c7cade;
+}
+
+.layout[data-theme="escuro"] .cardValor {
+  color: #e8eaf6;
+}
+
+.layout[data-theme="escuro"] .cardValor span {
+  color: #6b7280;
+}
+
+.layout[data-theme="escuro"] .cardSub,
+.layout[data-theme="escuro"] .cardHoje,
+.layout[data-theme="escuro"] .cardPeriodo {
+  color: #6b7280;
+}
+
+.layout[data-theme="escuro"] .badgeNormal {
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+}
+
+.layout[data-theme="escuro"] .badgeAlerta {
+  background: rgba(202, 138, 4, 0.2);
+  color: #facc15;
+}
+
+.layout[data-theme="escuro"] .badgeAlto {
+  background: rgba(37, 99, 235, 0.2);
+  color: #60a5fa;
+}
+
+.layout[data-theme="escuro"] .badgeBom {
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+}
+
+.layout[data-theme="escuro"] .relatorioLista li {
+  color: #9ca3af;
+}
+
+.layout[data-theme="escuro"] .relatorioLista li strong {
+  color: #e8eaf6;
+}
+
+.layout[data-theme="escuro"] .btnCompartilhar {
+  border-color: #2a2d42;
+  color: #818cf8;
+}
+
+.layout[data-theme="escuro"] .btnCompartilhar:hover {
+  background: rgba(129, 140, 248, 0.08);
+  border-color: #818cf8;
+}
+
+.layout[data-theme="escuro"] .emocaoBtn {
+  background: #222539;
+  border-color: #2a2d42;
+  color: #c7cade;
+}
+
+.layout[data-theme="escuro"] .emocaoBtn:hover {
+  border-color: #818cf8;
+  background: #2a2d42;
+}
+
+.layout[data-theme="escuro"] .emocaoAtiva {
+  background: var(--color-purple, #454ade) !important;
+  color: #fff !important;
+  border-color: var(--color-purple, #454ade) !important;
+}
+
+.layout[data-theme="escuro"] .emocaoAnalise {
+  background: rgba(129, 140, 248, 0.1);
+  color: #a5b4fc;
+}
+
+.layout[data-theme="escuro"] .sonoLegenda span {
+  color: #6b7280;
+}
+
+.layout[data-theme="escuro"] .notifItem {
+  border-bottom-color: #222539;
+  color: #6b7280;
+}
+
+.layout[data-theme="escuro"] .notifNaoLida p {
+  color: #c7cade;
+}
+
+.layout[data-theme="escuro"] .mapaContainer {
+  border-color: #2a2d42;
+}
+
+.layout[data-theme="escuro"] .footer {
+  color: #4b5563;
+}
+
+.layout[data-theme="escuro"] .avatar {
+  background: #2a2d42;
+  color: #e8eaf6;
+}
+
+.layout[data-theme="escuro"] .avatar:hover {
+  background: var(--color-purple, #454ade);
+}
+
+.layout[data-theme="escuro"] .recharts-cartesian-grid-horizontal line {
+  stroke: rgba(255, 255, 255, 0.06);
+}
+
+.layout[data-theme="escuro"] .recharts-text {
+  fill: #6b7280;
+}

@@ -36,14 +36,14 @@ export function GraficoBatimentos({ data }) {
         />
         <XAxis
           dataKey="hora"
-          tick={{ fontSize: 9, fill: "#1b1f3b" }}
+          tick={{ fontSize: 9, fill: "var(--chart-axis-color)" }}
           axisLine={false}
           tickLine={false}
           interval={2}
         />
         <YAxis
           domain={["dataMin", "dataMax"]}
-          tick={{ fontSize: 9, fill: "#1b1f3b" }}
+          tick={{ fontSize: 9, fill: "var(--chart-axis-color)" }}
           axisLine={false}
           tickLine={false}
           width={28}
@@ -73,14 +73,14 @@ export function GraficoRespiracao({ data }) {
         />
         <XAxis
           dataKey="hora"
-          tick={{ fontSize: 9, fill: "#1b1f3b" }}
+          tick={{ fontSize: 9, fill: "var(--chart-axis-color)" }}
           axisLine={false}
           tickLine={false}
           interval={2}
         />
         <YAxis
           domain={["dataMin", "dataMax"]}
-          tick={{ fontSize: 9, fill: "#1b1f3b" }}
+          tick={{ fontSize: 9, fill: "var(--chart-axis-color)" }}
           axisLine={false}
           tickLine={false}
           width={28}
@@ -110,12 +110,12 @@ export function GraficoPassos({ data }) {
         />
         <XAxis
           dataKey="dia"
-          tick={{ fontSize: 9, fill: "#1b1f3b" }}
+          tick={{ fontSize: 9, fill: "var(--chart-axis-color)" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fontSize: 9, fill: "#1b1f3b" }}
+          tick={{ fontSize: 9, fill: "var(--chart-axis-color)" }}
           axisLine={false}
           tickLine={false}
           width={32}
@@ -171,7 +171,7 @@ export function GraficoSono({ data }) {
         <BarChart data={data} margin={{ top: 0, right: 4, bottom: 0, left: 0 }}>
           <XAxis
             dataKey="hora"
-            tick={{ fontSize: 9, fill: "#1b1f3b" }}
+            tick={{ fontSize: 9, fill: "var(--chart-axis-color)" }}
             axisLine={false}
             tickLine={false}
           />

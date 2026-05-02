@@ -98,3 +98,30 @@
   color: rgba(255, 255, 255, 0.8);
   margin-top: 4px;
 }
+
+:global([data-theme="escuro"]) .planoItem {
+  background: #222539;
+  border-color: #2a2d42;
+}
+
+:global([data-theme="escuro"]) .planoItem .planoItemHeader strong {
+  color: #e8eaf6;
+}
+
+:global([data-theme="escuro"]) .planoItem .planoItemHeader span,
+:global([data-theme="escuro"]) .planoBeneficios {
+  color: #9ca3af;
+}
+
+:global([data-theme="escuro"]) .planoItemAtual {
+  border-color: #818cf8;
+  background: rgba(69, 74, 222, 0.1);
+}
+
+:global([data-theme="escuro"]) .btnUpgrade {
+  background: var(--color-purple);
+}
+
+:global([data-theme="escuro"]) .btnUpgrade:hover {
+  background: var(--color-dark-pink);
+}
