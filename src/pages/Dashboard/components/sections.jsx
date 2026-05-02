@@ -115,7 +115,12 @@ export function SecaoLocalizacao({ petPos, petNome }) {
 }
 
 // SEÇÃO: RELATÓRIOS
-export function SecaoRelatorios({ relatorio, estadoEmocional, notificacoes }) {
+export function SecaoRelatorios({
+  relatorio,
+  estadoEmocional,
+  notificacoes,
+  onCompartilhar,
+}) {
   const itensRelatorio = [
     {
       cor: "#ef4444",
@@ -155,7 +160,7 @@ export function SecaoRelatorios({ relatorio, estadoEmocional, notificacoes }) {
             </li>
           ))}
         </ul>
-        <button className={styles.btnCompartilhar}>
+        <button className={styles.btnCompartilhar} onClick={onCompartilhar}>
           Compartilhar <span>›</span>
         </button>
       </Card>
