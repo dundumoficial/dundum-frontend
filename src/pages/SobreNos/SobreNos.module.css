@@ -1,14 +1,13 @@
 .container {
   width: 100%;
   position: relative;
+  background: #000;
 }
 
 .heroSection {
   position: relative;
   width: 100%;
   height: calc(100vh * 8);
-  background: #000;
-  isolation: isolate;
 }
 
 .beamsWrapper {
@@ -21,26 +20,51 @@
   overflow: hidden;
 }
 
+.beamsInner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.beamsCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.beamsOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 30, 0.05);
+  backdrop-filter: blur(50px);
+  pointer-events: none;
+}
+
 .heroContent {
   position: sticky;
   top: 0;
   height: 100vh;
-  margin-top: -120vh;
+  margin-top: -100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 2;
   pointer-events: none;
+  gap: 32px;
+  padding: 0 16px;
 }
 
 .tituloQuemSomos {
   text-align: center;
-  color: #fff;
+  color: var(--color-white);
   font-size: clamp(2rem, 5vw, 3.5rem);
-  margin-bottom: 40px;
   font-family: var(--font-garet);
   font-weight: var(--weight-bold);
+  margin: 0;
 }
 
 .membroStage {
@@ -74,6 +98,12 @@
     box-shadow 0.3s;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .membroCardSingle {
+    transition: opacity 0.1s;
+  }
+}
+
 .cardAtivo {
   opacity: 1;
   transform: translateY(0) scale(1);
@@ -83,26 +113,33 @@
 }
 
 .cardAtivo:hover {
-  border-color: #b14aed;
+  border-color: var(--color-dark-pink);
   box-shadow:
     0 0 40px rgba(177, 74, 237, 0.4),
     0 8px 32px rgba(69, 74, 222, 0.25);
+}
+
+.cardAtivo:focus-within {
+  border-color: var(--color-dark-pink);
+  box-shadow: 0 0 0 3px rgba(177, 74, 237, 0.5);
 }
 
 .membroAvatar {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #454ade 0%, #b14aed 60%, #c874d9 100%);
   box-shadow: 0 0 20px rgba(177, 74, 237, 0.45);
   flex-shrink: 0;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 .membroNome {
   font-family: var(--font-garet);
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   font-weight: var(--weight-bold);
-  color: #fff;
+  color: var(--color-white);
   margin: 0;
 }
 
@@ -150,6 +187,12 @@
   transform: scale(1.12) translateY(-2px);
   background: rgba(177, 74, 237, 0.2);
   border-color: rgba(177, 74, 237, 0.5);
+}
+
+.linkIcone:focus-visible {
+  outline: 2px solid var(--color-dark-pink);
+  outline-offset: 3px;
+  opacity: 1;
 }
 
 .icone {
@@ -201,7 +244,11 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #454ade, #b14aed);
+  background: linear-gradient(
+    90deg,
+    var(--color-purple),
+    var(--color-dark-pink)
+  );
   border-radius: 2px;
   transition: width 0.25s ease;
 }
@@ -216,13 +263,11 @@
 .secoesClaras {
   position: relative;
   z-index: 2;
-  background: #fff;
+  background: var(--color-white);
   isolation: isolate;
 }
 
-.moveSection,
-.coleiraSection,
-.historiaSection {
+.secaoTexto {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -238,10 +283,7 @@
   text-align: center;
 }
 
-.tituloMove,
-.tituloColeira,
-.tituloHistoria,
-.tituloAcreditamos {
+.tituloSecao {
   font-family: var(--font-garet);
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: var(--weight-bold);
@@ -249,13 +291,7 @@
   margin-bottom: 32px;
 }
 
-.tituloAcreditamos {
-  margin-bottom: 40px;
-}
-
-.moveTexto,
-.coleiraTexto,
-.historiaTexto {
+.textoCorpo {
   font-family: var(--font-poppins);
   font-size: var(--text-md);
   color: var(--color-dark-blue);
@@ -268,6 +304,9 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .valorCard {
@@ -284,7 +323,7 @@
   font-family: var(--font-garet);
   font-size: var(--text-xl);
   font-weight: var(--weight-bold);
-  color: var(--color-white);
+  color: var(--color-pink);
   flex-shrink: 0;
   min-width: 36px;
 }
@@ -298,10 +337,21 @@
 }
 
 .destaquePink {
-  color: var(--color-pink, #b14aed);
+  color: var(--color-pink);
 }
 
-/* small tablet */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @media (min-width: 600px) {
   .membroStage {
     width: 320px;
@@ -319,7 +369,6 @@
   }
 }
 
-/* tablet */
 @media (min-width: 768px) {
   .membroStage {
     width: 360px;
@@ -344,7 +393,6 @@
   }
 }
 
-/* desktop */
 @media (min-width: 1024px) {
   .membroStage {
     width: 380px;
@@ -361,9 +409,7 @@
     height: 32px;
   }
 
-  .moveSection,
-  .coleiraSection,
-  .historiaSection,
+  .secaoTexto,
   .acreditamosSection {
     padding-left: 40px;
     padding-right: 40px;
