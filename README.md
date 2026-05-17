@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="1584" height="262" alt="DunDum Banner" src="https://github.com/user-attachments/assets/862c5f4e-2952-4a41-9068-715fd53e47e8" />
+  <img width="1584" height="262" alt="DunDum Banner" src="https://github.com/user-attachments/assets/ff2cced0-4fb6-4d3f-8fe4-ef475bfec573" />
 </div>
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&height=4&color=454ade" />
