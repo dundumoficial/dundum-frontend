@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./CentralDeAjuda.module.css";
+import ModalFormulario from "../../modals/ModalFormulario/ModalFormulario.jsx";
 
 import iconeBalao from "../../assets/img/centraldeajuda/icon-balao.svg";
 import iconeChave from "../../assets/img/centraldeajuda/icon-chave.svg";
@@ -30,7 +30,7 @@ function scrollSuave(e, href) {
 const categorias = [
   { icone: iconeSinal, label: "Uso da Coleira", href: "#uso-da-coleira" },
   { icone: iconeChave, label: "Suporte Técnico", href: "#suporte-tecnico" },
-  { icone: iconeCoracao, label: "Saúde do Pet", href: "#duvidas-pet" },
+  { icone: iconeCoracao, label: "Saúde do Cão", href: "#duvidas-pet" },
   { icone: iconeFAQ, label: "FAQ Geral", href: "#perguntas-frequentes" },
   { icone: iconeBalao, label: "Fale com a Gente", href: "#fale-conosco" },
 ];
@@ -40,7 +40,7 @@ const usoColeira = [
     num: "01",
     titulo: "Como conectar a coleira?",
     texto:
-      'Ligue o dispositivo e abra a plataforma. Selecione "Adicionar coleira" e digite o número da coleira. Ela será vinculada ao seu pet automaticamente.',
+      'Ligue o dispositivo e abra a plataforma. Selecione "Adicionar coleira" e digite o número da coleira. Ela será vinculada ao seu cão automaticamente.',
   },
   {
     num: "02",
@@ -50,7 +50,7 @@ const usoColeira = [
   },
   {
     num: "03",
-    titulo: "Como ver os dados do meu pet?",
+    titulo: "Como ver os dados do meu cão?",
     texto:
       "Acesse o painel principal da plataforma. Lá você encontrará gráficos de batimentos cardíacos, atividade física, respiração e tempo de sono.",
   },
@@ -76,19 +76,14 @@ const suporteTecnico = [
 
 const duvidasPet = [
   {
-    pergunta: "Meu pet está estressado?",
+    pergunta: "Meu cão está estressado?",
     resposta:
-      "De acordo com os dados coletados, seu pet pode apresentar aumento nos batimentos cardíacos e atividade física nas últimas horas. Isso pode indicar estresse ou agitação. Observe o comportamento do pet e, se necessário, consulte um veterinário.",
+      "De acordo com os dados coletados, seu cão pode apresentar aumento nos batimentos cardíacos e atividade física nas últimas horas. Isso pode indicar estresse ou agitação. Observe o comportamento do cão e, se necessário, consulte um veterinário.",
   },
   {
-    pergunta: "Meu pet está dormindo bem?",
+    pergunta: "Meu cão está dormindo bem?",
     resposta:
-      "A plataforma calcula a média de horas de sono por noite e indica se o valor está dentro do padrão esperado para a espécie do seu pet.",
-  },
-  {
-    pergunta: 'O que significa a emoção "estressado"?',
-    resposta:
-      'A emoção "estressado" é identificada quando o sistema detecta padrões de batimentos cardíacos elevados combinados com pouca movimentação ou agitação incomum.',
+      "A plataforma calcula a média de horas de sono por noite e indica se o valor está dentro do padrão esperado para a espécie do seu cão.",
   },
   {
     pergunta: "A coleira pode ajudar a detectar problemas de saúde?",
@@ -101,7 +96,7 @@ const dicasCuidados = [
   {
     titulo: "Quantas horas um cachorro deve dormir?",
     texto:
-      "Cães adultos dormem entre 12 e 14 horas por dia. Filhotes podem dormir até 18-20 horas. Se o seu pet estiver dormindo muito além disso, consulte um veterinário.",
+      "Cães adultos dormem entre 12 e 14 horas por dia. Filhotes podem dormir até 18-20 horas. Se o seu cão estiver dormindo muito além disso, consulte um veterinário.",
   },
   {
     titulo: "Quantas vezes um cachorro deve comer por dia?",
@@ -133,63 +128,27 @@ const perguntasFrequentes = [
   {
     pergunta: "Quais dados de saúde a coleira monitora?",
     resposta:
-      "A coleira monitora diversos indicadores, como: Batimentos cardíacos, respiração, quantidade de passos, tempo de sono e emoções estimadas pela inteligência artificial.",
-  },
-  {
-    pergunta: "Como a IA identifica as emoções do pet?",
-    resposta:
-      "A IA analisa padrões de batimentos cardíacos, movimento e atividade para identificar possíveis estados emocionais, como relaxamento, estresse ou animação.",
+      "A coleira monitora diversos indicadores, como: Batimentos cardíacos, respiração, quantidade de passos e tempo de sono.",
   },
   {
     pergunta: "Com que frequência os dados são atualizados?",
     resposta:
-      "Os sensores coletam dados aproximadamente a cada 10 minutos, permitindo acompanhar o comportamento e a saúde do pet ao longo do dia.",
+      "Os sensores coletam dados aproximadamente a cada 10 minutos, permitindo acompanhar o comportamento e a saúde do cão ao longo do dia.",
   },
   {
     pergunta: "Posso conectar mais de uma coleira na mesma conta?",
     resposta:
-      "Sim! Você pode adicionar vários pets na mesma conta, cada um com sua própria coleira e histórico de dados.",
+      "Sim! Você pode adicionar vários cães na mesma conta, cada um com sua própria coleira e histórico de dados.",
   },
   {
-    pergunta: "Posso conectar mais de um pet na mesma coleira?",
+    pergunta: "Posso conectar mais de um cachorro na mesma coleira?",
     resposta:
-      "Não. Cada coleira é associada a um único pet, garantindo que os dados de saúde e comportamento sejam registrados corretamente.",
+      "Não. Cada coleira é associada a um único cão, garantindo que os dados de saúde e comportamento sejam registrados corretamente.",
   },
   {
-    pergunta: "Meus dados e os do meu pet estão seguros?",
+    pergunta: "Meus dados e os do meu cachorro estão seguros?",
     resposta:
-      "Sim. O sistema utiliza criptografia e armazenamento seguro, garantindo a proteção das informações dos usuários e dos pets.",
-  },
-];
-
-const canaisAtendimento = [
-  {
-    icone: iconeRobo,
-    titulo: "Chatbot",
-    texto:
-      "Tire dúvidas sobre uso da coleira, bateria e muito mais. O nosso agente inteligente está disponível para ajudar a qualquer hora.",
-    link: "Acessar chat",
-  },
-  {
-    icone: iconeEmail,
-    titulo: "E-mail",
-    texto:
-      "O nosso e-mail dedicado está disponível para atendimento com até 24 horas úteis.",
-    link: "oficialdundum@gmail.com.br",
-  },
-  {
-    icone: iconeTelefone,
-    titulo: "Telefone",
-    texto:
-      "Fale diretamente com um dos nossos especialistas em pets. Disponível em horário especial.",
-    link: "(11) 4002-8922",
-  },
-  {
-    icone: iconeForm,
-    titulo: "Formulário",
-    texto:
-      "Preencha o formulário de contato e nossa equipe te responderá em breve.",
-    link: "Acessar formulário",
+      "Sim. O sistema utiliza criptografia e armazenamento seguro, garantindo a proteção das informações dos usuários e dos cães.",
   },
 ];
 
@@ -214,10 +173,10 @@ function AccordionItem({ pergunta, resposta }) {
 }
 
 export default function CentralDeAjuda() {
+  const [modalFormulario, setModalFormulario] = useState(false);
+
   return (
     <>
-      <Header />
-
       <main className={styles.container}>
         {/* HERO */}
         <section className={styles.hero}>
@@ -231,7 +190,7 @@ export default function CentralDeAjuda() {
           </h1>
           <p className={styles.heroSubtitulo}>
             Encontre respostas rápidas sobre a sua coleira inteligente, dados do
-            seu pet e muito mais.
+            seu cão e muito mais.
           </p>
 
           <div className={styles.categoriasGrid}>
@@ -256,11 +215,7 @@ export default function CentralDeAjuda() {
         {/* USO DA COLEIRA */}
         <section id="uso-da-coleira" className={styles.secao}>
           <div className={styles.secaoTituloWrapper}>
-            <img
-              src={iconeSinal}
-              alt="Ícone branco de um sinal de rádio ou Wi-Fi, composto por um pequeno círculo sólido na base e três arcos concêntricos que aumentam de tamanho para cima."
-              className={styles.secaoIcone}
-            />
+            <img src={iconeSinal} alt="Sinal" className={styles.secaoIcone} />
             <h2 className={styles.secaoTitulo}>Uso da Coleira</h2>
           </div>
 
@@ -279,11 +234,7 @@ export default function CentralDeAjuda() {
         <section id="suporte-tecnico" className={styles.secaoGradiente}>
           <div className={styles.secaoInterna}>
             <div className={styles.secaoTituloWrapper}>
-              <img
-                src={iconeChave}
-                alt="Ícone branco de uma chave de boca (ferramenta) posicionada diagonalmente sobre um fundo preto."
-                className={styles.secaoIcone}
-              />
+              <img src={iconeChave} alt="Chave" className={styles.secaoIcone} />
               <h2 className={styles.secaoTituloClaro}>Suporte Técnico</h2>
             </div>
 
@@ -303,10 +254,10 @@ export default function CentralDeAjuda() {
           <div className={styles.secaoTituloWrapper}>
             <img
               src={iconeCoracao}
-              alt="Ícone branco de um coração com o desenho vazado de uma pata de animal no centro, sobre um fundo preto."
+              alt="Coração"
               className={styles.secaoIcone}
             />
-            <h2 className={styles.secaoTitulo}>Dúvidas sobre o Pet</h2>
+            <h2 className={styles.secaoTitulo}>Dúvidas sobre o Cão</h2>
           </div>
 
           <div className={styles.accordionLista}>
@@ -326,11 +277,11 @@ export default function CentralDeAjuda() {
             <div className={styles.secaoTituloWrapper}>
               <img
                 src={iconeLampada}
-                alt="Ícone branco de uma lâmpada de filamento, com traços simples representando o bulbo e a base rosqueável."
+                alt="Lâmpada"
                 className={styles.secaoIcone}
               />
               <h2 className={styles.secaoTituloClaro}>
-                Dicas de Cuidados com Pets
+                Dicas de Cuidados com Cães
               </h2>
             </div>
 
@@ -348,11 +299,7 @@ export default function CentralDeAjuda() {
         {/* PERGUNTAS FREQUENTES */}
         <section id="perguntas-frequentes" className={styles.secao}>
           <div className={styles.secaoTituloWrapper}>
-            <img
-              src={iconeFAQ}
-              alt="Ícone branco de um balão de fala com um ponto de interrogação no centro."
-              className={styles.secaoIcone}
-            />
+            <img src={iconeFAQ} alt="FAQ" className={styles.secaoIcone} />
             <h2 className={styles.secaoTitulo}>Perguntas Frequentes</h2>
           </div>
 
@@ -379,20 +326,96 @@ export default function CentralDeAjuda() {
             </p>
 
             <div className={styles.canaisGrid}>
-              {canaisAtendimento.map((canal, i) => (
-                <div key={i} className={styles.canalCard}>
-                  <img
-                    src={canal.icone}
-                    alt={canal.titulo}
-                    className={styles.canalIcone}
-                  />
-                  <h3 className={styles.canalTitulo}>{canal.titulo}</h3>
-                  <p className={styles.canalTexto}>{canal.texto}</p>
-                  <a href="#" className={styles.canalLink}>
-                    {canal.link}
-                  </a>
-                </div>
-              ))}
+              {/* Chatbot */}
+              <div className={styles.canalCard}>
+                <img
+                  src={iconeRobo}
+                  alt="Chatbot"
+                  className={styles.canalIcone}
+                />
+                <h3 className={styles.canalTitulo}>Chatbot</h3>
+                <p className={styles.canalTexto}>
+                  Tire dúvidas sobre uso da coleira, bateria e muito mais. O
+                  nosso agente inteligente está disponível para ajudar a
+                  qualquer hora.
+                </p>
+                <button
+                  className={styles.canalLinkBtn}
+                  onClick={() => {
+                    if (window.tidioChatApi) {
+                      window.tidioChatApi.open();
+                    } else {
+                      document
+                        .querySelector("#tidio-chat-iframe")
+                        ?.contentWindow?.postMessage("open", "*");
+                    }
+                  }}
+                >
+                  Acessar chat
+                </button>
+              </div>
+
+              {/* E-mail */}
+              <div className={styles.canalCard}>
+                <img
+                  src={iconeEmail}
+                  alt="E-mail"
+                  className={styles.canalIcone}
+                />
+                <h3 className={styles.canalTitulo}>E-mail</h3>
+                <p className={styles.canalTexto}>
+                  O nosso e-mail dedicado está disponível para atendimento com
+                  até 24 horas úteis.
+                </p>
+                <a
+                  href="mailto:oficialdundum@gmail.com.br"
+                  className={styles.canalLink}
+                >
+                  oficialdundum@gmail.com.br
+                </a>
+              </div>
+
+              {/* Telefone */}
+              <div className={styles.canalCard}>
+                <img
+                  src={iconeTelefone}
+                  alt="Telefone"
+                  className={styles.canalIcone}
+                />
+                <h3 className={styles.canalTitulo}>Telefone</h3>
+                <p className={styles.canalTexto}>
+                  Fale diretamente com um dos nossos especialistas em cães.
+                  Disponível em horário especial.
+                </p>
+                <a
+                  href="https://wa.me/551140028922"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.canalLink}
+                >
+                  (11) 4002-8922
+                </a>
+              </div>
+
+              {/* Formulário */}
+              <div className={styles.canalCard}>
+                <img
+                  src={iconeForm}
+                  alt="Formulário"
+                  className={styles.canalIcone}
+                />
+                <h3 className={styles.canalTitulo}>Formulário</h3>
+                <p className={styles.canalTexto}>
+                  Preencha o formulário de contato e nossa equipe te responderá
+                  em breve.
+                </p>
+                <button
+                  className={styles.canalLinkBtn}
+                  onClick={() => setModalFormulario(true)}
+                >
+                  Acessar formulário
+                </button>
+              </div>
             </div>
 
             <div className={styles.horarios}>
@@ -414,6 +437,10 @@ export default function CentralDeAjuda() {
       </main>
 
       <Footer />
+
+      {modalFormulario && (
+        <ModalFormulario onClose={() => setModalFormulario(false)} />
+      )}
     </>
   );
 }

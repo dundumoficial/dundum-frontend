@@ -1,10 +1,8 @@
-/* CONTAINER PRINCIPAL */
 .container {
   width: 100%;
   overflow-x: hidden;
 }
 
-/* HERO */
 .hero {
   background: var(--color-gradient);
   padding: 3rem 1.25rem 4rem;
@@ -46,7 +44,6 @@
   line-height: 1.6;
 }
 
-/* Grid de categorias */
 .categoriasGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -67,6 +64,7 @@
   gap: 0.5rem;
   cursor: pointer;
   transition: background 0.2s;
+  text-decoration: none;
 }
 
 .categoriaCard:hover {
@@ -88,7 +86,6 @@
   text-align: center;
 }
 
-/* SEÇÕES GENÉRICAS */
 .secao {
   padding: 3rem 1.25rem;
   background: var(--color-white);
@@ -139,7 +136,6 @@
   color: var(--color-white);
 }
 
-/* USO DA COLEIRA */
 .usoGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -147,7 +143,7 @@
 }
 
 .usoCard {
-  background: #1b1f3b;
+  background: var(--color-dark-blue);
   border-radius: 14px;
   padding: 1.5rem;
   color: var(--color-white);
@@ -179,7 +175,6 @@
   line-height: 1.6;
 }
 
-/* SUPORTE TÉCNICO */
 .suporteGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -210,7 +205,6 @@
   line-height: 1.6;
 }
 
-/* ACCORDION (Dúvidas e FAQ) */
 .accordionLista {
   display: flex;
   flex-direction: column;
@@ -278,7 +272,6 @@
   margin-top: 0.75rem;
 }
 
-/* DICAS DE CUIDADOS */
 .dicasGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -307,7 +300,6 @@
   line-height: 1.6;
 }
 
-/* FALE COM A GENTE */
 .faleConosco {
   background: var(--color-dark-blue);
   padding: 3.5rem 1.25rem;
@@ -381,6 +373,7 @@
   font-size: var(--text-sm);
   color: var(--color-white);
   line-height: 1.6;
+  flex: 1;
 }
 
 .canalLink {
@@ -389,7 +382,8 @@
   font-weight: var(--weight-medium);
   color: var(--color-purple);
   text-decoration: none;
-  margin-top: 0.25rem;
+  display: inline-block;
+  width: fit-content;
   transition: color 0.2s;
 }
 
@@ -397,7 +391,25 @@
   color: var(--color-pink);
 }
 
-/* Horários */
+.canalLinkBtn {
+  font-family: var(--font-poppins);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-purple);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-block;
+  width: fit-content;
+  text-align: left;
+  transition: color 0.2s;
+}
+
+.canalLinkBtn:hover {
+  color: var(--color-pink);
+}
+
 .horarios {
   display: flex;
   flex-direction: column;
@@ -429,7 +441,6 @@
 
 /* TABLET */
 @media (min-width: 768px) {
-  /* Hero */
   .hero {
     padding: 4rem 2.5rem 5rem;
   }
@@ -446,33 +457,25 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Seções */
   .secao,
   .secaoEscura,
   .secaoGradiente {
     padding: 4rem 2.5rem;
   }
 
-  /* Uso da coleira */
   .usoGrid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  /* Suporte técnico */
   .suporteGrid {
     grid-template-columns: 1fr;
   }
-
-  /* Dicas */
   .dicasGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Fale conosco */
   .faleConosco {
     padding: 4rem 2.5rem;
   }
-
   .canaisGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -492,7 +495,6 @@
 
 /* DESKTOP */
 @media (min-width: 1024px) {
-  /* Hero */
   .hero {
     padding: 5rem 5rem 6rem;
   }
@@ -505,7 +507,6 @@
     grid-template-columns: repeat(5, 1fr);
   }
 
-  /* Seções */
   .secao,
   .secaoEscura,
   .secaoGradiente {
@@ -520,17 +521,14 @@
     margin-right: auto;
   }
 
-  /* Uso da coleira */
   .usoGrid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Dicas */
   .dicasGrid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Fale conosco */
   .faleConosco {
     padding: 5rem;
   }
