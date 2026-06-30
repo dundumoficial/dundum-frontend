@@ -11,13 +11,17 @@ function Header() {
 
   return (
     <>
-      <header className={styles.header}>
+      <header className={styles.header} role="banner">
         <div className={styles.container}>
-          <Link to="/" className={styles.logo}>
-            <img src={logo} alt="Logo da DunDum" />
+          <Link
+            to="/"
+            className={styles.logo}
+            aria-label="Página inicial DunDum"
+          >
+            <img src={logo} alt="DunDum" />
           </Link>
 
-          <nav className={styles.nav}>
+          <nav className={styles.nav} aria-label="Navegação principal">
             <Link to="/">Início</Link>
             <Link to="/produtos">Produtos</Link>
             <Link to="/sobrenos">Sobre Nós</Link>
@@ -25,11 +29,16 @@ function Header() {
             <Link to="/centraldeajuda">Central de Ajuda</Link>
           </nav>
 
-          <Link to="/login" className={styles.actions}>
+          <Link
+            to="/login"
+            className={styles.actions}
+            aria-label="Entrar ou cadastrar-se"
+          >
             <button className={styles.loginBtn}>
               <img
                 src={user}
                 alt="Ícone de usuário"
+                aria-hidden="true"
                 className={styles.userIcon}
               />
               <div className={styles.btnText}>
@@ -39,37 +48,43 @@ function Header() {
             </button>
           </Link>
 
-          <div
-            className={`${styles.menuIcon} ${menuOpen ? styles.menuOpen : ""}`}
+          <button
+            className={styles.menuIcon}
             onClick={() => setMenuOpen(true)}
+            aria-label="Abrir menu"
+            aria-expanded={menuOpen}
           >
-            <img src={menu} alt="Ícone de menu" />
-          </div>
+            <img src={menu} alt="" aria-hidden="true" />
+          </button>
         </div>
       </header>
 
-      {/* overlay do menu mobile */}
       <div
         className={`${styles.overlay} ${menuOpen ? styles.overlayOpen : ""}`}
         onClick={() => setMenuOpen(false)}
+        aria-hidden="true"
       />
 
+      {/* Menu mobile */}
       <div
         className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ""}`}
+        aria-hidden={!menuOpen}
       >
         <div className={styles.mobileHeader}>
           <Link
             to="/"
             className={styles.logo}
             onClick={() => setMenuOpen(false)}
+            aria-label="Página inicial"
           >
-            <img src={logo} alt="Logo da DunDum" />
+            <img src={logo} alt="DunDum" />
           </Link>
           <button
             className={styles.closeBtn}
             onClick={() => setMenuOpen(false)}
+            aria-label="Fechar menu"
           >
-            <img src={close} alt="Ícone de fechar menu" />
+            <img src={close} alt="Ícone para fechar" aria-hidden="true" />
           </button>
         </div>
 
@@ -90,7 +105,7 @@ function Header() {
           </Link>
         </div>
 
-        <nav className={styles.mobileNav}>
+        <nav className={styles.mobileNav} aria-label="Menu mobile">
           <Link to="/" onClick={() => setMenuOpen(false)}>
             Início
           </Link>

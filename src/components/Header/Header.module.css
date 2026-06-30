@@ -19,8 +19,9 @@ a {
 }
 
 .logo img {
-  height: 30px;
+  height: 28px;
   object-fit: contain;
+  display: block;
 }
 
 .nav {
@@ -32,9 +33,12 @@ a {
 }
 
 .menuIcon {
+  background: none;
+  border: none;
   cursor: pointer;
   padding: 4px;
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
 .menuIcon img {
