@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { BeamsBackground } from "./beams-background.jsx";
-
-import Header from "../../components/Header/Header.jsx";
+import { BeamsBackground } from "./BeamsBackground.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./SobreNos.module.css";
 
@@ -248,7 +246,6 @@ function QuemSomosHero() {
 export default function SobreNos() {
   return (
     <>
-      <Header />
       <main className={styles.container}>
         <QuemSomosHero />
 
@@ -256,7 +253,7 @@ export default function SobreNos() {
           <SecaoTexto tituloId="titulo-move" titulo="O que nos" destaque="move">
             <p className={styles.textoCorpo}>
               Utilizar tecnologia e inteligência artificial para monitorar a
-              saúde e o comportamento dos pets, oferecendo informações que
+              saúde e o comportamento dos cães, oferecendo informações que
               ajudam tutores e veterinários a cuidar melhor dos animais.
             </p>
           </SecaoTexto>
@@ -268,14 +265,14 @@ export default function SobreNos() {
           >
             <p className={styles.textoCorpo}>
               Muitos tutores não conseguem acompanhar de perto a saúde e o
-              comportamento dos seus pets no dia a dia. Pensando nisso, criamos
+              comportamento dos seus cães no dia a dia. Pensando nisso, criamos
               uma coleira inteligente capaz de monitorar sinais importantes como
               batimentos cardíacos, atividade física e sono.
             </p>
             <p className={styles.textoCorpo}>
               Nosso objetivo é ajudar tutores e veterinários a identificar
-              mudanças no comportamento dos animais, permitindo uma prevenção
-              mais eficiente de possíveis problemas de saúde.
+              mudanças no comportamento dos cães, permitindo uma prevenção mais
+              eficiente de possíveis problemas de saúde.
             </p>
           </SecaoTexto>
 
@@ -287,12 +284,12 @@ export default function SobreNos() {
             <p className={styles.textoCorpo}>
               O projeto nasceu durante o desenvolvimento de um trabalho
               acadêmico, quando percebemos que a tecnologia poderia ser
-              utilizada para melhorar o cuidado com os animais de estimação.
+              utilizada para melhorar o cuidado com os cães.
             </p>
             <p className={styles.textoCorpo}>
               A partir dessa ideia, começamos a desenvolver uma coleira
               inteligente capaz de coletar dados de saúde e comportamento dos
-              pets, utilizando sensores e inteligência artificial para gerar
+              cães, utilizando sensores e inteligência artificial para gerar
               informações úteis aos tutores.
             </p>
           </SecaoTexto>
