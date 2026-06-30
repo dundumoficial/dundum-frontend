@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Comunidade.module.css";
 
@@ -211,8 +210,6 @@ export default function Comunidade() {
 
   return (
     <>
-      <Header />
-
       <main className={styles.main}>
         {/* SEÇÃO: HERO */}
         <section className={styles.heroSection}>
@@ -281,7 +278,7 @@ export default function Comunidade() {
             </span>
             <h2 className={styles.sectionTitle}>Profissionais de confiança</h2>
             <p className={styles.sectionSubtitle}>
-              Lista de veterinários que podem ajudar você e seu pet.
+              Lista de veterinários que podem ajudar você e seu cão.
             </p>
 
             <div className={styles.vetGrid}>
