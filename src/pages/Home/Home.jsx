@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import styles from "./Home.module.css";
-import ScrollExpand from "./scroll-expansion";
-import { TestimonialsColumn } from "./testimonials-column";
+import ScrollExpandMedia from "./ScrollExpandMedia.tsx";
+import { TestimonialsColumn } from "./TestimonialsColumn.tsx";
 
 import dogDeitado from "../../assets/img/home/dog-deitado.webp";
 import dogFeliz from "../../assets/img/home/dog-feliz.webp";
@@ -38,12 +37,12 @@ const testimonials = [
     name: "Ana Lima",
   },
   {
-    text: "A plataforma é incrível! Consigo acompanhar todos os dados do meu pet em um único lugar. O suporte é excelente e o produto funciona perfeitamente.",
+    text: "A plataforma é incrível! Consigo acompanhar todos os dados do meu cachorro em um único lugar. O suporte é excelente e o produto funciona perfeitamente.",
     image: imgCarlos,
     name: "Carlos Souza",
   },
   {
-    text: "Meu pet tem problemas cardíacos e a DunDum me dá paz de espírito. Os dados são precisos e a interface é muito fácil de usar. Vale cada centavo!",
+    text: "Meu cachorro tem problemas cardíacos e a DunDum me dá paz de espírito. Os dados são precisos e a interface é muito fácil de usar. Vale cada centavo!",
     image: imgFernanda,
     name: "Fernanda Costa",
   },
@@ -53,17 +52,17 @@ const testimonials = [
     name: "Rafaela Mendes",
   },
   {
-    text: "A coleira chegou rápido e foi fácil de configurar. Em menos de 10 minutos já estava monitorando minha pet. A interface da plataforma é linda e muito intuitiva.",
+    text: "A coleira chegou rápido e foi fácil de configurar. Em menos de 10 minutos já estava monitorando minha cachorra. A interface da plataforma é linda e muito intuitiva.",
     image: imgJuliana,
     name: "Juliana Torres",
   },
   {
-    text: "Recebi um alerta de batimento cardíaco elevado enquanto estava no trabalho. Liguei para o veterinário na hora. A DunDum pode ter salvado a vida do meu pet.",
+    text: "Recebi um alerta de batimento cardíaco elevado enquanto estava no trabalho. Liguei para o veterinário na hora. A DunDum pode ter salvado a vida do meu cachorro.",
     image: imgMarcos,
     name: "Marcos Oliveira",
   },
   {
-    text: "Três pets em casa e consigo monitorar todos pela mesma plataforma. Já indiquei para toda a minha família. Vocês são incríveis!",
+    text: "Três cães em casa e consigo monitorar todos pela mesma plataforma. Já indiquei para toda a minha família. Vocês são incríveis!",
     image: imgBeatriz,
     name: "Beatriz Santos",
   },
@@ -155,7 +154,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <main className={styles.main}>
         {/* HERO (PRINCIPAL) */}
         <section className={styles.hero}>
@@ -175,7 +173,7 @@ export default function Home() {
           <div className={styles.heroOverlay} />
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitulo}>
-              Monitore a saúde do seu pet com
+              Monitore a saúde do seu cão com
               <br />
               <span className={styles.heroDestaque}>tecnologia </span>
               <span className={styles.heroDestaque2}>inteligente.</span>
@@ -201,7 +199,7 @@ export default function Home() {
 
         {/* PETS USANDO A COLEIRA */}
         <section className={`${styles.secaoPets} ${styles.reveal}`}>
-          <h2 className={styles.secaoTitulo}>PETS USANDO A NOSSA COLEIRA</h2>
+          <h2 className={styles.secaoTitulo}>CÃES USANDO A NOSSA COLEIRA</h2>
           <div className={styles.petsInfinito}>
             <div className={styles.petsTrack}>
               {[...petFotos, ...petFotos].map((foto, i) => (
@@ -224,25 +222,25 @@ export default function Home() {
               <img src={dogDeitado} alt="Cachorro deitado" />
             </div>
             <h2 className={styles.porqueTitulo}>
-              Por que seu pet precisa de mais atenção?
+              Por que seu cachorro precisa de mais atenção?
             </h2>
           </div>
           <div className={styles.porqueItens}>
             {[
               {
                 n: "01",
-                t: "Tutores não sabem quando o pet está doente",
+                t: "Tutores não sabem quando o cachorro está doente",
                 d: "Sinais sutis de dor, ansiedade ou febre passam despercebidos até virar algo sério.",
               },
               {
                 n: "02",
-                t: "Doenças cardíacas são comuns em pets",
+                t: "Doenças cardíacas são comuns em cães",
                 d: "1 em cada 10 cães desenvolve algum problema cardíaco ao longo da vida.",
               },
               {
                 n: "03",
-                t: "Pets sozinhos ficam entediados",
-                d: "Quando o dono trabalha, o pet fica ansioso e pode se machucar de várias formas.",
+                t: "Cachorros sozinhos ficam entediados",
+                d: "Quando o dono trabalha, o cão fica ansioso e pode se machucar de várias formas.",
               },
             ].map((item) => (
               <div key={item.n} className={styles.porqueItem}>
@@ -257,7 +255,7 @@ export default function Home() {
         </InteractiveBg>
 
         {/* VÍDEO COMERCIAL */}
-        <ScrollExpand
+        <ScrollExpandMedia
           mediaSrc={videoComercial}
           title="Conheça a DunDum"
           scrollToExpand="Role para ver"
@@ -296,7 +294,7 @@ export default function Home() {
               },
               {
                 t: "Maior segurança",
-                d: "GPS integrado para saber onde seu pet está a qualquer momento.",
+                d: "GPS integrado para saber onde seu cão está a qualquer momento.",
               },
             ].map((b, i) => (
               <div key={i} className={styles.beneficioCard}>
@@ -318,7 +316,7 @@ export default function Home() {
             {[
               {
                 n: "1",
-                t: "Coloque a coleira no pet",
+                t: "Coloque a coleira no seu cachorro",
                 d: "Após ligar a coleira, o dispositivo se conecta à plataforma automaticamente.",
               },
               {
@@ -329,7 +327,7 @@ export default function Home() {
               {
                 n: "3",
                 t: "Visualize no dashboard",
-                d: "Acompanhe todos os dados do seu pet em um painel bonito e intuitivo.",
+                d: "Acompanhe todos os dados do seu cão em um painel bonito e intuitivo.",
               },
             ].map((p) => (
               <div key={p.n} className={styles.passoCard}>
@@ -355,10 +353,10 @@ export default function Home() {
             </video>
           </div>
           <div className={styles.dashboardTexto}>
-            <h2>Tudo sobre seu pet em um único lugar</h2>
+            <h2>Tudo sobre seu cão em um único lugar</h2>
             <p>
-              Acompanhe humor, gráficos de atividade e alertas em tempo real.
-              Saiba exatamente como seu pet está se sentindo, onde quer que você
+              Acompanhe gráficos de atividade e alertas em tempo real.
+              Saiba exatamente como seu cachorro está se sentindo, onde quer que você
               esteja.
             </p>
             <Link to="/cadastro" className={styles.btnPrimario}>
@@ -381,11 +379,11 @@ export default function Home() {
 
         {/* CTA FINAL */}
         <InteractiveBg className={`${styles.secaoCta} ${styles.reveal}`}>
-          <p className={styles.ctaLabel}>CUIDE DO SEU PET</p>
-          <h2 className={styles.ctaTitulo}>Seu pet merece o melhor cuidado</h2>
+          <p className={styles.ctaLabel}>CUIDE DO SEU CÃO</p>
+          <h2 className={styles.ctaTitulo}>Seu cão merece o melhor cuidado</h2>
           <p className={styles.ctaTexto}>
             Junte-se a milhares de tutores que já monitoram a saúde dos seus
-            pets com a DunDum.
+            cães com a DunDum.
           </p>
           <div className={styles.ctaBtns}>
             <Link to="/produtos" className={styles.btnPrimario}>

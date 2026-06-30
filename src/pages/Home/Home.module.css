@@ -708,7 +708,9 @@
     font-size: var(--text-3xl);
   }
 
-  .ctaTitulo, .beneficiosTitulo, .porqueTitulo {
+  .ctaTitulo,
+  .beneficiosTitulo,
+  .porqueTitulo {
     font-size: var(--text-2xl);
   }
 
