@@ -1,21 +1,19 @@
-import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext.jsx";
+import PageLoader from "../components/PageLoader/PageLoader.jsx";
 
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem("token");
+export function RotaPrivada({ children }) {
+  const { autenticado, carregando } = useAuth();
 
-  if (!token) {
-    Swal.fire({
-      title: "Endereço inválido!",
-      text: "Faça login para ter acesso a plataforma.",
-      icon: "error",
-      confirmButtonColor: "#1B1F3B",
-    });
-
-    return <Navigate to="/login" />;
-  }
-
+  if (carregando) return <PageLoader />;
+  if (!autenticado) return <Navigate to="/login" replace />;
   return children;
-};
+}
 
-export default PrivateRoute;
+export function RotaPublica({ children }) {
+  const { autenticado, carregando } = useAuth();
+
+  if (carregando) return <PageLoader />;
+  if (autenticado) return <Navigate to="/dashboard" replace />;
+  return children;
+}
