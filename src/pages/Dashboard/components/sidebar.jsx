@@ -8,6 +8,7 @@ export default function Sidebar({
   onSecao,
   notifNaoLidas,
   onModal,
+  plano,
   bateria,
   pet,
   navItems,
@@ -38,14 +39,24 @@ export default function Sidebar({
         </button>
 
         {/* Pet */}
-        <button className={styles.petCard} onClick={() => onModal("pet")}>
-          <img src={pet.foto} alt={pet.nome} className={styles.petCardFoto} />
-          <div>
-            <p className={styles.petCardNome}>{pet.nome}</p>
-            <p className={styles.petCardRaca}>{pet.raca}</p>
-          </div>
-          <span className={styles.petCardArrow}>›</span>
-        </button>
+        {pet ? (
+          <button className={styles.petCard} onClick={() => onModal("pet")}>
+            <img src={pet.foto} alt={pet.nome} className={styles.petCardFoto} />
+            <div>
+              <p className={styles.petCardNome}>{pet.nome}</p>
+              <p className={styles.petCardRaca}>{pet.raca}</p>
+            </div>
+            <span className={styles.petCardArrow}>›</span>
+          </button>
+        ) : (
+          <button className={styles.petCard} onClick={() => onModal("pet")}>
+            <div>
+              <p className={styles.petCardNome}>Sem pet</p>
+              <p className={styles.petCardRaca}>Adicionar pet</p>
+            </div>
+            <span className={styles.petCardArrow}>›</span>
+          </button>
+        )}
 
         {/* Nav principal */}
         <p className={styles.navLabel}>PRINCIPAL</p>
@@ -69,7 +80,11 @@ export default function Sidebar({
           className={styles.navItem}
           onClick={() => onModal("notificacoes")}
         >
-          <img src={icones.notificacao} alt="" className={styles.navIcone} />
+          <img
+            src={icones.notificacao}
+            alt="Ícone de notificações"
+            className={styles.navIcone}
+          />
           <span className={styles.navLabelItem}>Notificações</span>
           {notifNaoLidas > 0 && (
             <span className={styles.navBadge}>{notifNaoLidas}</span>
@@ -79,7 +94,11 @@ export default function Sidebar({
           className={styles.navItem}
           onClick={() => onModal("configuracoes")}
         >
-          <img src={icones.configuracao} alt="" className={styles.navIcone} />
+          <img
+            src={icones.configuracao}
+            alt="Ícone de configurações"
+            className={styles.navIcone}
+          />
           <span className={styles.navLabelItem}>Configurações</span>
         </button>
 
@@ -99,10 +118,19 @@ export default function Sidebar({
 
         {/* Plano */}
         <button className={styles.planoCard} onClick={() => onModal("plano")}>
-          <img src={icones.plano} alt="" className={styles.planoIcone} />
+          <img
+            src={icones.plano}
+            alt="Ícone de plano"
+            className={styles.planoIcone}
+          />
           <div>
             <p className={styles.planoNome}>Plano</p>
-            <p className={styles.planoTipo}>Premium</p>
+            <p
+              className={styles.planoTipo}
+              style={{ textTransform: "capitalize" }}
+            >
+              {plano}
+            </p>
           </div>
           <span className={styles.petCardArrow}>›</span>
         </button>

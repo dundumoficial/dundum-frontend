@@ -1,19 +1,19 @@
 // substituir cada função por uma chamada à API real
-// Ex: export const fetchUsuario = () => api.get("/usuario")
+// Exemplo: export const fetchUsuario = () => api.get("/usuario")
 
 export const mockUsuario = {
-  nome: "Rafael",
-  iniciais: "R",
-  email: "rafael@email.com",
+  nome: "DunDum",
+  iniciais: "D",
+  email: "oficialdundum@gmail.com",
 };
 
 export const mockPet = {
-  nome: "Rex",
+  nome: "Juju",
   raca: "Bulldog",
   idade: "3 anos",
-  sexo: "Macho",
+  sexo: "Fêmea",
   peso: "8kg",
-  coleira: "#PET-4821",
+  coleira: "COLEIRA0001",
   foto: null,
   ativo: true,
 };
@@ -101,12 +101,6 @@ export const mockNotificacoes = [
   { id: 5, texto: "Relatório semanal disponível", quando: "seg", lido: true },
 ];
 
-export const mockEstadoEmocional = {
-  atual: "Ativo",
-  analise:
-    "Rex está mais ativo que o normal hoje, passos e batimentos acima da média semanal. Pode ser um passeio estimulante. Fique atento à hidratação!",
-};
-
 export const mockBateria = 78;
 
-export const mockPetPos = [-23.5489, -46.6388];
+export const mockPetPos = [-23.673284, -46.698625];

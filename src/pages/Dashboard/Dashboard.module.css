@@ -1,3 +1,88 @@
+/* skeleton */
+.skeletonSidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: linear-gradient(90deg, #e8eaf0 25%, #f0f2f8 50%, #e8eaf0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  flex-shrink: 0;
+}
+
+.skeletonTopbar {
+  height: 56px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #e8eaf0 25%, #f0f2f8 50%, #e8eaf0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  margin-bottom: 20px;
+}
+
+.skeletonGreeting {
+  height: 72px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #e8eaf0 25%, #f0f2f8 50%, #e8eaf0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  margin-bottom: 16px;
+}
+
+.skeletonBanner {
+  height: 96px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #e8eaf0 25%, #f0f2f8 50%, #e8eaf0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonSidebar,
+  .skeletonTopbar,
+  .skeletonGreeting,
+  .skeletonBanner {
+    animation: none;
+  }
+}
+
+/* estado de erro */
+.errorState {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-poppins);
+  color: var(--color-dark-blue);
+}
+
+.errorBtn {
+  padding: 12px 24px;
+  background: var(--color-dark-blue);
+  color: var(--color-white);
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-poppins);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.errorBtn:hover {
+  background: var(--color-purple);
+}
+
 /* LAYOUT */
 .layout {
   display: flex;
@@ -31,6 +116,7 @@
 .aside::-webkit-scrollbar {
   width: 4px;
 }
+
 .aside::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
@@ -373,6 +459,13 @@
   background: var(--color-purple);
 }
 
+.avatarFoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 /* GREETING */
 .greeting {
   display: flex;
@@ -708,59 +801,6 @@
   border-color: var(--color-purple);
 }
 
-/* EMOÇÕES */
-.emocoesGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin: 4px 0;
-}
-
-.emocaoBtn {
-  background: #f9fafb;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-family: var(--font-poppins);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-medium);
-  color: var(--color-dark-blue);
-  cursor: pointer;
-  transition: 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.emocaoBtn:hover {
-  border-color: var(--color-purple);
-  background: #f5f3ff;
-}
-
-.emocaoAtiva {
-  background: var(--color-purple) !important;
-  color: var(--color-white) !important;
-  border-color: var(--color-purple) !important;
-}
-
-.emocaoAnalise {
-  font-size: 11px;
-  color: var(--color-dark-blue);
-  line-height: 1.6;
-  background: #f5f3ff;
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-top: 4px;
-}
-
-.emocaoImg {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-}
-
 /* NOTIFICAÇÕES */
 .notifLista {
   list-style: none;
@@ -991,6 +1031,9 @@
 /* TEMA ESCURO */
 .layout[data-theme="escuro"] {
   background: #0f1117;
+  --cadeado-filter: brightness(0) invert(1);
+  --bloqueado-titulo: var(--color-white);
+  --bloqueado-texto: #ffffff80;
 }
 
 .layout[data-theme="escuro"] .hamburger img {
@@ -1073,28 +1116,6 @@
 .layout[data-theme="escuro"] .btnCompartilhar:hover {
   background: rgba(129, 140, 248, 0.08);
   border-color: #818cf8;
-}
-
-.layout[data-theme="escuro"] .emocaoBtn {
-  background: #222539;
-  border-color: #2a2d42;
-  color: #c7cade;
-}
-
-.layout[data-theme="escuro"] .emocaoBtn:hover {
-  border-color: #818cf8;
-  background: #2a2d42;
-}
-
-.layout[data-theme="escuro"] .emocaoAtiva {
-  background: var(--color-purple) !important;
-  color: var(--color-white) !important;
-  border-color: var(--color-purple) !important;
-}
-
-.layout[data-theme="escuro"] .emocaoAnalise {
-  background: rgba(129, 140, 248, 0.1);
-  color: #a5b4fc;
 }
 
 .layout[data-theme="escuro"] .sonoLegenda span {
