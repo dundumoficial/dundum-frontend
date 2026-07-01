@@ -156,6 +156,19 @@ npm run dev
 
 Acesse em: `http://localhost:5173`
 
+### Rodar os testes
+
+```bash
+# Executa os testes uma única vez
+npm run test:run
+
+# Executa os testes em modo watch
+npm run test
+
+# Gera o relatório de cobertura
+npm run test:coverage
+```
+
 ## Como fazer um Pull Request
 
 ### 1. Acesse a branch `development`
