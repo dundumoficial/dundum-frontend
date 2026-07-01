@@ -37,24 +37,37 @@ dundum-frontend/
 │   │   ├── img/
 │   │   └── videos/
 │   ├── components/
-│   │   ├── DashboardTransition/
 │   │   ├── Footer/
-│   │   └── Header/
+│   │   ├── Header/
+│   │   ├── HeaderLogado/
+│   │   └── PageLoader/
 │   ├── config/
 │   │   └── firebaseConfig.js
+│   ├── contexts/
+│   │   ├── AuthContext.jsx
+│   │   ├── CartContext.jsx
+│   │   └── ThemeContext.jsx
 │   ├── hooks/
 │   │   ├── useDashboard.js
+│   │   ├── useHeader.js
 │   │   └── useScrollToTop.js
 │   ├── modals/
+│   │   ├── ModalAdotarPet/
 │   │   ├── ModalBase/
+│   │   ├── ModalCadastrarPetAdocao/
+│   │   ├── ModalCarrinho/
+│   │   ├── ModalCompartilhar/
 │   │   ├── ModalCompra/
 │   │   ├── ModalConfiguracoes/
 │   │   ├── ModalConfirmarEmail/
+│   │   ├── ModalContatoVeterinario/
+│   │   ├── ModalFormulario/
 │   │   ├── ModalNotificacoes/
 │   │   ├── ModalPerfil/
 │   │   ├── ModalPet/
 │   │   ├── ModalPlano/
-│   │   └── ModalRecuperarSenha/
+│   │   ├── ModalRecuperarSenha/
+│   │   └── ModalVeterinarioParceiro/
 │   ├── pages/
 │   │   ├── Cadastro/
 │   │   ├── CentralDeAjuda/
@@ -62,17 +75,32 @@ dundum-frontend/
 │   │   ├── Dashboard/
 │   │   ├── Home/
 │   │   ├── Login/
+│   │   ├── NotFoundPage/
 │   │   ├── NovaSenha/
 │   │   ├── Produtos/
-│   │   └── SobreNos/
+│   │   ├── SobreNos/
+│   │   └── TermosCondicoes/
 │   ├── routes/
 │   │   ├── PrivateRoute.jsx
 │   │   └── Router.jsx
+│   ├── services/
+│   │   └── api.js
 │   ├── styles/
 │   │   └── global.css
+│   ├── tests/
+│   │   ├── api.test.js
+│   │   ├── AuthContext.test.jsx
+│   │   ├── CartContext.test.jsx
+│   │   ├── Header.test.jsx
+│   │   ├── ModalAdotarPet.test.jsx
+│   │   ├── ModalBase.test.jsx
+│   │   ├── NovaSenha.test.jsx
+│   │   ├── PrivateRoute.test.jsx
+│   │   └── setup.js
 │   ├── App.jsx
 │   └── main.jsx
 ├── .env
+├── index.html
 └── package.json
 ```
 
@@ -104,7 +132,7 @@ dundum-frontend/
   <tr>
     <td>👥 Comunidade</td>
     <td><code>/comunidade</code></td>
-    <td>Veterinários parceiros e pets para adoção</td>
+    <td>Veterinários parceiros, pets para adoção e dicas de adestramento</td>
   </tr>
   <tr>
     <td>❓ Central de Ajuda</td>
