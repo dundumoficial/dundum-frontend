@@ -147,7 +147,7 @@ dundum-frontend/
   <tr>
     <td>📊 Dashboard</td>
     <td><code>/dashboard</code></td>
-    <td>Monitoramento de sinais vitais, localização e alertas do pet</td>
+    <td>Monitoramento de sinais vitais, localização e alertas do cão</td>
   </tr>
 </table>
 
