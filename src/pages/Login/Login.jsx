@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 import styles from "./Login.module.css";
 import logo from "../../assets/img/logo-branco.webp";
 import iconeOlho from "../../assets/img/icon-olho.svg";
@@ -32,31 +31,25 @@ const GoogleIcon = () => (
 const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 export default function Login() {
+  const { loginEmail, loginGoogle } = useAuth();
+  const navigate = useNavigate();
+
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [abrirModal, setAbrirModal] = useState(false);
-  const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const [erroGoogle, setErroGoogle] = useState("");
   const [lembrarMe, setLembrarMe] = useState(false);
-
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erros, setErros] = useState({});
   const [loadingEntrar, setLoadingEntrar] = useState(false);
-
-  const navigate = useNavigate();
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
 
   const handleEntrar = async () => {
     const novosErros = {};
-
-    if (!email.trim()) {
-      novosErros.email = "O e-mail é obrigatório.";
-    } else if (!validarEmail(email)) {
+    if (!email.trim()) novosErros.email = "O e-mail é obrigatório.";
+    else if (!validarEmail(email))
       novosErros.email = "Digite um e-mail válido.";
-    }
 
-    if (!senha) {
-      novosErros.senha = "A senha é obrigatória.";
-    }
+    if (!senha) novosErros.senha = "A senha é obrigatória.";
 
     if (Object.keys(novosErros).length > 0) {
       setErros(novosErros);
@@ -65,35 +58,11 @@ export default function Login() {
 
     setErros({});
     setLoadingEntrar(true);
-
     try {
-      // substituir pela chamada real do backend
-      // Exemplo com Firebase Email/Password:
-      // const { signInWithEmailAndPassword } = await import("firebase/auth");
-      // await signInWithEmailAndPassword(auth, email, senha);
-      //
-      // Exemplo com API:
-      // const res = await api.post("/auth/login", { email, senha, lembrarMe });
-
-      // Simulação de erro de credenciais para demonstração:
-      // throw { code: "auth/invalid-credential" };
-
+      await loginEmail(email, senha, lembrarMe);
       navigate("/dashboard");
-    } catch (error) {
-      const codigosCredencial = [
-        "auth/invalid-credential",
-        "auth/wrong-password",
-        "auth/user-not-found",
-        "auth/invalid-email",
-      ];
-
-      if (codigosCredencial.includes(error.code)) {
-        setErros({ geral: "E-mail e/ou senha incorreto." });
-      } else {
-        setErros({ geral: `Erro ao entrar: ${error.message}` });
-      }
-
-      console.error("Erro no login:", error.code, error.message);
+    } catch (err) {
+      setErros({ geral: err.message || "Erro de conexão com o servidor." });
     } finally {
       setLoadingEntrar(false);
     }
@@ -101,37 +70,19 @@ export default function Login() {
 
   const handleGoogleLogin = async () => {
     setLoadingGoogle(true);
-    setErroGoogle("");
-
+    setErros({});
     try {
-      const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
-
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      console.log("Usuário logado via Google:", {
-        uid: user.uid,
-        nome: user.displayName,
-        email: user.email,
-      });
-
+      await loginGoogle();
       navigate("/dashboard");
     } catch (error) {
       const mensagens = {
         "auth/popup-closed-by-user": "Login cancelado. Tente novamente.",
-        "auth/popup-blocked":
-          "Popup bloqueado pelo navegador. Permita popups para este site.",
-        "auth/account-exists-with-different-credential":
-          "Este e-mail já está cadastrado com outro método de login.",
+        "auth/popup-blocked": "Popup bloqueado. Permita popups para este site.",
         "auth/cancelled-popup-request": null,
       };
-
       const mensagem =
-        mensagens[error.code] || `Erro ao fazer login: ${error.message}`;
-      if (mensagem) setErroGoogle(mensagem);
-
-      console.error("Erro no login com Google:", error.code, error.message);
+        mensagens[error.code] ?? error.message ?? "Erro ao entrar com Google.";
+      if (mensagem) setErros({ geral: mensagem });
     } finally {
       setLoadingGoogle(false);
     }
@@ -152,7 +103,6 @@ export default function Login() {
         <div className={styles.card}>
           <h2 className={styles.subtitulo}>Acesse sua conta</h2>
 
-          {/* E-mail */}
           <div className={styles.campo}>
             <label htmlFor="email">E-mail</label>
             <input
@@ -165,11 +115,17 @@ export default function Login() {
                 setEmail(e.target.value);
                 setErros((prev) => ({ ...prev, email: "", geral: "" }));
               }}
+              autoComplete="email"
+              aria-invalid={!!erros.email}
+              aria-describedby={erros.email ? "erro-email" : undefined}
             />
-            {erros.email && <span className={styles.erro}>{erros.email}</span>}
+            {erros.email && (
+              <span id="erro-email" className={styles.erro} role="alert">
+                {erros.email}
+              </span>
+            )}
           </div>
 
-          {/* Senha */}
           <div className={styles.campo}>
             <label htmlFor="senha">Senha</label>
             <div className={styles.senhaWrap}>
@@ -183,6 +139,10 @@ export default function Login() {
                   setSenha(e.target.value);
                   setErros((prev) => ({ ...prev, senha: "", geral: "" }));
                 }}
+                autoComplete="current-password"
+                aria-invalid={!!erros.senha}
+                aria-describedby={erros.senha ? "erro-senha" : undefined}
+                onKeyDown={(e) => e.key === "Enter" && handleEntrar()}
               />
               <button
                 className={styles.olhoBtn}
@@ -193,18 +153,23 @@ export default function Login() {
                 <img
                   src={mostrarSenha ? iconeOlhoFechado : iconeOlho}
                   alt="Ícone de referência para exibir senha"
+                  aria-hidden="true"
                 />
               </button>
             </div>
-            {erros.senha && <span className={styles.erro}>{erros.senha}</span>}
+            {erros.senha && (
+              <span id="erro-senha" className={styles.erro} role="alert">
+                {erros.senha}
+              </span>
+            )}
           </div>
 
-          {/* Erro de credenciais */}
           {erros.geral && (
-            <span className={styles.erroGeral}>{erros.geral}</span>
+            <span className={styles.erroGeral} role="alert">
+              {erros.geral}
+            </span>
           )}
 
-          {/* Lembrar-me e Esqueci a senha */}
           <div className={styles.rodapeFormulario}>
             <label className={styles.lembrarMe}>
               <input
@@ -223,44 +188,40 @@ export default function Login() {
             </button>
           </div>
 
-          {/* Entrar */}
           <button
             className={styles.btnEntrar}
             onClick={handleEntrar}
             disabled={loadingEntrar}
             type="button"
+            aria-busy={loadingEntrar}
           >
             {loadingEntrar ? (
-              <span className={styles.spinnerBranco} />
+              <span className={styles.spinnerBranco} aria-hidden="true" />
             ) : (
               "Entrar"
             )}
           </button>
 
-          {/* Divisor */}
           <div className={styles.divider}>
             <span>ou</span>
           </div>
 
-          {/* Botão Google */}
           <button
             className={styles.btnGoogle}
             onClick={handleGoogleLogin}
             disabled={loadingGoogle}
             type="button"
             aria-label="Entrar com Google"
+            aria-busy={loadingGoogle}
           >
             {loadingGoogle ? (
-              <span className={styles.spinner} />
+              <span className={styles.spinner} aria-hidden="true" />
             ) : (
               <GoogleIcon />
             )}
             Entrar com Google
           </button>
 
-          {erroGoogle && <span className={styles.erro}>{erroGoogle}</span>}
-
-          {/* Link cadastro */}
           <p className={styles.novoPorAqui}>
             Novo por aqui?{" "}
             <Link to="/cadastro" className={styles.linkCadastro}>

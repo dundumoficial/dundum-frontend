@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 import styles from "./Cadastro.module.css";
 import logo from "../../assets/img/logo-branco.webp";
 import iconeOlho from "../../assets/img/icon-olho.svg";
@@ -29,186 +28,161 @@ const GoogleIcon = () => (
   </svg>
 );
 
+const validarEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+const senhaForteRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/;
+
+const calcularForca = (senha) => {
+  let p = 0;
+  if (/[A-Z]/.test(senha)) p++;
+  if (/[a-z]/.test(senha)) p++;
+  if (/\d/.test(senha)) p++;
+  if (/[@$!%*?&.#]/.test(senha)) p++;
+  if (senha.length >= 8) p++;
+  return p;
+};
+
 export default function Cadastro() {
+  const { enviarCodigoCadastro, cadastrarComCodigo, loginGoogle } = useAuth();
   const navigate = useNavigate();
-  const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
   const [termosAceitos, setTermosAceitos] = useState(false);
   const [forcaSenha, setForcaSenha] = useState(0);
   const [erros, setErros] = useState({});
+  const [loadingCodigo, setLoadingCodigo] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [codigo, setCodigo] = useState(["", "", "", "", "", ""]);
   const [tempo, setTempo] = useState(60);
   const [expirado, setExpirado] = useState(false);
-  const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const [erroCodigo, setErroCodigo] = useState("");
 
-  const calcularForcaSenha = (senha) => {
-    let pontos = 0;
-    if (/[A-Z]/.test(senha)) pontos++;
-    if (/[a-z]/.test(senha)) pontos++;
-    if (/\d/.test(senha)) pontos++;
-    if (/[@$!%*?&.#]/.test(senha)) pontos++;
-    if (senha.length >= 8) pontos++;
-    return pontos;
+  // timer de reenvio
+  useEffect(() => {
+    if (!mostrarModal) return;
+    if (tempo === 0) {
+      setExpirado(true);
+      return;
+    }
+    const id = setInterval(() => setTempo((p) => p - 1), 1000);
+    return () => clearInterval(id);
+  }, [tempo, mostrarModal]);
+
+  const validarFormulario = () => {
+    const novosErros = {};
+    if (!nome.trim()) novosErros.nome = "O nome é obrigatório";
+    else if (nome.length > 50) novosErros.nome = "Máximo de 50 caracteres";
+
+    if (!email.trim()) novosErros.email = "O e-mail é obrigatório";
+    else if (!validarEmail(email)) novosErros.email = "E-mail inválido";
+
+    if (!senha) novosErros.senha = "A senha é obrigatória";
+    else if (!senhaForteRegex.test(senha))
+      novosErros.senha =
+        "A senha deve ter no mínimo 8 caracteres, letra maiúscula, minúscula, número e caractere especial";
+
+    if (!confirmarSenha) novosErros.confirmarSenha = "Confirme sua senha";
+    else if (senha !== confirmarSenha)
+      novosErros.confirmarSenha = "As senhas não coincidem";
+
+    if (!termosAceitos) novosErros.termos = "Você deve aceitar os termos";
+    setErros(novosErros);
+
+    return Object.keys(novosErros).length === 0;
   };
 
-  const handleSubmit = () => {
-    if (validarFormulario()) {
+  const handleSubmit = async () => {
+    if (!validarFormulario()) return;
+    setLoadingCodigo(true);
+    try {
+      await enviarCodigoCadastro(nome, email);
       setMostrarModal(true);
       setTempo(60);
       setExpirado(false);
-      console.log("Enviar código para o email...");
+      setCodigo(["", "", "", "", "", ""]);
+      setErroCodigo("");
+    } catch (err) {
+      setErros({ geral: err.message || "Erro de conexão com o servidor." });
+    } finally {
+      setLoadingCodigo(false);
     }
-  };
-
-  const validarEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const senhaForte = (senha) => {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#])[A-Za-z\d@$!%*?&.#]{8,}$/.test(
-      senha,
-    );
-  };
-
-  const validarFormulario = () => {
-    let novosErros = {};
-
-    if (!nome.trim()) {
-      novosErros.nome = "O nome é obrigatório";
-    } else if (nome.length > 50) {
-      novosErros.nome = "Máximo de 50 caracteres";
-    }
-
-    if (!email.trim()) {
-      novosErros.email = "O E-mail é obrigatório";
-    } else if (!validarEmail(email)) {
-      novosErros.email = "E-mail inválido";
-    }
-
-    if (!senha) {
-      novosErros.senha = "A senha é obrigatória";
-    } else if (!senhaForte(senha)) {
-      novosErros.senha =
-        "A senha deve ter no mínimo 8 caracteres, letra maiúscula, letra minúscula, número e caractere especial";
-    }
-
-    if (!confirmarSenha) {
-      novosErros.confirmarSenha = "Confirme sua senha";
-    } else if (senha !== confirmarSenha) {
-      novosErros.confirmarSenha = "As senhas não coincidem";
-    }
-
-    if (!termosAceitos) {
-      novosErros.termos = "Você deve aceitar os termos";
-    }
-
-    setErros(novosErros);
-    return Object.keys(novosErros).length === 0;
   };
 
   const handleGoogleLogin = async () => {
     setLoadingGoogle(true);
     setErros({});
-
     try {
-      const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
-
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      console.log("Usuário logado via Google:", {
-        uid: user.uid,
-        nome: user.displayName,
-        email: user.email,
-        foto: user.photoURL,
-      });
-
-      // aqui envia os dados para o backend, salva o token, etc.
-      // const token = await user.getIdToken();
-      // await api.post("/auth/social", { token });
-
+      await loginGoogle();
       navigate("/dashboard");
     } catch (error) {
-      const mensagens = {
+      const msgs = {
         "auth/popup-closed-by-user": "Login cancelado. Tente novamente.",
-        "auth/popup-blocked":
-          "Popup bloqueado pelo navegador. Permita popups para este site.",
-        "auth/account-exists-with-different-credential":
-          "Este e-mail já está cadastrado com outro método de login.",
+        "auth/popup-blocked": "Popup bloqueado. Permita popups para este site.",
         "auth/cancelled-popup-request": null,
       };
-
-      const mensagem =
-        mensagens[error.code] || `Erro ao fazer login: ${error.message}`;
-      if (mensagem) {
-        setErros({ social: mensagem });
-      }
-
-      console.error("Erro no login com Google:", error.code, error.message);
+      const msg =
+        msgs[error.code] ?? error.message ?? "Erro ao entrar com Google.";
+      if (msg) setErros({ social: msg });
     } finally {
       setLoadingGoogle(false);
     }
   };
 
-  useEffect(() => {
-    if (!mostrarModal) return;
-
-    if (tempo === 0) {
-      setExpirado(true);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setTempo((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [tempo, mostrarModal]);
-
   const handleCodigoChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
-    const novoCodigo = [...codigo];
-    novoCodigo[index] = value;
-    setCodigo(novoCodigo);
-
-    if (value && index < 5) {
-      document.getElementById(`codigo-${index + 1}`).focus();
-    }
+    const novo = [...codigo];
+    novo[index] = value;
+    setCodigo(novo);
+    if (value && index < 5)
+      document.getElementById(`codigo-${index + 1}`)?.focus();
   };
 
   const handleCodigoKeyDown = (e, index) => {
     if (e.key === "Backspace" && !codigo[index] && index > 0) {
-      document.getElementById(`codigo-${index - 1}`).focus();
+      document.getElementById(`codigo-${index - 1}`)?.focus();
     }
   };
 
-  const reenviarCodigo = () => {
-    setTempo(60);
-    setExpirado(false);
-    setCodigo(["", "", "", "", "", ""]);
-    console.log("Reenviando código...");
+  const reenviarCodigo = async () => {
+    try {
+      await enviarCodigoCadastro(nome, email);
+      setTempo(120);
+      setExpirado(false);
+      setCodigo(["", "", "", "", "", ""]);
+      setErroCodigo("");
+    } catch (err) {
+      setErroCodigo(err.message || "Erro ao reenviar código.");
+    }
   };
 
-  const confirmarCodigo = () => {
+  const confirmarCodigo = async () => {
     const codigoFinal = codigo.join("");
     if (codigoFinal.length < 6) {
-      alert("Digite o código completo");
+      setErroCodigo("Digite o código completo");
       return;
     }
-    console.log("Código digitado:", codigoFinal);
-    // validar com backend
+
+    try {
+      await cadastrarComCodigo(nome, email, senha, codigoFinal);
+      navigate("/dashboard");
+    } catch (err) {
+      setErroCodigo(err.message || "Código inválido ou expirado.");
+    }
   };
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <button className={styles.voltarBtn} onClick={() => navigate("/login")}>
+        <button
+          className={styles.voltarBtn}
+          onClick={() => navigate("/login")}
+          type="button"
+        >
           ← Voltar
         </button>
         <img src={logo} alt="Logo DunDum" className={styles.logo} />
@@ -223,25 +197,29 @@ export default function Cadastro() {
           {/* Formulário */}
           <div className={styles.grid}>
             <div className={styles.campo}>
-              <label>Nome*</label>
+              <label htmlFor="cad-nome">Nome</label>
               <input
+                id="cad-nome"
                 type="text"
                 placeholder="Digite seu nome"
                 className={styles.input}
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
+                autoComplete="name"
                 required
               />
               {erros.nome && <span className={styles.erro}>{erros.nome}</span>}
             </div>
             <div className={styles.campo}>
-              <label>E-mail*</label>
+              <label htmlFor="cad-email">E-mail</label>
               <input
+                id="cad-email"
                 type="email"
                 placeholder="Digite seu e-mail"
                 className={styles.input}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
                 required
               />
               {erros.email && (
@@ -252,7 +230,7 @@ export default function Cadastro() {
 
           <div className={styles.grid}>
             <div className={styles.campo}>
-              <label>Senha*</label>
+              <label htmlFor="cad-senha">Senha</label>
               <div className={styles.senhaWrap}>
                 <input
                   type={mostrarSenha ? "text" : "password"}
@@ -260,17 +238,10 @@ export default function Cadastro() {
                   className={styles.input}
                   value={senha}
                   onChange={(e) => {
-                    const value = e.target.value;
-                    setSenha(value);
-                    setForcaSenha(calcularForcaSenha(value));
-                    setErros((prev) => ({
-                      ...prev,
-                      senha:
-                        value && !senhaForte(value)
-                          ? "A senha deve ter no mínimo 8 caracteres, letra maiúscula, letra minúscula, número e caractere especial"
-                          : "",
-                    }));
+                    setSenha(e.target.value);
+                    setForcaSenha(calcularForca(e.target.value));
                   }}
+                  autoComplete="new-password"
                   required
                 />
                 <button
@@ -316,24 +287,25 @@ export default function Cadastro() {
             </div>
 
             <div className={styles.campo}>
-              <label>Confirmar a senha*</label>
+              <label htmlFor="cad-confirmar">Confirmar a senha</label>
               <div className={styles.senhaWrap}>
                 <input
+                  id="cad-confirmar"
                   type={mostrarConfirmar ? "text" : "password"}
                   placeholder="Confirme sua senha"
                   className={styles.input}
                   value={confirmarSenha}
                   onChange={(e) => {
-                    const value = e.target.value;
-                    setConfirmarSenha(value);
-                    setErros((prev) => ({
-                      ...prev,
+                    setConfirmarSenha(e.target.value);
+                    setErros((p) => ({
+                      ...p,
                       confirmarSenha:
-                        senha && value !== senha
+                        senha && e.target.value !== senha
                           ? "As senhas não coincidem"
                           : "",
                     }));
                   }}
+                  autoComplete="new-password"
                   required
                 />
                 <button
@@ -355,27 +327,31 @@ export default function Cadastro() {
             </div>
           </div>
 
-          {/* Divisor */}
           <div className={styles.divider}>
             <span>ou</span>
           </div>
 
-          {/* Botão Google */}
           <button
+            type="button"
             className={styles.btnGoogle}
             onClick={handleGoogleLogin}
             disabled={loadingGoogle}
             aria-label="Continuar com Google"
+            aria-busy={loadingGoogle}
           >
             {loadingGoogle ? (
-              <span className={styles.spinner} />
+              <span className={styles.spinner} aria-hidden="true" />
             ) : (
               <GoogleIcon />
             )}
             Continuar com Google
           </button>
 
-          {erros.social && <span className={styles.erro}>{erros.social}</span>}
+          {erros.social && (
+            <span className={styles.erro} role="alert">
+              {erros.social}
+            </span>
+          )}
 
           <div className={styles.termos}>
             <input
@@ -392,10 +368,30 @@ export default function Cadastro() {
               </Link>
             </label>
           </div>
-          {erros.termos && <span className={styles.erro}>{erros.termos}</span>}
 
-          <button className={styles.btnCadastrar} onClick={handleSubmit}>
-            Cadastrar
+          {erros.termos && (
+            <span className={styles.erro} role="alert">
+              {erros.termos}
+            </span>
+          )}
+          {erros.geral && (
+            <span className={styles.erro} role="alert">
+              {erros.geral}
+            </span>
+          )}
+
+          <button
+            className={styles.btnCadastrar}
+            onClick={handleSubmit}
+            disabled={loadingCodigo}
+            type="button"
+            aria-busy={loadingCodigo}
+          >
+            {loadingCodigo ? (
+              <span className={styles.spinner} aria-hidden="true" />
+            ) : (
+              "Cadastrar"
+            )}
           </button>
         </div>
       </main>
@@ -410,6 +406,7 @@ export default function Cadastro() {
           codigo={codigo}
           tempo={tempo}
           expirado={expirado}
+          erroCodigo={erroCodigo}
           onCodigoChange={handleCodigoChange}
           onCodigoKeyDown={handleCodigoKeyDown}
           onConfirmar={confirmarCodigo}

@@ -1,29 +1,63 @@
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 import styles from "./ModalRecuperarSenha.module.css";
 
-export default function RecuperarSenha({ onClose }) {
+export default function ModalRecuperarSenha({ onClose }) {
+  const { recuperarSenha } = useAuth();
   const [email, setEmail] = useState("");
-  const [error, setError] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [erro, setErro] = useState("");
+  const [estado, setEstado] = useState("idle");
 
-  const handleSubmit = () => {
-    if (!email.trim() || !email.includes("@")) {
-      setError(true);
+  async function handleSubmit() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim() || !emailRegex.test(email)) {
+      setErro("Informe um e-mail válido.");
       return;
     }
 
-    setSubmitted(true);
-  };
+    // bloqueia contas Google
+    const dominiosGoogle = ["gmail.com", "googlemail.com"];
+    const dominio = email.split("@")[1]?.toLowerCase();
+    if (dominiosGoogle.includes(dominio)) {
+      setErro(
+        'Contas Google não possuem senha cadastrada no DunDum. Faça login com o botão "Continuar com Google".',
+      );
+      return;
+    }
+
+    setEstado("enviando");
+    setErro("");
+
+    try {
+      await recuperarSenha(email);
+      setEstado("enviado");
+    } catch (err) {
+      setErro(err.message || "Erro ao enviar e-mail. Tente novamente.");
+      setEstado("idle");
+    }
+  }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-recuperar-titulo"
+      >
         <button
           className={styles.closeBtn}
           onClick={onClose}
           aria-label="Fechar"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+          >
             <circle cx="10" cy="10" r="9" stroke="#111827" strokeWidth="1.5" />
             <path
               d="M7 7l6 6M13 7l-6 6"
@@ -34,48 +68,70 @@ export default function RecuperarSenha({ onClose }) {
           </svg>
         </button>
 
-        {!submitted ? (
+        {estado !== "enviado" ? (
           <>
-            <h1 className={styles.title}>Recuperar senha</h1>
-            <label className={styles.label} htmlFor="email">
+            <h2 id="modal-recuperar-titulo" className={styles.title}>
+              Recuperar senha
+            </h2>
+
+            <label className={styles.label} htmlFor="recuperar-email">
               Informe o e-mail cadastrado
             </label>
             <input
-              id="email"
+              id="recuperar-email"
               type="email"
-              className={`${styles.input} ${error ? styles.inputError : ""}`}
+              className={`${styles.input} ${erro ? styles.inputError : ""}`}
               placeholder="Digite seu e-mail"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setError(false);
+                setErro("");
               }}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               autoComplete="email"
+              aria-invalid={!!erro}
+              aria-describedby={erro ? "recuperar-erro" : undefined}
             />
 
-            {error && (
-              <span className={styles.errorText}>E-mail incorreto</span>
+            {erro && (
+              <span
+                id="recuperar-erro"
+                className={styles.errorText}
+                role="alert"
+              >
+                {erro}
+              </span>
             )}
 
-            <button className={styles.btn} onClick={handleSubmit}>
-              Continuar
+            <button
+              className={styles.btn}
+              onClick={handleSubmit}
+              disabled={estado === "enviando"}
+              aria-busy={estado === "enviando"}
+            >
+              {estado === "enviando" ? "Enviando..." : "Continuar"}
             </button>
           </>
         ) : (
           <div className={styles.success}>
-            <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+            <svg
+              width="52"
+              height="52"
+              viewBox="0 0 52 52"
+              fill="none"
+              aria-hidden="true"
+            >
               <circle
                 cx="26"
                 cy="26"
                 r="24"
-                fill="#f0fdf4"
-                stroke="#16a34a"
+                fill="#fff"
+                stroke="#1b1f3b"
                 strokeWidth="2"
               />
               <path
                 d="M16 26l8 8 12-14"
-                stroke="#16a34a"
+                stroke="#1b1f3b"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
