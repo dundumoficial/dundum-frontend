@@ -177,12 +177,36 @@ cd dundum-frontend
 
 # Instale as dependências
 npm install
+```
 
-# Rode o projeto
+---
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+VITE_FIREBASE_MEASUREMENT_ID=
+
+VITE_API_URL=http://localhost:3000
+```
+---
+
+### Executando o projeto
+
+```bash
 npm run dev
 ```
 
 Acesse em: `http://localhost:5173`
+
+---
 
 ### Rodar os testes
 
