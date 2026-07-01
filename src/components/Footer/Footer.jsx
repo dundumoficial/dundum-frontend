@@ -44,7 +44,11 @@ function Footer() {
             >
               <img src={linkedin} alt="Ícone do LinkedIn" />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.tiktok.com/@oficialdundum"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src={tiktok} alt="Ícone do TikTok" />
             </a>
           </div>
