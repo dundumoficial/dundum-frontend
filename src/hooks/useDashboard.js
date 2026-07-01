@@ -1,59 +1,69 @@
-import { useState, useEffect } from "react";
-import {
-  mockUsuario,
-  mockPet,
-  mockBatimentos,
-  mockRespiracao,
-  mockPassos,
-  mockSono,
-  mockRelatorio,
-  mockNotificacoes,
-  mockEstadoEmocional,
-  mockBateria,
-  mockPetPos,
-} from "../pages/Dashboard/data/mockData.js";
+import { useState, useEffect, useCallback } from "react";
+import { api } from "../services/api.js";
 
-// substituir "fetcher" por api.get(url)
-function useFetch(fetcher) {
-  const [data, setData] = useState(null);
+export function calcularPermissoes(planoNome) {
+  const p = (planoNome ?? "gratuito")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  return {
+    bpm: true,
+    localizacao: true,
+    passos: p === "intermediario" || p === "premium",
+    sono: p === "intermediario" || p === "premium",
+    rpm: p === "premium",
+    relatorios: p === "premium",
+  };
+}
+
+const coordenadas = [-23.673284, -46.698625];
+
+export const DEFAULT_DATA = {
+  usuario: { nome: "", email: "", iniciais: "?", foto: null },
+  plano: "gratuito",
+  permissoes: {
+    bpm: true,
+    localizacao: true,
+    passos: false,
+    rpm: false,
+    sono: false,
+    relatorios: false,
+  },
+  pet: null,
+  bateria: 0,
+  batimentos: [],
+  respiracao: [],
+  passos: 0,
+  sono: 0,
+  localizacao: coordenadas,
+  notificacoes: [],
+  relatorio: null,
+};
+
+export function useDashboard() {
+  const [data, setData] = useState(DEFAULT_DATA);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    Promise.resolve(fetcher())
+  const carregar = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    api
+      .get("/users/dashboard")
       .then((d) => {
-        if (!cancelled) {
-          setData(d);
-          setLoading(false);
-        }
+        setData((prev) => ({ ...prev, ...d }));
       })
-
       .catch((e) => {
-        if (!cancelled) {
-          setError(e);
-          setLoading(false);
-        }
+        setError(e);
+      })
+      .finally(() => {
+        setLoading(false);
       });
+  }, []);
 
-    return () => {
-      cancelled = true;
-    };
-  }, []); // eslint-disable-line
+  useEffect(() => {
+    carregar();
+  }, [carregar]);
 
-  return { data, loading, error };
+  return { data, loading, error, recarregar: carregar };
 }
-
-// trocar o mock pelo fetch real
-// Ex: useFetch(() => api.get("/usuario"))
-export const useUsuario = () => useFetch(() => mockUsuario);
-export const usePet = () => useFetch(() => mockPet);
-export const useBatimentos = () => useFetch(() => mockBatimentos);
-export const useRespiracao = () => useFetch(() => mockRespiracao);
-export const usePassos = () => useFetch(() => mockPassos);
-export const useSono = () => useFetch(() => mockSono);
-export const useRelatorio = () => useFetch(() => mockRelatorio);
-export const useNotificacoes = () => useFetch(() => mockNotificacoes);
-export const useEstadoEmocional = () => useFetch(() => mockEstadoEmocional);
-export const useBateria = () => useFetch(() => mockBateria);
-export const usePetPos = () => useFetch(() => mockPetPos);
