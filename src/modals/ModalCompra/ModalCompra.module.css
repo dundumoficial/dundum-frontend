@@ -32,7 +32,7 @@
 
 /* BOX */
 .box {
-  background: #fff;
+  background: var(--color-white);
   width: 100%;
   max-height: 92dvh;
   border-radius: 20px 20px 0 0;
@@ -46,7 +46,7 @@
 .header {
   position: sticky;
   top: 0;
-  background: #fff;
+  background: var(--color-white);
   z-index: 10;
   padding: 14px 16px 12px;
   border-bottom: 1px solid #f0f0f0;
@@ -103,7 +103,7 @@
 
 .stepAtivo .stepNum {
   background: var(--color-purple);
-  color: #fff;
+  color: var(--color-white);
 }
 
 .stepFeito {
@@ -112,7 +112,7 @@
 
 .stepFeito .stepNum {
   background: #0f6e56;
-  color: #fff;
+  color: var(--color-white);
 }
 
 .fechar {
@@ -261,7 +261,7 @@
   padding: 0 10px;
   font-size: 14px;
   color: var(--color-dark-blue);
-  background: #fff;
+  background: var(--color-white);
   outline: none;
   transition: border-color 0.2s;
   width: 100%;
@@ -281,43 +281,42 @@
 
 .btnPrimario {
   flex: 1;
-  background: var(--color-purple);
-  color: #fff;
+  background: var(--color-dark-blue);
+  color: var(--color-white);
   border: none;
   border-radius: 10px;
-  padding: 13px 16px;
-  font-size: 14px;
-  font-weight: 700;
+  padding: 14px;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
   cursor: pointer;
-  transition:
-    opacity 0.2s,
-    transform 0.15s;
+  transition: 0.2s;
 }
 
 .btnPrimario:hover:not(:disabled) {
-  opacity: 0.88;
-  transform: translateY(-1px);
+  background: var(--color-purple);
 }
+
 .btnPrimario:disabled {
-  opacity: 0.4;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
 .btnSecundario {
-  background: none;
-  color: #666;
-  border: 1.5px solid #ddd;
+  background: transparent;
+  color: var(--color-dark-blue);
+  border: 1.5px solid #e5e7eb;
   border-radius: 10px;
   padding: 13px 14px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
   cursor: pointer;
-  transition: border-color 0.2s;
-  white-space: nowrap;
+  transition: 0.2s;
 }
 
 .btnSecundario:hover {
-  border-color: #aaa;
+  border-color: var(--color-purple);
+  background: #f5f3ff;
+  color: var(--color-purple);
 }
 
 /* MÉTODOS */
@@ -363,7 +362,7 @@
 }
 
 .pixQr {
-  background: #fff;
+  background: var(--color-white);
   border-radius: 10px;
   padding: 10px;
   border: 1px solid #eee;
@@ -384,7 +383,7 @@
 
 .btnCopiar {
   background: var(--color-dark-blue);
-  color: #fff;
+  color: var(--color-white);
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
@@ -406,7 +405,7 @@
 
 /* BOLETO */
 .boletoLinha {
-  background: #fff;
+  background: var(--color-white);
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 10px 12px;

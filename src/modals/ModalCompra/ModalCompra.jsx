@@ -62,7 +62,7 @@ export default function ModalCompra({
   const [processando, setProcessando] = useState(false);
   const [numeroPedido, setNumeroPedido] = useState("");
 
-  const precoNum = 299.9;
+  const precoNum = 549.9;
   const freteValor = freteInfo
     ? freteInfo.gratis
       ? 0
@@ -164,9 +164,8 @@ export default function ModalCompra({
               <h2 className={styles.titulo}>Resumo do pedido</h2>
               <div className={styles.produtoRow}>
                 <div>
-                  <p className={styles.produtoNome}>
-                    Coleira Inteligente — {corNome}
-                  </p>
+                  <p className={styles.produtoNome}>Coleira Inteligente</p>
+                  <p className={styles.produtoSub}>Cor: {corNome}</p>
                   <p className={styles.produtoSub}>Quantidade: {quantidade}</p>
                 </div>
                 <span className={styles.produtoPreco}>
@@ -577,7 +576,11 @@ export default function ModalCompra({
                 </div>
                 <div className={styles.resumoRow}>
                   <span>Produto</span>
-                  <span>Coleira Inteligente — {corNome}</span>
+                  <span>Coleira Inteligente</span>
+                </div>
+                <div className={styles.resumoRow}>
+                  <span>Quantidade</span>
+                  <span>{quantidade}</span>
                 </div>
                 <div className={styles.resumoRow}>
                   <span>Total pago</span>
