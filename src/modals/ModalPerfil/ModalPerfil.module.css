@@ -34,6 +34,13 @@
   flex-shrink: 0;
 }
 
+.avatarGrandeFoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .modalPerfilNome {
   font-weight: var(--weight-bold);
   font-size: var(--text-sm);
@@ -57,7 +64,7 @@
   font-family: var(--font-poppins);
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
-  color: var(--color-dark-blue);
+  color: #ef4444;
   padding: 10px 8px;
   border-radius: 8px;
   cursor: pointer;
@@ -70,14 +77,6 @@
 }
 
 .modalPerfilBtn:hover {
-  background: #f9fafb;
-}
-
-.modalPerfilBtnSair {
-  color: #ef4444;
-}
-
-.modalPerfilBtnSair:hover {
   background: #fef2f2;
 }
 
