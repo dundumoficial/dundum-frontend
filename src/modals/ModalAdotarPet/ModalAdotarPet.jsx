@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./ModalAdotarPet.module.css";
 
 function aplicarMascaraTelefone(valor) {
@@ -6,27 +6,23 @@ function aplicarMascaraTelefone(valor) {
   if (nums.length === 0) return "";
   if (nums.length <= 2) return `(${nums}`;
   if (nums.length <= 7) return `(${nums.slice(0, 2)}) ${nums.slice(2)}`;
-  if (nums.length <= 11)
-    return `(${nums.slice(0, 2)}) ${nums.slice(2, 7)}-${nums.slice(7)}`;
-
-  return valor;
+  return `(${nums.slice(0, 2)}) ${nums.slice(2, 7)}-${nums.slice(7)}`;
 }
 
-export default function ModalAdotarPet({ pet, onClose }) {
-  const overlayRef = useRef(null);
-  const [etapa, setEtapa] = useState(1);
-  const [form, setForm] = useState({
-    nome: "",
-    email: "",
-    telefone: "",
-    moradia: "",
-    temPets: "",
-    motivacao: "",
-  });
+const ESTADO_INICIAL = {
+  nome: "",
+  email: "",
+  telefone: "",
+  moradia: "casa",
+  temPets: "nao",
+  motivacao: "",
+};
 
-  const handleOverlayClick = (e) => {
-    if (e.target === overlayRef.current) onClose();
-  };
+export default function ModalAdotarPet({ pet, onClose }) {
+  const [etapa, setEtapa] = useState(1);
+  const [form, setForm] = useState(ESTADO_INICIAL);
+  const [enviando, setEnviando] = useState(false);
+  const overlayRef = useRef(null);
 
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -38,18 +34,29 @@ export default function ModalAdotarPet({ pet, onClose }) {
     };
   }, [onClose]);
 
-  const handleChange = (e) => {
+  function handleOverlayClick(e) {
+    if (e.target === overlayRef.current) onClose();
+  }
+
+  function handleChange(e) {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
       [name]: name === "telefone" ? aplicarMascaraTelefone(value) : value,
     }));
-  };
+  }
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setEtapa(2);
-  };
+    setEnviando(true);
+    try {
+      // await api.post("/comunidade/adocao", { petId: pet?.id, ...form });
+      await new Promise((r) => setTimeout(r, 600));
+      setEtapa(2);
+    } finally {
+      setEnviando(false);
+    }
+  }
 
   return (
     <div
@@ -71,7 +78,9 @@ export default function ModalAdotarPet({ pet, onClose }) {
 
         {etapa === 2 ? (
           <div className={styles.sucesso}>
-            <div className={styles.sucessoIcone}>✓</div>
+            <div className={styles.sucessoIcone} aria-hidden="true">
+              ✓
+            </div>
             <h2 className={styles.sucessoTitulo}>Solicitação enviada!</h2>
             <p className={styles.sucessoTexto}>
               Sua solicitação de adoção de{" "}
@@ -86,16 +95,20 @@ export default function ModalAdotarPet({ pet, onClose }) {
           <>
             <div className={styles.header}>
               {pet?.img && (
-                <img src={pet.img} alt={pet.nome} className={styles.petImg} />
+                <img
+                  src={pet.img}
+                  alt={`Foto de ${pet.nome}`}
+                  className={styles.petImg}
+                />
               )}
               <div className={styles.headerInfo}>
-                <div className={styles.headerBadge}>Adoção</div>
-                <h2 className={styles.titulo} id="modal-adotar-titulo">
+                <span className={styles.headerBadge}>Adoção</span>
+                <h2 id="modal-adotar-titulo" className={styles.titulo}>
                   {pet?.nome ?? "o pet"}
                 </h2>
                 {pet && (
                   <p className={styles.petMeta}>
-                    {pet.idade} &nbsp;•&nbsp; {pet.cidade}
+                    {pet.idade}&nbsp;•&nbsp;{pet.cidade}
                   </p>
                 )}
               </div>
@@ -106,7 +119,7 @@ export default function ModalAdotarPet({ pet, onClose }) {
               Nossa equipe avaliará seu perfil e entrará em contato.
             </p>
 
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
               <div className={styles.linha2}>
                 <div className={styles.campo}>
                   <label className={styles.label} htmlFor="ap-nome">
@@ -120,6 +133,7 @@ export default function ModalAdotarPet({ pet, onClose }) {
                     placeholder="João Souza"
                     value={form.nome}
                     onChange={handleChange}
+                    autoComplete="name"
                     required
                   />
                 </div>
@@ -136,6 +150,7 @@ export default function ModalAdotarPet({ pet, onClose }) {
                     value={form.telefone}
                     onChange={handleChange}
                     inputMode="numeric"
+                    autoComplete="tel"
                     required
                   />
                 </div>
@@ -153,6 +168,7 @@ export default function ModalAdotarPet({ pet, onClose }) {
                   placeholder="seu@email.com"
                   value={form.email}
                   onChange={handleChange}
+                  autoComplete="email"
                   required
                 />
               </div>
@@ -212,8 +228,13 @@ export default function ModalAdotarPet({ pet, onClose }) {
                 />
               </div>
 
-              <button type="submit" className={styles.btnPrimary}>
-                Enviar solicitação de adoção
+              <button
+                type="submit"
+                className={styles.btnPrimary}
+                disabled={enviando}
+                aria-busy={enviando}
+              >
+                {enviando ? "Enviando..." : "Enviar solicitação de adoção"}
               </button>
             </form>
           </>
