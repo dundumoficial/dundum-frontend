@@ -335,7 +335,7 @@
 .btnComprar:hover {
   opacity: 0.88;
   transform: translateY(-1px);
-  background-color: #b14aed;
+  background-color: var(--color-dark-pink);
 }
 
 .btnCarrinho {
@@ -845,7 +845,7 @@
 .btnCta:hover {
   opacity: 0.88;
   transform: translateY(-2px);
-  background-color: #b14aed;
+  background-color: var(--color-dark-pink);
 }
 
 /* TABLET */

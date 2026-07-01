@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Header from "../../components/Header/Header.jsx";
+import { useState, useRef } from "react";
 import Footer from "../../components/Footer/Footer.jsx";
 import ModalCompra from "../../modals/ModalCompra/ModalCompra.jsx";
 import styles from "./Produtos.module.css";
@@ -41,17 +40,17 @@ const cores = [
 ];
 
 const caracteristicas = [
-  { label: "Peso", valor: "85g" },
+  { label: "Peso", valor: "~85g" },
   { label: "Dimensões", valor: "62 × 38 × 18 mm" },
   { label: "Bateria", valor: "Li-Po 2000 mAh" },
   { label: "Autonomia", valor: "Até 30 dias" },
   { label: "Carregamento", valor: "Cabo USB-C" },
   { label: "Resistência", valor: "IP67 (à prova d'água)" },
-  { label: "Conectividade", valor: "Wi-Fi" },
+  { label: "Conectividade", valor: "Wi-Fi, Bluetooth, 4G" },
   { label: "GPS", valor: "NEO-M8N" },
-  { label: "Sensores", valor: "Cardíaco, acelerômetro e microfone" },
+  { label: "Sensores", valor: "Cardíaco, acelerômetro e giroscópio" },
   { label: "Compatibilidade", valor: "iOS 13+ e Android 8+" },
-  { label: "Material", valor: "ABS + policarbonato reforçado" },
+  { label: "Material", valor: "PETG + náilon" },
   { label: "Fixação", valor: "Encaixe universal para coleiras 2-4 cm" },
 ];
 
@@ -61,7 +60,6 @@ const funcionalidades = [
   "Contagem de passos",
   "Monitoramento cardíaco",
   "Bateria recarregável",
-  "Interpretação de emoção",
   "Localização por GPS",
   "À prova d'água",
 ];
@@ -69,16 +67,16 @@ const funcionalidades = [
 const planos = [
   {
     nome: "Gratuito",
-    descricao: "Ideal para quem está começando a cuidar do pet.",
+    descricao: "Ideal para quem está começando a cuidar do cão.",
     preco: "R$ 0",
     precoSub: "sem custo mensal",
     premium: false,
     badge: null,
     itens: [
       "Monitoramento cardíaco",
-      "Monitoramento de passos",
+      "Alertas cardíacos",
       "Localização por GPS",
-      "Alertas cardíacos (batimentos fora do normal)",
+      "Alertas de fuga",
     ],
   },
   {
@@ -89,10 +87,9 @@ const planos = [
     premium: false,
     badge: "Mais popular",
     itens: [
-      "Tudo do plano gratuito",
-      "Monitoramento da respiração",
+      "Tudo do Plano Gratuito",
+      "Monitoramento de passos",
       "Monitoramento de sono",
-      "Alertas respiratórios (respiração irregular)",
     ],
   },
   {
@@ -103,9 +100,9 @@ const planos = [
     premium: true,
     badge: null,
     itens: [
-      "Tudo do plano intermediário",
-      "Estado emocional do pet",
-      "Alertas de fuga (saiu da área segura)",
+      "Tudo do Plano Intermediário",
+      "Monitoramento da respiração",
+      "Alertas respiratórios",
       "Relatórios semanais",
     ],
   },
@@ -118,9 +115,9 @@ const avaliacoes = [
     data: "12 mar 2025",
     nota: 5,
     cor: "avRoxo",
-    titulo: "Melhor investimento que fiz para o meu dog",
+    titulo: "Melhor investimento que fiz para o meu cachorro",
     descricao:
-      "Meu golden tem problema cardíaco e a coleira me deu uma tranquilidade enorme. Recebi um alerta às 2h da manhã e consegui levar ele ao veterinário a tempo. Simplesmente salvou a vida do meu pet!",
+      "Meu golden tem problema cardíaco e a coleira me deu uma tranquilidade enorme. Recebi um alerta às 2h da manhã e consegui levar ele ao veterinário a tempo. Simplesmente salvou a vida do meu cão!",
   },
   {
     iniciais: "RC",
@@ -130,7 +127,7 @@ const avaliacoes = [
     cor: "avVerde",
     titulo: "GPS é impressionante",
     descricao:
-      "Minha cachorra escapou pela janela e encontrei ela em 10 minutos graças ao GPS. O app é muito intuitivo e os dados de sono me ajudaram a entender que ela dormia mal por ansiedade.",
+      "Minha cachorra escapou pela janela e encontrei ela em 10 minutos graças ao GPS. A plataforma é muito intuitiva e os dados de sono me ajudaram a entender que ela dormia mal por ansiedade.",
   },
   {
     iniciais: "LS",
@@ -138,15 +135,15 @@ const avaliacoes = [
     data: "15 jan 2025",
     nota: 4,
     cor: "avAzul",
-    titulo: "Ótimo produto, aplicativo pode melhorar",
+    titulo: "Ótimo produto",
     descricao:
-      "A coleira em si é excelente, resistente e confortável. O único ponto de melhoria seria o app, que às vezes demora para atualizar os dados de GPS. Mas no geral recomendo muito!",
+      "A coleira em si é excelente, resistente e confortável. O único ponto de melhoria seria a plataforma, que às vezes demora para atualizar os dados de GPS. Mas no geral recomendo muito!",
   },
 ];
 
 export default function Produtos() {
   const [imagemAtiva, setImagemAtiva] = useState(0);
-  const estoque = 7;
+  const estoque = 0;
   const [corSelecionada, setCorSelecionada] = useState(1);
   const [quantidade, setQuantidade] = useState(1);
   const [cep, setCep] = useState("");
@@ -205,10 +202,16 @@ export default function Produtos() {
     }, 1200);
   };
 
+  const produtoRef = useRef(null);
+  const scrollParaProduto = () => {
+    produtoRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <>
-      <Header />
-
       {/* MODAL DE COMPRA */}
       {modalAberto && (
         <ModalCompra
@@ -221,7 +224,7 @@ export default function Produtos() {
 
       <main className={styles.container}>
         {/* SEÇÃO PRODUTO */}
-        <section className={styles.produtoSection}>
+        <section className={styles.produtoSection} ref={produtoRef}>
           {/* Coluna da galeria */}
           <div className={styles.galeriaWrapper}>
             <div className={styles.imagemPrincipalBox}>
@@ -314,8 +317,8 @@ export default function Produtos() {
             </div>
 
             <div className={styles.precoWrapper}>
-              <span className={styles.precoOriginal}>R$ 399,99</span>
-              <span className={styles.precoAtual}>R$ 299,90</span>
+              <span className={styles.precoOriginal}>R$ 599,99</span>
+              <span className={styles.precoAtual}>R$ 549,90</span>
             </div>
 
             <div className={styles.opcoesRow}>
@@ -462,10 +465,10 @@ export default function Produtos() {
           <h2 className={styles.secaoTitulo}>Descrição</h2>
           <p className={styles.descricaoTexto}>
             A Coleira Inteligente foi desenvolvida para oferecer monitoramento
-            completo da saúde e bem-estar do seu pet. Com sensores de alta
+            completo da saúde e bem-estar do seu cão. Com sensores de alta
             precisão, ela acompanha os sinais vitais, localização e
-            comportamento do seu animal em tempo real, diretamente pelo
-            aplicativo.
+            comportamento do seu animal em tempo real, diretamente pela
+            plataforma.
           </p>
         </section>
 
@@ -598,9 +601,11 @@ export default function Produtos() {
         {/* SEÇÃO CTA */}
         <section className={styles.ctaSection}>
           <h2 className={styles.ctaTitulo}>
-            Dê mais saúde e segurança para seu pet
+            Dê mais saúde e segurança para seu cão
           </h2>
-          <button className={styles.btnCta}>Comprar Coleira Inteligente</button>
+          <button className={styles.btnCta} onClick={scrollParaProduto}>
+            Comprar Coleira Inteligente
+          </button>
         </section>
       </main>
 
